@@ -293,6 +293,143 @@
 
     <!-- HOME PAGE -->
     <div class="page active" id="page-home">
+
+      <!-- VIDEO FEED (shown after login) -->
+      <div id="video-feed" style="display:none;">
+        <!-- CATEGORY FILTER -->
+        <div style="display:flex; gap:8px; padding:16px 24px; overflow-x:auto; background:#fff; border-bottom:1px solid #f0f0f0;">
+          <button onclick="filterCat(this,'all')" class="cat-btn active" style="padding:6px 16px; border-radius:20px; border:1.5px solid #FF6600; background:#FF6600; color:#fff; font-size:13px; cursor:pointer; white-space:nowrap; font-weight:600;">All</button>
+          <button onclick="filterCat(this,'farming')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">🌾 Farming</button>
+          <button onclick="filterCat(this,'cooking')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">🍳 Cooking</button>
+          <button onclick="filterCat(this,'comedy')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">😂 Comedy</button>
+          <button onclick="filterCat(this,'tech')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">💻 Tech</button>
+          <button onclick="filterCat(this,'music')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">🎵 Music</button>
+          <button onclick="filterCat(this,'dance')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">💃 Dance</button>
+          <button onclick="filterCat(this,'education')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">📚 Education</button>
+        </div>
+
+        <!-- VIDEOS GRID -->
+        <div style="padding:20px 24px;">
+          <div id="videos-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:20px;">
+
+            <!-- Video 1 -->
+            <div class="video-card" data-cat="farming" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#FF6600,#ff9900); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+                <span style="font-size:48px;">🌾</span>
+                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">12:34</span>
+                <span style="position:absolute; top:8px; left:8px; background:#FF6600; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Hindi</span>
+              </div>
+              <div style="padding:12px;">
+                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Khethi Tips — Rabi Season ke liye best practices 🌾</div>
+                <div style="font-size:12px; color:#888;">Ramesh Khetiwala</div>
+                <div style="font-size:12px; color:#999; margin-top:3px;">2.4L views • 2 days ago</div>
+              </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="video-card" data-cat="cooking" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#1a5fcc,#4a90d9); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+                <span style="font-size:48px;">🍳</span>
+                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">8:45</span>
+                <span style="position:absolute; top:8px; left:8px; background:#1a5fcc; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Tamil</span>
+              </div>
+              <div style="padding:12px;">
+                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Dal Makhani recipe — Authentic Punjabi style 🍛</div>
+                <div style="font-size:12px; color:#888;">Priya's Kitchen</div>
+                <div style="font-size:12px; color:#999; margin-top:3px;">85K views • 3 days ago</div>
+              </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="video-card" data-cat="tech" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#0a7a3e,#2ecc71); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+                <span style="font-size:48px;">💻</span>
+                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">22:10</span>
+                <span style="position:absolute; top:8px; left:8px; background:#0a7a3e; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Hindi</span>
+              </div>
+              <div style="padding:12px;">
+                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Python programming — Hindi mein seekho! 🐍</div>
+                <div style="font-size:12px; color:#888;">TechWithArjun</div>
+                <div style="font-size:12px; color:#999; margin-top:3px;">2.4L views • 1 week ago</div>
+              </div>
+            </div>
+
+            <!-- Video 4 -->
+            <div class="video-card" data-cat="comedy" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#b5006e,#e91e8c); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+                <span style="font-size:48px;">😂</span>
+                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">4:15</span>
+                <span style="position:absolute; top:8px; left:8px; background:#b5006e; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Telugu</span>
+              </div>
+              <div style="padding:12px;">
+                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Hyderabadi comedy — Ep 24 😂</div>
+                <div style="font-size:12px; color:#888;">Telugu Talkies</div>
+                <div style="font-size:12px; color:#999; margin-top:3px;">3.1L views • 5 days ago</div>
+              </div>
+            </div>
+
+            <!-- Video 5 -->
+            <div class="video-card" data-cat="dance" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#6a0dad,#9b59b6); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+                <span style="font-size:48px;">💃</span>
+                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">5:30</span>
+                <span style="position:absolute; top:8px; left:8px; background:#6a0dad; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Marathi</span>
+              </div>
+              <div style="padding:12px;">
+                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Lavani dance tutorial — Beginners ke liye 💃</div>
+                <div style="font-size:12px; color:#888;">Nisha Dance Academy</div>
+                <div style="font-size:12px; color:#999; margin-top:3px;">45K views • 1 week ago</div>
+              </div>
+            </div>
+
+            <!-- Video 6 -->
+            <div class="video-card" data-cat="music" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#cc4400,#ff6b35); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+                <span style="font-size:48px;">🎵</span>
+                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">3:45</span>
+                <span style="position:absolute; top:8px; left:8px; background:#cc4400; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Tamil</span>
+              </div>
+              <div style="padding:12px;">
+                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Tamil folk song — Pongal special 🎶</div>
+                <div style="font-size:12px; color:#888;">Tamil Music Hub</div>
+                <div style="font-size:12px; color:#999; margin-top:3px;">1.8L views • 2 weeks ago</div>
+              </div>
+            </div>
+
+            <!-- Video 7 -->
+            <div class="video-card" data-cat="education" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#0055cc,#3399ff); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+                <span style="font-size:48px;">📚</span>
+                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">18:22</span>
+                <span style="position:absolute; top:8px; left:8px; background:#0055cc; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Hindi</span>
+              </div>
+              <div style="padding:12px;">
+                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Class 10 Maths — Trigonometry Hindi mein 📐</div>
+                <div style="font-size:12px; color:#888;">Shiksha Academy</div>
+                <div style="font-size:12px; color:#999; margin-top:3px;">5.2L views • 3 days ago</div>
+              </div>
+            </div>
+
+            <!-- Video 8 -->
+            <div class="video-card" data-cat="farming" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#2d8a00,#5cb800); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+                <span style="font-size:48px;">🥬</span>
+                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">9:15</span>
+                <span style="position:absolute; top:8px; left:8px; background:#2d8a00; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Punjabi</span>
+              </div>
+              <div style="padding:12px;">
+                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Organic farming guide — Vegetables 🥬</div>
+                <div style="font-size:12px; color:#888;">Punjab Kisan</div>
+                <div style="font-size:12px; color:#999; margin-top:3px;">92K views • 4 days ago</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- LANDING (shown before login) -->
+      <div id="landing-page">
       <div class="hero">
         <div class="badge">🇮🇳 Made in India, for India</div>
         <h1>India ka apna<br><span>YouTube — BharatTube</span></h1>
@@ -356,9 +493,8 @@
         <span>BharatTube © 2026 — Made with pride in India 🇮🇳</span>
         <span>📧 bharattubeindia@gmail.com</span>
       </footer>
-    </div>
-
-    <!-- DASHBOARD PAGE -->
+      </div><!-- end landing-page -->
+    </div><!-- end page-home -->
     <div class="page" id="page-dashboard">
       <div class="dashboard">
         <div class="dash-welcome">
@@ -632,10 +768,16 @@
       document.getElementById('p-name').value = name;
       // Update comment av
       document.getElementById('c-av') && (document.getElementById('c-av').textContent = initial);
+      // Show feed hide landing
+      document.getElementById('video-feed').style.display = 'block';
+      document.getElementById('landing-page').style.display = 'none';
     } else {
       document.getElementById('sidebar').classList.add('hidden');
       document.getElementById('nav-auth').style.display = 'flex';
       document.getElementById('nav-user').style.display = 'none';
+      // Show landing hide feed
+      document.getElementById('video-feed').style.display = 'none';
+      document.getElementById('landing-page').style.display = 'block';
     }
   });
 
@@ -725,6 +867,21 @@
 <script>
   let liked = false, subscribed = false, likeCount = 4821, cCount = 48;
   let sidebarOpen = false;
+
+  // Category filter
+  window.filterCat = function(btn, cat) {
+    document.querySelectorAll('.cat-btn').forEach(b => {
+      b.style.background = '#fff';
+      b.style.color = '#333';
+      b.style.borderColor = '#ddd';
+    });
+    btn.style.background = '#FF6600';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#FF6600';
+    document.querySelectorAll('.video-card').forEach(card => {
+      card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
+    });
+  }
 
   function toggleSidebar() {
     sidebarOpen = !sidebarOpen;
