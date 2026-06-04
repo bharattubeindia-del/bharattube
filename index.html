@@ -6,158 +6,213 @@
 <title>BharatTube — India ka apna YouTube</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Segoe UI', sans-serif; background: #fff; color: #111; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f9f9f9; color: #111; }
 
   /* NAV */
-  nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-  .logo { font-size: 22px; font-weight: 700; color: #FF6600; cursor: pointer; }
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .logo { font-size: 20px; font-weight: 700; color: #FF6600; cursor: pointer; }
   .logo span { color: #111; }
-  .nav-links { display: flex; gap: 24px; align-items: center; }
-  .nav-links a { font-size: 14px; color: #555; text-decoration: none; font-weight: 500; }
-  .nav-links a:hover { color: #FF6600; }
-  .nav-btn { padding: 8px 20px; background: #FF6600; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600; }
-  .nav-auth { display: flex; gap: 8px; align-items: center; }
-  .btn-login { padding: 8px 16px; background: transparent; color: #FF6600; border: 1.5px solid #FF6600; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600; }
-  .btn-signup { padding: 8px 16px; background: #FF6600; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600; }
+  .nav-center { display: flex; gap: 8px; flex: 1; max-width: 500px; margin: 0 24px; }
+  .nav-center input { flex: 1; padding: 8px 16px; border: 1.5px solid #ddd; border-radius: 20px; font-size: 14px; outline: none; }
+  .nav-center input:focus { border-color: #FF6600; }
+  .nav-center button { padding: 8px 16px; background: #f0f0f0; border: none; border-radius: 20px; cursor: pointer; }
+  .nav-right { display: flex; gap: 8px; align-items: center; }
+  .btn-login { padding: 8px 16px; background: transparent; color: #FF6600; border: 1.5px solid #FF6600; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: 600; }
+  .btn-signup { padding: 8px 16px; background: #FF6600; color: #fff; border: none; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: 600; }
+  .hamburger { display: none; background: none; border: none; font-size: 22px; cursor: pointer; margin-right: 8px; }
+
+  /* LAYOUT */
+  .app-layout { display: flex; min-height: calc(100vh - 56px); }
+
+  /* SIDEBAR */
+  .sidebar { width: 240px; background: #fff; border-right: 1px solid #eee; padding: 16px 0; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; flex-shrink: 0; transition: transform 0.3s; }
+  .sidebar.hidden { display: none; }
+  .sidebar-section { margin-bottom: 8px; }
+  .sidebar-label { font-size: 11px; font-weight: 700; color: #999; padding: 8px 20px 4px; text-transform: uppercase; letter-spacing: 1px; }
+  .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 10px 20px; font-size: 14px; color: #333; cursor: pointer; border-radius: 8px; margin: 2px 8px; transition: background 0.2s; text-decoration: none; }
+  .sidebar-item:hover { background: #fff3e6; color: #FF6600; }
+  .sidebar-item.active { background: #fff3e6; color: #FF6600; font-weight: 600; }
+  .sidebar-item .icon { font-size: 18px; width: 24px; text-align: center; }
+  .sidebar-divider { height: 1px; background: #f0f0f0; margin: 8px 16px; }
+  .sidebar-user { padding: 16px 20px; border-bottom: 1px solid #f0f0f0; margin-bottom: 8px; }
+  .sidebar-user-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .sidebar-user-email { font-size: 12px; color: #888; }
+  .sidebar-user-av { width: 40px; height: 40px; border-radius: 50%; background: #FF6600; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+
+  /* MAIN CONTENT */
+  .main-content { flex: 1; overflow-y: auto; }
 
   /* PAGES */
   .page { display: none; }
   .page.active { display: block; }
 
-  /* HERO */
-  .hero { text-align: center; padding: 70px 24px 50px; background: linear-gradient(180deg, #fff8f3 0%, #fff 100%); }
+  /* HOME PAGE */
+  .hero { text-align: center; padding: 60px 24px 40px; background: linear-gradient(180deg, #fff8f3 0%, #fff 100%); }
   .badge { display: inline-block; background: #fff3e6; color: #cc4400; font-size: 12px; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; border: 1px solid #ffb380; font-weight: 600; }
-  .hero h1 { font-size: 48px; font-weight: 800; line-height: 1.2; margin-bottom: 14px; }
+  .hero h1 { font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 14px; }
   .hero h1 span { color: #FF6600; }
-  .hero p { font-size: 18px; color: #555; max-width: 520px; margin: 0 auto 32px; line-height: 1.7; }
-
-  /* SIGNUP BOX */
+  .hero p { font-size: 17px; color: #555; max-width: 500px; margin: 0 auto 32px; line-height: 1.7; }
   .signup-box { background: #fff; border: 1.5px solid #eee; border-radius: 16px; padding: 24px; max-width: 440px; margin: 0 auto; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
   .signup-box p { font-size: 14px; color: #666; margin-bottom: 12px; }
   .input-row { display: flex; gap: 8px; }
   .input-row input { flex: 1; padding: 11px 14px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; }
   .input-row input:focus { border-color: #FF6600; }
-  .input-row button { padding: 11px 20px; background: #FF6600; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600; white-space: nowrap; }
-  .counter { margin-top: 14px; font-size: 13px; color: #888; text-align: center; }
+  .input-row button { padding: 11px 20px; background: #FF6600; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600; }
+  .counter { margin-top: 12px; font-size: 13px; color: #888; text-align: center; }
   .counter strong { color: #FF6600; }
 
   /* STATS */
-  .stats { display: flex; justify-content: center; gap: 48px; padding: 36px 24px; background: #fff; border-bottom: 1px solid #f0f0f0; flex-wrap: wrap; }
+  .stats { display: flex; justify-content: center; gap: 40px; padding: 32px 24px; background: #fff; border-bottom: 1px solid #f0f0f0; flex-wrap: wrap; }
   .stat { text-align: center; }
-  .stat-n { font-size: 32px; font-weight: 800; color: #FF6600; }
+  .stat-n { font-size: 28px; font-weight: 800; color: #FF6600; }
   .stat-l { font-size: 13px; color: #666; margin-top: 4px; }
 
   /* FEATURES */
-  .section { padding: 56px 24px; max-width: 900px; margin: 0 auto; }
-  .section-title { font-size: 28px; font-weight: 800; text-align: center; margin-bottom: 8px; }
-  .section-sub { font-size: 15px; color: #666; text-align: center; margin-bottom: 36px; }
+  .section { padding: 48px 24px; max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 26px; font-weight: 800; text-align: center; margin-bottom: 8px; }
+  .section-sub { font-size: 15px; color: #666; text-align: center; margin-bottom: 32px; }
   .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .feat-card { background: #f9f9f9; border-radius: 14px; padding: 24px; transition: transform 0.2s; }
-  .feat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-  .feat-icon { font-size: 36px; margin-bottom: 12px; }
-  .feat-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .feat-card { background: #f9f9f9; border-radius: 14px; padding: 22px; transition: transform 0.2s; }
+  .feat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+  .feat-icon { font-size: 32px; margin-bottom: 10px; }
+  .feat-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
   .feat-card p { font-size: 13px; color: #666; line-height: 1.6; }
 
-  /* HOW IT WORKS */
-  .how { background: #f9f9f9; padding: 56px 24px; }
-  .steps { display: flex; justify-content: center; gap: 0; max-width: 800px; margin: 0 auto; flex-wrap: wrap; }
-  .step { text-align: center; padding: 24px; flex: 1; min-width: 150px; position: relative; }
-  .step:not(:last-child)::after { content: '→'; position: absolute; right: -8px; top: 32px; font-size: 20px; color: #FF6600; }
-  .step-num { width: 48px; height: 48px; background: #FF6600; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; margin: 0 auto 12px; }
-  .step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-  .step p { font-size: 12px; color: #666; line-height: 1.5; }
-
   /* MONETIZATION */
-  .monetization { background: #0a0a0a; color: #fff; padding: 56px 24px; text-align: center; }
+  .monetization { background: #0a0a0a; color: #fff; padding: 48px 24px; text-align: center; }
   .monetization .section-title { color: #fff; }
   .monetization .section-title span { color: #FF6600; }
   .monetization .section-sub { color: rgba(255,255,255,0.5); }
-  .coming-soon-banner { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,102,0,0.15); border: 1px solid rgba(255,102,0,0.4); border-radius: 50px; padding: 10px 24px; margin-bottom: 32px; }
-  .coming-soon-dot { width: 10px; height: 10px; background: #FF6600; border-radius: 50%; animation: blink 1.2s ease-in-out infinite; }
+  .coming-soon-banner { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,102,0,0.15); border: 1px solid rgba(255,102,0,0.4); border-radius: 50px; padding: 10px 24px; margin-bottom: 28px; }
+  .cs-dot { width: 10px; height: 10px; background: #FF6600; border-radius: 50%; animation: blink 1.2s ease-in-out infinite; }
   @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
-  .coming-soon-text { font-size: 14px; font-weight: 700; color: #FF6600; letter-spacing: 1px; }
-  .cs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 800px; margin: 0 auto; }
-  .cs-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; position: relative; overflow: hidden; }
-  .cs-card::after { content: 'COMING SOON'; position: absolute; top: 12px; right: -24px; background: #FF6600; color: #fff; font-size: 9px; font-weight: 700; padding: 3px 32px; transform: rotate(35deg); letter-spacing: 1px; }
-  .cs-icon { font-size: 32px; margin-bottom: 12px; }
-  .cs-title { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.7); margin-bottom: 6px; }
-  .cs-desc { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.5; }
-  .cs-earn { font-size: 18px; font-weight: 800; color: rgba(255,102,0,0.6); margin-top: 10px; }
+  .cs-text { font-size: 14px; font-weight: 700; color: #FF6600; }
+  .cs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 800px; margin: 0 auto; }
+  .cs-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; position: relative; overflow: hidden; }
+  .cs-card::after { content: 'COMING SOON'; position: absolute; top: 10px; right: -22px; background: #FF6600; color: #fff; font-size: 9px; font-weight: 700; padding: 3px 28px; transform: rotate(35deg); }
+  .cs-icon { font-size: 28px; margin-bottom: 10px; }
+  .cs-title { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.7); margin-bottom: 4px; }
+  .cs-earn { font-size: 16px; font-weight: 800; color: rgba(255,102,0,0.7); margin-top: 8px; }
 
   /* COMPARE */
-  .compare { padding: 56px 24px; max-width: 700px; margin: 0 auto; }
-  .compare-table { width: 100%; border-collapse: collapse; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-  .compare-table th { padding: 16px; font-size: 15px; font-weight: 700; }
+  .compare { padding: 48px 24px; max-width: 700px; margin: 0 auto; }
+  .compare-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .compare-table th { padding: 14px 16px; font-size: 14px; font-weight: 700; }
   .compare-table th:first-child { background: #f9f9f9; }
   .compare-table th.yt { background: #f0f0f0; color: #999; }
   .compare-table th.bt { background: #FF6600; color: #fff; }
-  .compare-table td { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid #f0f0f0; }
+  .compare-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid #f0f0f0; }
   .compare-table td:first-child { font-weight: 600; background: #fafafa; }
   .compare-table td.bad { color: #cc0000; }
   .compare-table td.good { color: #0a7a3e; font-weight: 600; }
 
-  /* EARLY CREATORS */
-  .creators { background: #fff8f3; padding: 56px 24px; text-align: center; }
-  .creator-grid { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
-  .cc { background: #fff; border-radius: 16px; padding: 24px; width: 190px; border: 1px solid #eee; transition: transform 0.2s; }
-  .cc:hover { transform: translateY(-4px); }
-  .cc-icon { font-size: 40px; margin-bottom: 12px; }
-  .cc-name { font-size: 14px; font-weight: 700; }
-  .cc-lang { font-size: 12px; color: #888; margin: 4px 0; }
-  .cc-earn { font-size: 15px; font-weight: 800; color: #0a7a3e; }
-  .cc-badge { font-size: 10px; color: #FF6600; background: #fff3e6; padding: 2px 8px; border-radius: 10px; margin-top: 6px; display: inline-block; }
-
   /* FOOTER CTA */
-  .footer-cta { padding: 64px 24px; text-align: center; background: linear-gradient(135deg, #FF6600, #ff9900); color: #fff; }
-  .footer-cta h2 { font-size: 32px; font-weight: 800; margin-bottom: 12px; }
-  .footer-cta p { font-size: 16px; opacity: 0.85; margin-bottom: 28px; }
-  .footer-cta button { padding: 16px 40px; background: #fff; color: #FF6600; border: none; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer; }
+  .footer-cta { padding: 56px 24px; text-align: center; background: linear-gradient(135deg, #FF6600, #ff9900); color: #fff; }
+  .footer-cta h2 { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+  .footer-cta p { font-size: 15px; opacity: 0.85; margin-bottom: 24px; }
+  .footer-cta button { padding: 14px 36px; background: #fff; color: #FF6600; border: none; border-radius: 10px; font-size: 15px; font-weight: 800; cursor: pointer; }
+  footer { padding: 20px 32px; border-top: 1px solid #eee; display: flex; justify-content: space-between; font-size: 13px; color: #888; flex-wrap: wrap; gap: 8px; background: #fff; }
 
-  /* FOOTER */
-  footer { padding: 24px 32px; border-top: 1px solid #eee; display: flex; justify-content: space-between; font-size: 13px; color: #888; flex-wrap: wrap; gap: 8px; }
+  /* DASHBOARD PAGE */
+  .dashboard { padding: 32px 24px; max-width: 900px; }
+  .dash-welcome { background: linear-gradient(135deg, #FF6600, #ff9900); color: #fff; border-radius: 16px; padding: 24px; margin-bottom: 24px; }
+  .dash-welcome h2 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+  .dash-welcome p { font-size: 14px; opacity: 0.85; }
+  .dash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+  .dash-card { background: #fff; border-radius: 14px; padding: 20px; text-align: center; border: 1px solid #eee; }
+  .dash-card .icon { font-size: 32px; margin-bottom: 8px; }
+  .dash-card h4 { font-size: 24px; font-weight: 800; color: #FF6600; }
+  .dash-card p { font-size: 13px; color: #666; margin-top: 4px; }
+  .dash-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .dash-action-card { background: #fff; border-radius: 14px; padding: 20px; border: 1px solid #eee; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 14px; }
+  .dash-action-card:hover { border-color: #FF6600; transform: translateY(-2px); }
+  .dash-action-icon { font-size: 28px; }
+  .dash-action-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .dash-action-desc { font-size: 12px; color: #888; }
+
+  /* WATCH PAGE */
+  .watch-container { display: grid; grid-template-columns: 1fr 340px; gap: 20px; padding: 20px 24px; max-width: 1200px; }
+  .video-player-box { background: #000; border-radius: 12px; overflow: hidden; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .video-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff; }
+  .play-btn { width: 68px; height: 68px; background: rgba(255,102,0,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+  .play-icon { width: 0; height: 0; border-top: 18px solid transparent; border-bottom: 18px solid transparent; border-left: 32px solid #fff; margin-left: 5px; }
+  .video-info-box { background: #fff; border-radius: 12px; padding: 18px; margin-top: 14px; }
+  .video-title-text { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+  .video-meta-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .video-stats-text { font-size: 13px; color: #666; display: flex; gap: 14px; }
+  .video-action-btns { display: flex; gap: 8px; }
+  .v-btn { display: flex; align-items: center; gap: 5px; padding: 7px 14px; border: 1.5px solid #eee; border-radius: 18px; font-size: 13px; cursor: pointer; background: #fff; transition: all 0.2s; }
+  .v-btn:hover { border-color: #FF6600; color: #FF6600; }
+  .v-btn.active { background: #fff3e6; border-color: #FF6600; color: #FF6600; }
+  .creator-section { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 1px solid #f0f0f0; }
+  .creator-left { display: flex; align-items: center; gap: 10px; }
+  .creator-av { width: 40px; height: 40px; border-radius: 50%; background: #FF6600; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+  .creator-name-text { font-size: 14px; font-weight: 600; }
+  .creator-subs-text { font-size: 12px; color: #888; }
+  .sub-btn { padding: 7px 18px; background: #FF6600; color: #fff; border: none; border-radius: 18px; cursor: pointer; font-weight: 600; font-size: 13px; }
+  .sub-btn.done { background: #eee; color: #333; }
+  .comments-box { background: #fff; border-radius: 12px; padding: 18px; margin-top: 14px; }
+  .comments-box h3 { font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+  .c-input-row { display: flex; gap: 10px; margin-bottom: 18px; }
+  .c-av { width: 34px; height: 34px; border-radius: 50%; background: #FF6600; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .c-input { flex: 1; padding: 8px 0; border: none; border-bottom: 1.5px solid #ddd; font-size: 13px; outline: none; }
+  .c-input:focus { border-bottom-color: #FF6600; }
+  .c-submit { padding: 6px 14px; background: #FF6600; color: #fff; border: none; border-radius: 16px; cursor: pointer; font-size: 12px; font-weight: 600; margin-top: 6px; float: right; }
+  .comment-item { display: flex; gap: 10px; margin-bottom: 14px; }
+  .comment-body { flex: 1; }
+  .comment-author { font-size: 13px; font-weight: 600; }
+  .comment-text { font-size: 13px; color: #333; margin-top: 3px; line-height: 1.5; }
+  .comment-time { font-size: 11px; color: #999; margin-top: 3px; }
+  .related-video-item { display: flex; gap: 8px; margin-bottom: 12px; cursor: pointer; }
+  .related-thumb { width: 160px; height: 90px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative; }
+  .r-duration { position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.8); color: #fff; font-size: 10px; padding: 2px 4px; border-radius: 3px; }
+  .related-info { flex: 1; }
+  .related-title { font-size: 12px; font-weight: 600; line-height: 1.4; margin-bottom: 3px; }
+  .related-meta { font-size: 11px; color: #888; }
+
+  /* UPLOAD PAGE */
+  .upload-page { padding: 32px 24px; max-width: 700px; }
+  .upload-area { border: 2.5px dashed #FF6600; border-radius: 16px; padding: 48px 24px; text-align: center; cursor: pointer; background: #fff8f3; transition: background 0.2s; }
+  .upload-area:hover { background: #fff3e6; }
+  .upload-icon { font-size: 48px; margin-bottom: 12px; }
+  .upload-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .upload-sub { font-size: 14px; color: #888; }
+  .upload-form { background: #fff; border-radius: 14px; padding: 24px; margin-top: 20px; border: 1px solid #eee; }
+  .form-group { margin-bottom: 16px; }
+  .form-label { font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px; display: block; }
+  .form-input { width: 100%; padding: 10px 14px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; }
+  .form-input:focus { border-color: #FF6600; }
+  .form-select { width: 100%; padding: 10px 14px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
+  .upload-btn { width: 100%; padding: 13px; background: #FF6600; color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+  .coming-soon-tag { display: inline-flex; align-items: center; gap: 6px; background: #fff3e6; color: #FF6600; font-size: 12px; padding: 4px 12px; border-radius: 20px; font-weight: 600; margin-top: 10px; }
 
   /* AUTH MODAL */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
   .modal-overlay.show { display: flex; }
   .modal { background: #fff; border-radius: 20px; padding: 32px; width: 100%; max-width: 400px; margin: 16px; position: relative; }
-  .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 20px; cursor: pointer; color: #999; }
-  .modal h2 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
-  .modal p { font-size: 14px; color: #666; margin-bottom: 24px; }
-  .modal input { width: 100%; padding: 12px 14px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; margin-bottom: 12px; }
+  .modal-close { position: absolute; top: 14px; right: 14px; background: none; border: none; font-size: 20px; cursor: pointer; color: #999; }
+  .modal h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+  .modal p { font-size: 14px; color: #666; margin-bottom: 20px; }
+  .modal input { width: 100%; padding: 11px 14px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; margin-bottom: 10px; }
   .modal input:focus { border-color: #FF6600; }
-  .modal-btn { width: 100%; padding: 12px; background: #FF6600; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 12px; }
-  .modal-google { width: 100%; padding: 12px; background: #fff; color: #333; border: 1.5px solid #ddd; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 16px; }
-  .modal-divider { text-align: center; font-size: 13px; color: #999; margin-bottom: 16px; position: relative; }
-  .modal-divider::before { content: ''; position: absolute; left: 0; top: 50%; width: 45%; height: 1px; background: #eee; }
-  .modal-divider::after { content: ''; position: absolute; right: 0; top: 50%; width: 45%; height: 1px; background: #eee; }
+  .modal-btn { width: 100%; padding: 12px; background: #FF6600; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; margin-bottom: 10px; }
+  .modal-google { width: 100%; padding: 11px; background: #fff; color: #333; border: 1.5px solid #ddd; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 14px; }
+  .modal-divider { text-align: center; font-size: 13px; color: #999; margin-bottom: 14px; }
   .modal-switch { text-align: center; font-size: 13px; color: #666; }
   .modal-switch span { color: #FF6600; cursor: pointer; font-weight: 600; }
-  .error-msg { color: #cc0000; font-size: 13px; margin-bottom: 8px; display: none; }
-  .success-msg { color: #0a7a3e; font-size: 13px; margin-bottom: 8px; display: none; }
-
-  /* USER DASHBOARD */
-  .dashboard { padding: 40px 24px; max-width: 800px; margin: 0 auto; }
-  .dashboard h2 { font-size: 24px; font-weight: 800; margin-bottom: 24px; }
-  .user-card { background: linear-gradient(135deg, #FF6600, #ff9900); color: #fff; border-radius: 16px; padding: 24px; margin-bottom: 24px; }
-  .user-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-  .user-card p { font-size: 14px; opacity: 0.85; }
-  .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .dash-card { background: #f9f9f9; border-radius: 14px; padding: 20px; text-align: center; }
-  .dash-card .icon { font-size: 32px; margin-bottom: 8px; }
-  .dash-card h4 { font-size: 22px; font-weight: 800; color: #FF6600; }
-  .dash-card p { font-size: 13px; color: #666; margin-top: 4px; }
-  .logout-btn { margin-top: 24px; padding: 10px 24px; background: #fff; color: #FF6600; border: 1.5px solid #FF6600; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .err { color: #cc0000; font-size: 13px; margin-bottom: 8px; display: none; }
 
   @media (max-width: 768px) {
-    .hero h1 { font-size: 32px; }
+    .sidebar { position: fixed; top: 56px; left: 0; height: calc(100vh - 56px); z-index: 150; transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .hamburger { display: block; }
+    .nav-center { display: none; }
     .feat-grid { grid-template-columns: 1fr 1fr; }
     .cs-grid { grid-template-columns: 1fr 1fr; }
-    .nav-links { display: none; }
-    .stats { gap: 24px; }
-    nav { padding: 14px 16px; }
-    .input-row { flex-direction: column; }
-    .step:not(:last-child)::after { display: none; }
-    .dashboard-grid { grid-template-columns: 1fr; }
+    .watch-container { grid-template-columns: 1fr; }
+    .dash-grid { grid-template-columns: 1fr 1fr; }
+    .dash-actions { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 28px; }
   }
 </style>
 </head>
@@ -165,149 +220,332 @@
 
 <!-- NAV -->
 <nav>
-  <div class="logo" onclick="showPage('home')">Bharat<span>Tube</span></div>
-  <div class="nav-links">
-    <a href="#features">Features</a>
-    <a href="#monetization">Monetization</a>
-    <a href="#compare">vs YouTube</a>
+  <div style="display:flex; align-items:center; gap:8px;">
+    <button class="hamburger" id="hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="logo" onclick="showPage('home')">Bharat<span>Tube</span></div>
   </div>
-  <div class="nav-auth" id="nav-auth">
+  <div class="nav-center">
+    <input type="text" placeholder="Search videos in any language..." />
+    <button>🔍</button>
+  </div>
+  <div class="nav-right" id="nav-auth">
     <button class="btn-login" onclick="showModal('login')">Login</button>
     <button class="btn-signup" onclick="showModal('signup')">Sign Up Free</button>
   </div>
   <div id="nav-user" style="display:none;">
-    <button class="nav-btn" onclick="showPage('dashboard')">My Dashboard 👤</button>
+    <button class="btn-signup" onclick="showPage('dashboard')">👤 Dashboard</button>
   </div>
 </nav>
 
-<!-- HOME PAGE -->
-<div class="page active" id="page-home">
+<div class="app-layout">
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="badge">🇮🇳 Made in India, for India</div>
-    <h1>India ka apna<br><span>YouTube — BharatTube</span></h1>
-    <p>Watch and create videos in all 22 Indian languages. Earn money from Day 1. Data stays in India. 🇮🇳</p>
-    <div class="signup-box">
-      <p>🚀 Be the first to know when we launch!</p>
-      <div class="input-row">
-        <input type="email" id="waitlist-email" placeholder="Enter your email" />
-        <button onclick="handleWaitlist()">Join now</button>
+  <!-- SIDEBAR (shown after login) -->
+  <div class="sidebar hidden" id="sidebar">
+    <div class="sidebar-user" id="sidebar-user-info">
+      <div class="sidebar-user-av" id="sidebar-av">U</div>
+      <div class="sidebar-user-name" id="sidebar-name">User</div>
+      <div class="sidebar-user-email" id="sidebar-email">user@email.com</div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-item active" id="nav-home" onclick="showPage('home')">
+        <span class="icon">🏠</span> Home
       </div>
-      <div class="counter">
-        <strong id="signup-count">0</strong> Indians already joined! 🎉
+      <div class="sidebar-item" id="nav-watch" onclick="showPage('watch')">
+        <span class="icon">🎬</span> Watch Videos
+      </div>
+      <div class="sidebar-item" id="nav-upload" onclick="showPage('upload')">
+        <span class="icon">⬆️</span> Upload Video
       </div>
     </div>
-  </div>
 
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stat"><div class="stat-n">22</div><div class="stat-l">Indian languages</div></div>
-    <div class="stat"><div class="stat-n">80%</div><div class="stat-l">Revenue to creators</div></div>
-    <div class="stat"><div class="stat-n">Day 1</div><div class="stat-l">Start earning</div></div>
-    <div class="stat"><div class="stat-n">₹1</div><div class="stat-l">Min. withdrawal</div></div>
-    <div class="stat"><div class="stat-n">2G</div><div class="stat-l">Works everywhere</div></div>
-  </div>
+    <div class="sidebar-divider"></div>
 
-  <!-- FEATURES -->
-  <div class="section" id="features">
-    <div class="section-title">Why BharatTube? 🔥</div>
-    <div class="section-sub">Har Indian ke liye banaya gaya!</div>
-    <div class="feat-grid">
-      <div class="feat-card"><div class="feat-icon">💰</div><h3>Earn from Day 1</h3><p>No 1000 subscriber limit. Upload and earn instantly via UPI!</p></div>
-      <div class="feat-card"><div class="feat-icon">🗣️</div><h3>All 22 Languages</h3><p>Hindi, Tamil, Telugu, Marathi — every Indian language!</p></div>
-      <div class="feat-card"><div class="feat-icon">🛡️</div><h3>Data in India</h3><p>Your data stored on Indian servers. Safe and private!</p></div>
-      <div class="feat-card"><div class="feat-icon">📶</div><h3>Works on 2G</h3><p>Even villages with slow internet can use BharatTube!</p></div>
-      <div class="feat-card"><div class="feat-icon">⚡</div><h3>Instant UPI</h3><p>Weekly payments to UPI. Minimum withdrawal just ₹1!</p></div>
-      <div class="feat-card"><div class="feat-icon">🤝</div><h3>Brand Deals</h3><p>We connect Indian creators with Indian brands!</p></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Creator</div>
+      <div class="sidebar-item" id="nav-dashboard" onclick="showPage('dashboard')">
+        <span class="icon">📊</span> My Dashboard
+      </div>
+      <div class="sidebar-item" onclick="showPage('earnings')">
+        <span class="icon">💰</span> My Earnings
+        <span style="margin-left:auto; font-size:10px; background:#fff3e6; color:#FF6600; padding:2px 6px; border-radius:8px;">Soon</span>
+      </div>
+      <div class="sidebar-item" onclick="showPage('profile')">
+        <span class="icon">👤</span> My Profile
+      </div>
     </div>
-  </div>
 
-  <!-- HOW IT WORKS -->
-  <div class="how">
-    <div style="max-width:900px; margin:0 auto; text-align:center;">
-      <div class="section-title">How it works? 🤔</div>
-      <div class="section-sub">3 simple steps to start earning!</div>
-      <div class="steps">
-        <div class="step"><div class="step-num">1</div><h4>Sign Up FREE</h4><p>Create account in 1 minute!</p></div>
-        <div class="step"><div class="step-num">2</div><h4>Upload Video</h4><p>Upload in your language!</p></div>
-        <div class="step"><div class="step-num">3</div><h4>Earn Money</h4><p>Earn from day 1 via UPI!</p></div>
-        <div class="step"><div class="step-num">4</div><h4>Grow & Shine</h4><p>Build your audience!</p></div>
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Account</div>
+      <div class="sidebar-item" onclick="alert('Settings coming soon!')">
+        <span class="icon">⚙️</span> Settings
+      </div>
+      <div class="sidebar-item" onclick="handleLogout()" style="color:#cc0000;">
+        <span class="icon">🚪</span> Logout
       </div>
     </div>
   </div>
 
-  <!-- MONETIZATION COMING SOON -->
-  <div class="monetization" id="monetization">
-    <div class="section-title">Creator <span>Monetization</span> 💰</div>
-    <div class="section-sub">India's most creator-friendly earning system</div>
-    <div class="coming-soon-banner">
-      <div class="coming-soon-dot"></div>
-      <div class="coming-soon-text">🚀 COMING SOON — Launching with the app!</div>
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <!-- HOME PAGE -->
+    <div class="page active" id="page-home">
+      <div class="hero">
+        <div class="badge">🇮🇳 Made in India, for India</div>
+        <h1>India ka apna<br><span>YouTube — BharatTube</span></h1>
+        <p>Watch and create videos in all 22 Indian languages. Earn money from Day 1!</p>
+        <div class="signup-box">
+          <p>🚀 Be the first to know when we launch!</p>
+          <div class="input-row">
+            <input type="email" id="waitlist-email" placeholder="Enter your email" />
+            <button onclick="handleWaitlist()">Join now</button>
+          </div>
+          <div class="counter"><strong id="signup-count">0</strong> Indians already joined! 🎉</div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="stat-n">22</div><div class="stat-l">Indian languages</div></div>
+        <div class="stat"><div class="stat-n">80%</div><div class="stat-l">Revenue to creators</div></div>
+        <div class="stat"><div class="stat-n">Day 1</div><div class="stat-l">Start earning</div></div>
+        <div class="stat"><div class="stat-n">₹1</div><div class="stat-l">Min. withdrawal</div></div>
+      </div>
+      <div class="section" id="features">
+        <div class="section-title">Why BharatTube? 🔥</div>
+        <div class="section-sub">Har Indian ke liye!</div>
+        <div class="feat-grid">
+          <div class="feat-card"><div class="feat-icon">💰</div><h3>Earn from Day 1</h3><p>No 1000 subscriber limit. Earn via UPI instantly!</p></div>
+          <div class="feat-card"><div class="feat-icon">🗣️</div><h3>All 22 Languages</h3><p>Hindi, Tamil, Telugu, Marathi and more!</p></div>
+          <div class="feat-card"><div class="feat-icon">🛡️</div><h3>Data in India</h3><p>Your data stays on Indian servers only!</p></div>
+          <div class="feat-card"><div class="feat-icon">📶</div><h3>Works on 2G</h3><p>Even villages with slow internet can use it!</p></div>
+          <div class="feat-card"><div class="feat-icon">⚡</div><h3>Instant UPI</h3><p>Weekly payments. Minimum withdrawal ₹1!</p></div>
+          <div class="feat-card"><div class="feat-icon">🤝</div><h3>Brand Deals</h3><p>Connect with Indian brands directly!</p></div>
+        </div>
+      </div>
+      <div class="monetization">
+        <div class="section-title">Creator <span>Monetization</span> 💰</div>
+        <div class="section-sub">Simple & easy earning system</div>
+        <div class="coming-soon-banner"><div class="cs-dot"></div><div class="cs-text">🚀 COMING SOON!</div></div>
+        <div class="cs-grid">
+          <div class="cs-card"><div class="cs-icon">⭐</div><div class="cs-title">Starter</div><div class="cs-earn">₹100-500/mo</div></div>
+          <div class="cs-card"><div class="cs-icon">🔥</div><div class="cs-title">Creator</div><div class="cs-earn">₹500-2K/mo</div></div>
+          <div class="cs-card"><div class="cs-icon">💎</div><div class="cs-title">Pro</div><div class="cs-earn">₹2K-10K/mo</div></div>
+          <div class="cs-card"><div class="cs-icon">🏆</div><div class="cs-title">Star</div><div class="cs-earn">₹10K-1L+/mo</div></div>
+        </div>
+      </div>
+      <div class="compare" id="compare">
+        <div class="section-title">BharatTube vs YouTube 🆚</div>
+        <table class="compare-table">
+          <tr><th></th><th class="yt">YouTube</th><th class="bt">BharatTube 🇮🇳</th></tr>
+          <tr><td>Earning starts</td><td class="bad">1000 subscribers</td><td class="good">Day 1! ✅</td></tr>
+          <tr><td>Revenue share</td><td class="bad">55% to creator</td><td class="good">80% to creator</td></tr>
+          <tr><td>Min. withdrawal</td><td class="bad">$100 (~₹8,000)</td><td class="good">₹1 only!</td></tr>
+          <tr><td>Indian languages</td><td class="bad">Limited</td><td class="good">All 22 🇮🇳</td></tr>
+          <tr><td>Data storage</td><td class="bad">USA servers</td><td class="good">India servers</td></tr>
+          <tr><td>2G support</td><td class="bad">No ❌</td><td class="good">Yes ✅</td></tr>
+        </table>
+      </div>
+      <div class="footer-cta">
+        <h2>India ka apna YouTube aa raha hai! 🇮🇳</h2>
+        <p>Sign up karo aur early bird benefits pao!</p>
+        <button onclick="showModal('signup')">Join Free — Sign Up Now! 🚀</button>
+      </div>
+      <footer>
+        <span>BharatTube © 2026 — Made with pride in India 🇮🇳</span>
+        <span>📧 bharattubeindia@gmail.com</span>
+      </footer>
     </div>
-    <div class="cs-grid">
-      <div class="cs-card"><div class="cs-icon">⭐</div><div class="cs-title">Starter Level</div><div class="cs-desc">Account banao aur Day 1 se gifts earn karo!</div><div class="cs-earn">₹100-500/mo</div></div>
-      <div class="cs-card"><div class="cs-icon">🔥</div><div class="cs-title">Creator Level</div><div class="cs-desc">10 subscribers ke baad ad revenue!</div><div class="cs-earn">₹500-2K/mo</div></div>
-      <div class="cs-card"><div class="cs-icon">💎</div><div class="cs-title">Pro Level</div><div class="cs-desc">100 subscribers — brand deals!</div><div class="cs-earn">₹2K-10K/mo</div></div>
-      <div class="cs-card"><div class="cs-icon">🏆</div><div class="cs-title">Star Level</div><div class="cs-desc">1000 subscribers — verified badge!</div><div class="cs-earn">₹10K-1L+/mo</div></div>
+
+    <!-- DASHBOARD PAGE -->
+    <div class="page" id="page-dashboard">
+      <div class="dashboard">
+        <div class="dash-welcome">
+          <h2>Welcome back! 👋</h2>
+          <p id="dash-email">Loading...</p>
+        </div>
+        <div class="dash-grid">
+          <div class="dash-card"><div class="icon">👁️</div><h4>0</h4><p>Total Views</p></div>
+          <div class="dash-card"><div class="icon">💰</div><h4>₹0</h4><p>Total Earnings</p></div>
+          <div class="dash-card"><div class="icon">🎬</div><h4>0</h4><p>Videos Uploaded</p></div>
+        </div>
+        <div class="section-title" style="text-align:left; font-size:18px; margin-bottom:16px;">Quick Actions</div>
+        <div class="dash-actions">
+          <div class="dash-action-card" onclick="showPage('upload')">
+            <div class="dash-action-icon">⬆️</div>
+            <div><div class="dash-action-title">Upload Video</div><div class="dash-action-desc">Share your content with India!</div></div>
+          </div>
+          <div class="dash-action-card" onclick="showPage('watch')">
+            <div class="dash-action-icon">🎬</div>
+            <div><div class="dash-action-title">Watch Videos</div><div class="dash-action-desc">Explore BharatTube content</div></div>
+          </div>
+          <div class="dash-action-card" onclick="alert('Coming soon! 🚀')">
+            <div class="dash-action-icon">💰</div>
+            <div><div class="dash-action-title">My Earnings</div><div class="dash-action-desc">Track your revenue</div></div>
+          </div>
+          <div class="dash-action-card" onclick="showPage('profile')">
+            <div class="dash-action-icon">👤</div>
+            <div><div class="dash-action-title">My Profile</div><div class="dash-action-desc">Edit your creator profile</div></div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- COMPARE -->
-  <div class="compare" id="compare">
-    <div class="section-title">BharatTube vs YouTube 🆚</div>
-    <table class="compare-table">
-      <tr><th></th><th class="yt">📺 YouTube</th><th class="bt">🇮🇳 BharatTube</th></tr>
-      <tr><td>Earning starts</td><td class="bad">1000 subscribers</td><td class="good">Day 1! ✅</td></tr>
-      <tr><td>Revenue share</td><td class="bad">55% to creator</td><td class="good">80% to creator</td></tr>
-      <tr><td>Min. withdrawal</td><td class="bad">$100 (~₹8,000)</td><td class="good">₹1 only!</td></tr>
-      <tr><td>Payment method</td><td class="bad">Bank (slow)</td><td class="good">Instant UPI ⚡</td></tr>
-      <tr><td>Indian languages</td><td class="bad">Limited</td><td class="good">All 22 🇮🇳</td></tr>
-      <tr><td>Data storage</td><td class="bad">USA servers</td><td class="good">India servers 🇮🇳</td></tr>
-      <tr><td>2G support</td><td class="bad">No ❌</td><td class="good">Yes ✅</td></tr>
-    </table>
-  </div>
-
-  <!-- EARLY CREATORS -->
-  <div class="creators">
-    <div class="section-title">Pehle Creator Bano! 🎬</div>
-    <div class="section-sub">Early bird creators ko special benefits milenge!</div>
-    <div class="creator-grid">
-      <div class="cc"><div class="cc-icon">🥇</div><div class="cc-name">Pehle 100 Creators</div><div class="cc-lang">Special verified badge</div><div class="cc-earn">Extra 10% revenue!</div><div class="cc-badge">🎁 Early Bird</div></div>
-      <div class="cc"><div class="cc-icon">⭐</div><div class="cc-name">Pehle 500 Creators</div><div class="cc-lang">Homepage featured</div><div class="cc-earn">Priority support!</div><div class="cc-badge">🎁 Early Bird</div></div>
-      <div class="cc"><div class="cc-icon">🚀</div><div class="cc-name">Pehle 1000 Creators</div><div class="cc-lang">Brand deal priority</div><div class="cc-earn">Free promotion!</div><div class="cc-badge">🎁 Early Bird</div></div>
+    <!-- WATCH PAGE -->
+    <div class="page" id="page-watch">
+      <div class="watch-container">
+        <div>
+          <div class="video-player-box">
+            <div class="video-placeholder">
+              <div class="play-btn" onclick="alert('🎬 Real videos coming soon!\nBharatTube pe creators ka swagat hai! 🇮🇳')">
+                <div class="play-icon"></div>
+              </div>
+              <p style="color:rgba(255,255,255,0.6); font-size:14px; margin-top:8px;">Click to play</p>
+            </div>
+          </div>
+          <div class="video-info-box">
+            <div class="video-title-text">Khethi Tips — Rabi Season guide 🌾 <span style="background:#fff3e6;color:#FF6600;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;">Hindi</span></div>
+            <div class="video-meta-row">
+              <div class="video-stats-text">
+                <span>👁️ 2,41,847 views</span>
+                <span>📅 2 days ago</span>
+              </div>
+              <div class="video-action-btns">
+                <button class="v-btn" id="like-btn" onclick="handleLike()">👍 <span id="like-count">4,821</span></button>
+                <button class="v-btn" onclick="handleShare()">🔗 Share</button>
+                <button class="v-btn">⬇️ Save</button>
+              </div>
+            </div>
+            <div class="creator-section">
+              <div class="creator-left">
+                <div class="creator-av">RK</div>
+                <div>
+                  <div class="creator-name-text">Ramesh Khetiwala</div>
+                  <div class="creator-subs-text">12,400 subscribers</div>
+                </div>
+              </div>
+              <button class="sub-btn" id="sub-btn" onclick="handleSub()">Subscribe</button>
+            </div>
+          </div>
+          <div class="comments-box">
+            <h3>💬 Comments (<span id="c-count">48</span>)</h3>
+            <div class="c-input-row">
+              <div class="c-av">U</div>
+              <div style="flex:1;">
+                <input class="c-input" id="c-input" placeholder="Add a comment..." />
+                <button class="c-submit" onclick="addComment()">Comment</button>
+              </div>
+            </div>
+            <div id="c-list">
+              <div class="comment-item">
+                <div class="c-av" style="background:#1a5fcc;">PS</div>
+                <div class="comment-body"><div class="comment-author">Priya Singh</div><div class="comment-text">Bahut achha video! Maine ye tips use kiye aur fasal achhi hui! 🌾</div><div class="comment-time">1 day ago • 👍 24</div></div>
+              </div>
+              <div class="comment-item">
+                <div class="c-av" style="background:#0a7a3e;">AK</div>
+                <div class="comment-body"><div class="comment-author">Arjun Kumar</div><div class="comment-text">BharatTube zindabad! Hindi mein itni achhi farming tips! 🇮🇳</div><div class="comment-time">2 days ago • 👍 18</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="section-title" style="font-size:16px; margin-bottom:14px;">Related Videos</div>
+          <div class="related-video-item"><div class="related-thumb" style="background:linear-gradient(135deg,#FF6600,#ff9900)"><span style="font-size:22px;">🌾</span><span class="r-duration">15:24</span></div><div class="related-info"><div class="related-title">Gehun ki fasal guide 2026</div><div class="related-meta">Ramesh K • 1.2L views • Hindi</div></div></div>
+          <div class="related-video-item"><div class="related-thumb" style="background:linear-gradient(135deg,#1a5fcc,#4a90d9)"><span style="font-size:22px;">🍳</span><span class="r-duration">8:45</span></div><div class="related-info"><div class="related-title">Dal Makhani — Authentic recipe</div><div class="related-meta">Priya's Kitchen • 85K views</div></div></div>
+          <div class="related-video-item"><div class="related-thumb" style="background:linear-gradient(135deg,#0a7a3e,#2ecc71)"><span style="font-size:22px;">💻</span><span class="r-duration">22:10</span></div><div class="related-info"><div class="related-title">Python Hindi mein seekho</div><div class="related-meta">TechWithArjun • 2.4L views</div></div></div>
+          <div class="related-video-item"><div class="related-thumb" style="background:linear-gradient(135deg,#b5006e,#e91e8c)"><span style="font-size:22px;">💃</span><span class="r-duration">5:30</span></div><div class="related-info"><div class="related-title">Lavani dance tutorial</div><div class="related-meta">Nisha Dance • 45K • Marathi</div></div></div>
+          <div class="related-video-item"><div class="related-thumb" style="background:linear-gradient(135deg,#6a0dad,#9b59b6)"><span style="font-size:22px;">😂</span><span class="r-duration">4:15</span></div><div class="related-info"><div class="related-title">Hyderabadi comedy Ep 24</div><div class="related-meta">Telugu Talkies • 3.1L views</div></div></div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- FOOTER CTA -->
-  <div class="footer-cta">
-    <h2>India ka apna YouTube aa raha hai! 🇮🇳</h2>
-    <p>Sign up karo aur launch ke pehle day special benefits pao!</p>
-    <button onclick="showModal('signup')">Join Free — Sign Up Now! 🚀</button>
-  </div>
-
-  <footer>
-    <span>BharatTube © 2026 — Made with pride in India 🇮🇳</span>
-    <span>📧 bharattubeindia@gmail.com</span>
-  </footer>
-
-</div>
-
-<!-- DASHBOARD PAGE -->
-<div class="page" id="page-dashboard">
-  <div class="dashboard">
-    <div class="user-card">
-      <h3>Welcome back! 👋</h3>
-      <p id="user-email-display">Loading...</p>
+    <!-- UPLOAD PAGE -->
+    <div class="page" id="page-upload">
+      <div class="upload-page">
+        <div class="section-title">Upload Video ⬆️</div>
+        <p style="color:#666; font-size:14px; margin-bottom:20px;">Share your content with 140 crore Indians!</p>
+        <div class="upload-area" onclick="alert('Video upload coming soon! 🎬\nHum isko jald add karenge!')">
+          <div class="upload-icon">🎬</div>
+          <div class="upload-title">Drag & Drop your video here</div>
+          <div class="upload-sub">MP4, AVI, MOV — Max 2GB</div>
+          <div class="coming-soon-tag"><div class="cs-dot"></div> Coming Soon!</div>
+        </div>
+        <div class="upload-form">
+          <div class="form-group">
+            <label class="form-label">Video Title *</label>
+            <input class="form-input" type="text" placeholder="Apne video ka title likho..." />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea class="form-input" rows="3" placeholder="Video ke baare mein batao..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Language *</label>
+            <select class="form-select">
+              <option>Hindi</option><option>Tamil</option><option>Telugu</option>
+              <option>Marathi</option><option>Bengali</option><option>Gujarati</option>
+              <option>Kannada</option><option>Malayalam</option><option>Punjabi</option>
+              <option>Odia</option><option>English</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category *</label>
+            <select class="form-select">
+              <option>Education</option><option>Farming</option><option>Cooking</option>
+              <option>Comedy</option><option>Music</option><option>Dance</option>
+              <option>Technology</option><option>Health</option><option>Sports</option>
+              <option>News</option>
+            </select>
+          </div>
+          <button class="upload-btn" onclick="alert('Video upload coming soon! 🚀\nBharatTube pe creators ka swagat hai! 🇮🇳')">
+            Upload Video 🚀
+          </button>
+        </div>
+      </div>
     </div>
-    <h2>My Dashboard 📊</h2>
-    <div class="dashboard-grid">
-      <div class="dash-card"><div class="icon">👁️</div><h4>0</h4><p>Total Views</p></div>
-      <div class="dash-card"><div class="icon">💰</div><h4>₹0</h4><p>Total Earnings</p></div>
-      <div class="dash-card"><div class="icon">🎬</div><h4>0</h4><p>Videos Uploaded</p></div>
+
+    <!-- PROFILE PAGE -->
+    <div class="page" id="page-profile">
+      <div class="dashboard">
+        <div class="section-title" style="margin-bottom:20px;">My Profile 👤</div>
+        <div style="background:#fff; border-radius:16px; padding:24px; border:1px solid #eee;">
+          <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px;">
+            <div style="width:72px;height:72px;border-radius:50%;background:#FF6600;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;" id="profile-av">U</div>
+            <div>
+              <div style="font-size:18px;font-weight:700;" id="profile-name">User</div>
+              <div style="font-size:14px;color:#888;" id="profile-email">user@email.com</div>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">Display Name</label><input class="form-input" id="p-name" placeholder="Your name" /></div>
+          <div class="form-group"><label class="form-label">Bio</label><textarea class="form-input" rows="3" placeholder="Apne baare mein batao..."></textarea></div>
+          <div class="form-group"><label class="form-label">Channel Language</label><select class="form-select"><option>Hindi</option><option>Tamil</option><option>Telugu</option><option>Marathi</option><option>English</option></select></div>
+          <button class="upload-btn" onclick="alert('Profile saved! ✅')">Save Profile</button>
+        </div>
+      </div>
     </div>
-    <p style="margin-top:24px; color:#888; font-size:14px;">🚀 Video upload feature coming soon! Stay tuned.</p>
-    <button class="logout-btn" onclick="handleLogout()">Logout 👋</button>
+
+    <!-- EARNINGS PAGE -->
+    <div class="page" id="page-earnings">
+      <div class="dashboard">
+        <div class="section-title" style="margin-bottom:20px;">My Earnings 💰</div>
+        <div style="background:#0a0a0a;border-radius:16px;padding:32px;text-align:center;color:#fff;margin-bottom:20px;">
+          <div style="font-size:48px;margin-bottom:8px;">💰</div>
+          <div style="font-size:18px;font-weight:700;margin-bottom:8px;">Monetization Coming Soon!</div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.6);">Jab BharatTube launch hoga tab earning shuru hogi!</div>
+          <div style="margin-top:16px;display:inline-flex;align-items:center;gap:8px;background:rgba(255,102,0,0.2);border:1px solid rgba(255,102,0,0.4);border-radius:20px;padding:8px 20px;">
+            <div class="cs-dot"></div>
+            <span style="color:#FF6600;font-weight:600;font-size:13px;">Coming Soon 🚀</span>
+          </div>
+        </div>
+        <div class="dash-grid">
+          <div class="dash-card"><div class="icon">👁️</div><h4>0</h4><p>Total Views</p></div>
+          <div class="dash-card"><div class="icon">💰</div><h4>₹0</h4><p>Total Earnings</p></div>
+          <div class="dash-card"><div class="icon">📈</div><h4>0%</h4><p>Growth</p></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -317,16 +555,13 @@
     <button class="modal-close" onclick="closeModal('login')">✕</button>
     <h2>Welcome back! 👋</h2>
     <p>Login to your BharatTube account</p>
-    <div class="error-msg" id="login-error"></div>
-    <button class="modal-google" onclick="handleGoogleLogin()">
-      <img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google">
-      Continue with Google
-    </button>
-    <div class="modal-divider">or</div>
-    <input type="email" id="login-email" placeholder="Email address" />
-    <input type="password" id="login-password" placeholder="Password" />
+    <div class="err" id="login-err"></div>
+    <button class="modal-google" onclick="handleGoogleLogin()"><img src="https://www.google.com/favicon.ico" width="16">Continue with Google</button>
+    <div class="modal-divider">— or —</div>
+    <input type="email" id="l-email" placeholder="Email address" />
+    <input type="password" id="l-pass" placeholder="Password" />
     <button class="modal-btn" onclick="handleEmailLogin()">Login →</button>
-    <div class="modal-switch">Don't have account? <span onclick="switchModal('login','signup')">Sign Up Free</span></div>
+    <div class="modal-switch">No account? <span onclick="switchModal('login','signup')">Sign Up Free</span></div>
   </div>
 </div>
 
@@ -335,52 +570,42 @@
   <div class="modal">
     <button class="modal-close" onclick="closeModal('signup')">✕</button>
     <h2>Join BharatTube! 🚀</h2>
-    <p>Create your free account today</p>
-    <div class="error-msg" id="signup-error"></div>
-    <div class="success-msg" id="signup-success"></div>
-    <button class="modal-google" onclick="handleGoogleLogin()">
-      <img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google">
-      Continue with Google
-    </button>
-    <div class="modal-divider">or</div>
-    <input type="text" id="signup-name" placeholder="Your full name" />
-    <input type="email" id="signup-email" placeholder="Email address" />
-    <input type="password" id="signup-password" placeholder="Password (min 6 characters)" />
+    <p>Create your free account</p>
+    <div class="err" id="signup-err"></div>
+    <button class="modal-google" onclick="handleGoogleLogin()"><img src="https://www.google.com/favicon.ico" width="16">Continue with Google</button>
+    <div class="modal-divider">— or —</div>
+    <input type="text" id="s-name" placeholder="Your full name" />
+    <input type="email" id="s-email" placeholder="Email address" />
+    <input type="password" id="s-pass" placeholder="Password (min 6 chars)" />
     <button class="modal-btn" onclick="handleEmailSignup()">Create Account →</button>
     <div class="modal-switch">Already have account? <span onclick="switchModal('signup','login')">Login</span></div>
   </div>
 </div>
 
-<!-- FIREBASE SDK -->
+<!-- FIREBASE -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
   import { getFirestore, doc, setDoc, getDoc, collection, addDoc, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-analytics.js";
 
-  const firebaseConfig = {
+  const app = initializeApp({
     apiKey: "AIzaSyDOs34nOAIoMUylb4lq3bypDqqeamKwSEQ",
     authDomain: "bharattube-website.firebaseapp.com",
     projectId: "bharattube-website",
     storageBucket: "bharattube-website.firebasestorage.app",
     messagingSenderId: "38784993681",
-    appId: "1:38784993681:web:c5fa4986f0ca8a9a29f230",
-    measurementId: "G-TL4JS35HQR"
-  };
+    appId: "1:38784993681:web:c5fa4986f0ca8a9a29f230"
+  });
 
-  const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
-  const analytics = getAnalytics(app);
-  const googleProvider = new GoogleAuthProvider();
+  const gProvider = new GoogleAuthProvider();
 
-  // Load real signup count
+  // Load count
   async function loadCount() {
     try {
-      const countDoc = await getDoc(doc(db, 'stats', 'waitlist'));
-      if (countDoc.exists()) {
-        document.getElementById('signup-count').textContent = countDoc.data().count.toLocaleString('en-IN');
-      }
+      const d = await getDoc(doc(db, 'stats', 'waitlist'));
+      if (d.exists()) document.getElementById('signup-count').textContent = d.data().count.toLocaleString('en-IN');
     } catch(e) {}
   }
   loadCount();
@@ -388,158 +613,173 @@
   // Auth state
   onAuthStateChanged(auth, (user) => {
     if (user) {
+      const name = user.displayName || user.email.split('@')[0];
+      const initial = name.charAt(0).toUpperCase();
+      // Show sidebar
+      document.getElementById('sidebar').classList.remove('hidden');
       document.getElementById('nav-auth').style.display = 'none';
       document.getElementById('nav-user').style.display = 'block';
-      document.getElementById('user-email-display').textContent = user.email || user.displayName;
+      // Update sidebar info
+      document.getElementById('sidebar-av').textContent = initial;
+      document.getElementById('sidebar-name').textContent = name;
+      document.getElementById('sidebar-email').textContent = user.email;
+      // Update dashboard
+      document.getElementById('dash-email').textContent = user.email;
+      // Update profile
+      document.getElementById('profile-av').textContent = initial;
+      document.getElementById('profile-name').textContent = name;
+      document.getElementById('profile-email').textContent = user.email;
+      document.getElementById('p-name').value = name;
+      // Update comment av
+      document.getElementById('c-av') && (document.getElementById('c-av').textContent = initial);
     } else {
+      document.getElementById('sidebar').classList.add('hidden');
       document.getElementById('nav-auth').style.display = 'flex';
       document.getElementById('nav-user').style.display = 'none';
     }
   });
 
-  // Google Login
-  window.handleGoogleLogin = async function() {
+  window.handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      await saveUser(result.user);
+      const r = await signInWithPopup(auth, gProvider);
+      await saveUser(r.user);
       closeModal('login'); closeModal('signup');
       showPage('dashboard');
-    } catch(e) {
-      showError('login-error', e.message);
-      showError('signup-error', e.message);
-    }
-  }
+    } catch(e) { showErr('login-err', e.message); showErr('signup-err', e.message); }
+  };
 
-  // Email Signup
-  window.handleEmailSignup = async function() {
-    const name = document.getElementById('signup-name').value;
-    const email = document.getElementById('signup-email').value;
-    const password = document.getElementById('signup-password').value;
-    if (!name || !email || !password) { showError('signup-error', 'Sab fields bharo!'); return; }
-    if (password.length < 6) { showError('signup-error', 'Password minimum 6 characters!'); return; }
+  window.handleEmailSignup = async () => {
+    const name = document.getElementById('s-name').value;
+    const email = document.getElementById('s-email').value;
+    const pass = document.getElementById('s-pass').value;
+    if (!name||!email||!pass) { showErr('signup-err','Sab fields bharo!'); return; }
+    if (pass.length < 6) { showErr('signup-err','Password min 6 characters!'); return; }
     try {
-      const result = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(result.user, { displayName: name });
-      await saveUser(result.user, name);
+      const r = await createUserWithEmailAndPassword(auth, email, pass);
+      await updateProfile(r.user, { displayName: name });
+      await saveUser(r.user, name);
       closeModal('signup');
       showPage('dashboard');
     } catch(e) {
-      let msg = e.message;
-      if (e.code === 'auth/email-already-in-use') msg = 'Yeh email pehle se registered hai!';
-      showError('signup-error', msg);
+      showErr('signup-err', e.code==='auth/email-already-in-use' ? 'Email pehle se registered hai!' : e.message);
     }
-  }
+  };
 
-  // Email Login
-  window.handleEmailLogin = async function() {
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-    if (!email || !password) { showError('login-error', 'Email aur password dalo!'); return; }
+  window.handleEmailLogin = async () => {
+    const email = document.getElementById('l-email').value;
+    const pass = document.getElementById('l-pass').value;
+    if (!email||!pass) { showErr('login-err','Email aur password dalo!'); return; }
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, pass);
       closeModal('login');
       showPage('dashboard');
-    } catch(e) {
-      let msg = 'Email ya password galat hai!';
-      showError('login-error', msg);
-    }
-  }
+    } catch(e) { showErr('login-err','Email ya password galat hai!'); }
+  };
 
-  // Save user to Firestore
+  window.handleLogout = async () => {
+    await signOut(auth);
+    showPage('home');
+  };
+
   async function saveUser(user, name) {
     try {
-      const userRef = doc(db, 'users', user.uid);
-      const userDoc = await getDoc(userRef);
-      if (!userDoc.exists()) {
-        await setDoc(userRef, {
-          name: name || user.displayName || '',
-          email: user.email,
-          createdAt: serverTimestamp(),
-          role: 'user'
-        });
-        // Increment count
-        await runTransaction(db, async (transaction) => {
-          const countRef = doc(db, 'stats', 'waitlist');
-          const countDoc = await transaction.get(countRef);
-          if (!countDoc.exists()) {
-            transaction.set(countRef, { count: 1 });
-          } else {
-            transaction.update(countRef, { count: countDoc.data().count + 1 });
-          }
+      const ref = doc(db, 'users', user.uid);
+      const d = await getDoc(ref);
+      if (!d.exists()) {
+        await setDoc(ref, { name: name||user.displayName||'', email: user.email, createdAt: serverTimestamp() });
+        await runTransaction(db, async (t) => {
+          const cr = doc(db, 'stats', 'waitlist');
+          const cd = await t.get(cr);
+          t[cd.exists() ? 'update' : 'set'](cr, cd.exists() ? { count: cd.data().count + 1 } : { count: 1 });
         });
         loadCount();
       }
-    } catch(e) { console.log(e); }
+    } catch(e) {}
   }
 
-  // Waitlist signup
-  window.handleWaitlist = async function() {
+  window.handleWaitlist = async () => {
     const email = document.getElementById('waitlist-email').value;
     if (!email) { document.getElementById('waitlist-email').focus(); return; }
     try {
-      await addDoc(collection(db, 'waitlist'), {
-        email: email,
-        joinedAt: serverTimestamp()
-      });
-      await runTransaction(db, async (transaction) => {
-        const countRef = doc(db, 'stats', 'waitlist');
-        const countDoc = await transaction.get(countRef);
-        if (!countDoc.exists()) {
-          transaction.set(countRef, { count: 1 });
-        } else {
-          transaction.update(countRef, { count: countDoc.data().count + 1 });
-        }
+      await addDoc(collection(db, 'waitlist'), { email, joinedAt: serverTimestamp() });
+      await runTransaction(db, async (t) => {
+        const cr = doc(db, 'stats', 'waitlist');
+        const cd = await t.get(cr);
+        t[cd.exists() ? 'update' : 'set'](cr, cd.exists() ? { count: cd.data().count + 1 } : { count: 1 });
       });
       loadCount();
       document.getElementById('waitlist-email').value = '';
       document.getElementById('waitlist-email').placeholder = '✅ You are on the waitlist!';
       setTimeout(() => { document.getElementById('waitlist-email').placeholder = 'Enter your email'; }, 4000);
-      alert('🎉 Welcome to BharatTube waitlist!\nJai Hind! 🇮🇳');
-    } catch(e) {
-      alert('Error! Please try again.');
-    }
-  }
+      alert('🎉 BharatTube waitlist mein aa gaye!\nJai Hind! 🇮🇳');
+    } catch(e) { alert('Error! Try again.'); }
+  };
 
-  // Logout
-  window.handleLogout = async function() {
-    await signOut(auth);
-    showPage('home');
-  }
-
-  function showError(id, msg) {
+  function showErr(id, msg) {
     const el = document.getElementById(id);
-    el.textContent = msg;
-    el.style.display = 'block';
-    setTimeout(() => { el.style.display = 'none'; }, 4000);
+    el.textContent = msg; el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 4000);
   }
 </script>
 
 <script>
+  let liked = false, subscribed = false, likeCount = 4821, cCount = 48;
+  let sidebarOpen = false;
+
+  function toggleSidebar() {
+    sidebarOpen = !sidebarOpen;
+    document.getElementById('sidebar').classList.toggle('open', sidebarOpen);
+  }
+
   function showPage(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + page).classList.add('active');
+    // Update sidebar active
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    const navEl = document.getElementById('nav-' + page);
+    if (navEl) navEl.classList.add('active');
     window.scrollTo(0, 0);
+    if (sidebarOpen) { sidebarOpen = false; document.getElementById('sidebar').classList.remove('open'); }
   }
 
-  function showModal(type) {
-    document.getElementById(type + '-modal').classList.add('show');
-  }
+  function showModal(type) { document.getElementById(type + '-modal').classList.add('show'); }
+  function closeModal(type) { document.getElementById(type + '-modal').classList.remove('show'); }
+  function switchModal(f, t) { closeModal(f); showModal(t); }
 
-  function closeModal(type) {
-    document.getElementById(type + '-modal').classList.remove('show');
-  }
-
-  function switchModal(from, to) {
-    closeModal(from);
-    showModal(to);
-  }
-
-  // Close modal on overlay click
-  document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', function(e) {
-      if (e.target === this) this.classList.remove('show');
-    });
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
   });
+
+  function handleLike() {
+    liked = !liked;
+    const btn = document.getElementById('like-btn');
+    liked ? (likeCount++, btn.classList.add('active')) : (likeCount--, btn.classList.remove('active'));
+    document.getElementById('like-count').textContent = likeCount.toLocaleString('en-IN');
+  }
+
+  function handleShare() {
+    navigator.clipboard?.writeText(window.location.href);
+    alert('Link copied! Share karo! 🔗');
+  }
+
+  function handleSub() {
+    subscribed = !subscribed;
+    const btn = document.getElementById('sub-btn');
+    btn.textContent = subscribed ? 'Subscribed ✅' : 'Subscribe';
+    btn.classList.toggle('done', subscribed);
+  }
+
+  function addComment() {
+    const text = document.getElementById('c-input').value;
+    if (!text.trim()) return;
+    cCount++;
+    document.getElementById('c-count').textContent = cCount;
+    const div = document.createElement('div');
+    div.className = 'comment-item';
+    div.innerHTML = `<div class="c-av" style="background:#FF6600;">U</div><div class="comment-body"><div class="comment-author">You</div><div class="comment-text">${text}</div><div class="comment-time">Just now • 👍 0</div></div>`;
+    document.getElementById('c-list').prepend(div);
+    document.getElementById('c-input').value = '';
+  }
 </script>
 </body>
 </html>
