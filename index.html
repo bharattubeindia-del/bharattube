@@ -279,11 +279,26 @@
 
     <div class="sidebar-section">
       <div class="sidebar-label">Account</div>
+      <div class="sidebar-item" onclick="showPage('creator-studio')" id="nav-creator-studio">
+        <span class="icon">🎬</span> Creator Studio
+      </div>
       <div class="sidebar-item" onclick="alert('Settings coming soon!')">
         <span class="icon">⚙️</span> Settings
       </div>
       <div class="sidebar-item" onclick="handleLogout()" style="color:#cc0000;">
         <span class="icon">🚪</span> Logout
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- SUBSCRIPTIONS -->
+    <div class="sidebar-section" id="subscriptions-section">
+      <div class="sidebar-label">Subscriptions</div>
+      <div id="subscriptions-list">
+        <div class="sidebar-item" style="color:#999; font-size:12px; padding:8px 20px;">
+          Subscribe to channels to see them here!
+        </div>
       </div>
     </div>
   </div>
@@ -596,7 +611,257 @@
       </div>
     </div>
 
-    <!-- UPLOAD PAGE -->
+    <!-- CREATOR STUDIO PAGE -->
+    <div class="page" id="page-creator-studio">
+      <div style="background:#0a0a0a; min-height:100vh; color:#fff; padding:0;">
+
+        <!-- Creator Studio Nav -->
+        <div style="background:#111; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #222;">
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div style="font-size:18px; font-weight:800; color:#FF6600;">BharatTube</div>
+            <div style="font-size:13px; color:#888;">Creator Studio</div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button onclick="showPage('upload')" style="padding:8px 16px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; cursor:pointer; font-weight:600;">+ Upload Video</button>
+            <button onclick="showPage('home')" style="padding:8px 16px; background:#222; color:#fff; border:none; border-radius:8px; font-size:13px; cursor:pointer;">← Back to BharatTube</button>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:220px 1fr; min-height:calc(100vh - 56px);">
+
+          <!-- Creator Studio Sidebar -->
+          <div style="background:#111; border-right:1px solid #222; padding:16px 0;">
+            <div style="padding:16px 20px; border-bottom:1px solid #222; margin-bottom:8px;">
+              <div style="width:48px; height:48px; border-radius:50%; background:#FF6600; color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; margin-bottom:8px;" id="cs-av">K</div>
+              <div style="font-size:14px; font-weight:700;" id="cs-name">Creator</div>
+              <div style="font-size:11px; color:#888; margin-top:2px;">Your Channel</div>
+            </div>
+            <div onclick="showCSTab('dashboard')" id="cs-nav-dashboard" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#FF6600; background:rgba(255,102,0,0.1); font-size:13px; font-weight:600;">
+              <span>📊</span> Dashboard
+            </div>
+            <div onclick="showCSTab('content')" id="cs-nav-content" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
+              <span>🎬</span> Content
+            </div>
+            <div onclick="showCSTab('analytics')" id="cs-nav-analytics" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
+              <span>📈</span> Analytics
+            </div>
+            <div onclick="showCSTab('earnings')" id="cs-nav-earnings" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
+              <span>💰</span> Earnings
+            </div>
+            <div onclick="showCSTab('customize')" id="cs-nav-customize" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
+              <span>🎨</span> Customize Channel
+            </div>
+            <div onclick="showCSTab('community')" id="cs-nav-community" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
+              <span>👥</span> Community
+            </div>
+          </div>
+
+          <!-- Creator Studio Content -->
+          <div style="padding:24px; overflow-y:auto;">
+
+            <!-- DASHBOARD TAB -->
+            <div id="cs-tab-dashboard">
+              <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Channel Dashboard 📊</h2>
+
+              <!-- Stats -->
+              <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px;">
+                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:18px; text-align:center;">
+                  <div style="font-size:28px; font-weight:800; color:#FF6600;">0</div>
+                  <div style="font-size:12px; color:#888; margin-top:4px;">Total Views</div>
+                  <div style="font-size:11px; color:#444; margin-top:2px;">Last 28 days</div>
+                </div>
+                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:18px; text-align:center;">
+                  <div style="font-size:28px; font-weight:800; color:#FF6600;">0</div>
+                  <div style="font-size:12px; color:#888; margin-top:4px;">Subscribers</div>
+                  <div style="font-size:11px; color:#444; margin-top:2px;">Total</div>
+                </div>
+                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:18px; text-align:center;">
+                  <div style="font-size:28px; font-weight:800; color:#FF6600;">₹0</div>
+                  <div style="font-size:12px; color:#888; margin-top:4px;">Earnings</div>
+                  <div style="font-size:11px; color:#444; margin-top:2px;">This month</div>
+                </div>
+                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:18px; text-align:center;">
+                  <div style="font-size:28px; font-weight:800; color:#FF6600;">0</div>
+                  <div style="font-size:12px; color:#888; margin-top:4px;">Videos</div>
+                  <div style="font-size:11px; color:#444; margin-top:2px;">Published</div>
+                </div>
+              </div>
+
+              <!-- Monetization Status -->
+              <div style="background:#1a1a1a; border:1px solid #FF6600; border-radius:12px; padding:20px; margin-bottom:20px;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                  <span style="font-size:24px;">💰</span>
+                  <div>
+                    <div style="font-size:15px; font-weight:700;">Monetization Status</div>
+                    <div style="font-size:12px; color:#888;">Your earning level</div>
+                  </div>
+                  <div style="margin-left:auto; background:rgba(255,102,0,0.2); color:#FF6600; font-size:12px; padding:4px 12px; border-radius:20px; font-weight:600;">⭐ Starter Level</div>
+                </div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                  <div style="background:#222; border-radius:8px; padding:10px 14px; font-size:12px;">
+                    <span style="color:#FF6600;">✓</span> Account created
+                  </div>
+                  <div style="background:#222; border-radius:8px; padding:10px 14px; font-size:12px; color:#666;">
+                    <span>○</span> 10 subscribers needed
+                  </div>
+                  <div style="background:#222; border-radius:8px; padding:10px 14px; font-size:12px; color:#666;">
+                    <span>○</span> 3 videos needed
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Actions -->
+              <h3 style="font-size:16px; font-weight:700; margin-bottom:14px;">Quick Actions</h3>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div onclick="showPage('upload')" style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:border-color 0.2s;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor='#222'">
+                  <span style="font-size:28px;">⬆️</span>
+                  <div><div style="font-size:14px; font-weight:600;">Upload Video</div><div style="font-size:12px; color:#666;">Share with India!</div></div>
+                </div>
+                <div onclick="showCSTab('customize')" style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor='#222'">
+                  <span style="font-size:28px;">🎨</span>
+                  <div><div style="font-size:14px; font-weight:600;">Customize Channel</div><div style="font-size:12px; color:#666;">Make it yours!</div></div>
+                </div>
+                <div onclick="showCSTab('analytics')" style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor='#222'">
+                  <span style="font-size:28px;">📈</span>
+                  <div><div style="font-size:14px; font-weight:600;">View Analytics</div><div style="font-size:12px; color:#666;">Track growth!</div></div>
+                </div>
+                <div onclick="showCSTab('earnings')" style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor='#222'">
+                  <span style="font-size:28px;">💸</span>
+                  <div><div style="font-size:14px; font-weight:600;">My Earnings</div><div style="font-size:12px; color:#666;">View revenue!</div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CONTENT TAB -->
+            <div id="cs-tab-content" style="display:none;">
+              <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Your Content 🎬</h2>
+              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:48px; text-align:center;">
+                <div style="font-size:48px; margin-bottom:12px;">🎬</div>
+                <div style="font-size:16px; font-weight:700; margin-bottom:8px;">No videos yet!</div>
+                <div style="font-size:13px; color:#888; margin-bottom:20px;">Upload your first video and start your journey!</div>
+                <button onclick="showPage('upload')" style="padding:12px 28px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer;">Upload First Video 🚀</button>
+              </div>
+            </div>
+
+            <!-- ANALYTICS TAB -->
+            <div id="cs-tab-analytics" style="display:none;">
+              <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Analytics 📈</h2>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px;">
+                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px;">
+                  <div style="font-size:13px; color:#888; margin-bottom:8px;">Views (Last 28 days)</div>
+                  <div style="font-size:32px; font-weight:800; color:#FF6600;">0</div>
+                  <div style="font-size:12px; color:#444; margin-top:4px;">Upload videos to see data</div>
+                </div>
+                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px;">
+                  <div style="font-size:13px; color:#888; margin-bottom:8px;">Watch Time (Hours)</div>
+                  <div style="font-size:32px; font-weight:800; color:#FF6600;">0</div>
+                  <div style="font-size:12px; color:#444; margin-top:4px;">Upload videos to see data</div>
+                </div>
+                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px;">
+                  <div style="font-size:13px; color:#888; margin-bottom:8px;">New Subscribers</div>
+                  <div style="font-size:32px; font-weight:800; color:#FF6600;">0</div>
+                  <div style="font-size:12px; color:#444; margin-top:4px;">Last 28 days</div>
+                </div>
+                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px;">
+                  <div style="font-size:13px; color:#888; margin-bottom:8px;">Impressions</div>
+                  <div style="font-size:32px; font-weight:800; color:#FF6600;">0</div>
+                  <div style="font-size:12px; color:#444; margin-top:4px;">Last 28 days</div>
+                </div>
+              </div>
+              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:24px; text-align:center;">
+                <div style="font-size:13px; color:#666;">Upload videos to unlock detailed analytics! 📊</div>
+              </div>
+            </div>
+
+            <!-- EARNINGS TAB -->
+            <div id="cs-tab-earnings" style="display:none;">
+              <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Earnings 💰</h2>
+              <div style="background:linear-gradient(135deg,#FF6600,#ff9900); border-radius:12px; padding:24px; margin-bottom:20px;">
+                <div style="font-size:13px; opacity:0.85; margin-bottom:4px;">Total Earned</div>
+                <div style="font-size:40px; font-weight:800;">₹0.00</div>
+                <div style="font-size:12px; opacity:0.75; margin-top:4px;">UPI withdrawal available after ₹1</div>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:20px;">
+                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; text-align:center;">
+                  <div style="font-size:13px; color:#888;">Ad Revenue</div>
+                  <div style="font-size:22px; font-weight:800; color:#FF6600; margin-top:4px;">₹0</div>
+                </div>
+                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; text-align:center;">
+                  <div style="font-size:13px; color:#888;">Live Gifts</div>
+                  <div style="font-size:22px; font-weight:800; color:#FF6600; margin-top:4px;">₹0</div>
+                </div>
+                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; text-align:center;">
+                  <div style="font-size:13px; color:#888;">Brand Deals</div>
+                  <div style="font-size:22px; font-weight:800; color:#FF6600; margin-top:4px;">₹0</div>
+                </div>
+              </div>
+              <div style="background:#1a1a1a; border:1px solid rgba(255,102,0,0.3); border-radius:12px; padding:20px; display:flex; align-items:center; gap:14px;">
+                <span style="font-size:32px;">⚡</span>
+                <div>
+                  <div style="font-size:14px; font-weight:700; margin-bottom:4px;">UPI Instant Payment</div>
+                  <div style="font-size:12px; color:#888;">Minimum withdrawal ₹1 • Weekly payments • Direct to your UPI</div>
+                </div>
+                <button style="margin-left:auto; padding:10px 20px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;" onclick="alert('UPI payment coming soon! 🚀')">Withdraw ₹0</button>
+              </div>
+            </div>
+
+            <!-- CUSTOMIZE TAB -->
+            <div id="cs-tab-customize" style="display:none;">
+              <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Customize Channel 🎨</h2>
+
+              <!-- Channel Banner -->
+              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px; margin-bottom:16px;">
+                <div style="font-size:14px; font-weight:700; margin-bottom:12px;">Channel Banner</div>
+                <div style="height:120px; background:linear-gradient(135deg,#FF6600,#ff9900); border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; margin-bottom:10px;" onclick="alert('Banner upload coming soon!')">
+                  <div style="text-align:center; color:#fff;">
+                    <div style="font-size:24px;">🖼️</div>
+                    <div style="font-size:12px; margin-top:4px;">Click to upload banner</div>
+                  </div>
+                </div>
+                <div style="font-size:12px; color:#666;">Recommended: 2560 x 1440px</div>
+              </div>
+
+              <!-- Channel Info -->
+              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px; margin-bottom:16px;">
+                <div style="font-size:14px; font-weight:700; margin-bottom:14px;">Channel Info</div>
+                <div style="margin-bottom:12px;">
+                  <label style="font-size:12px; color:#888; display:block; margin-bottom:4px;">Channel Name</label>
+                  <input id="cs-channel-name" style="width:100%; padding:10px 14px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none;" placeholder="Your channel name..." />
+                </div>
+                <div style="margin-bottom:12px;">
+                  <label style="font-size:12px; color:#888; display:block; margin-bottom:4px;">Channel Description</label>
+                  <textarea style="width:100%; padding:10px 14px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none; resize:vertical;" rows="3" placeholder="Apne channel ke baare mein batao..."></textarea>
+                </div>
+                <div style="margin-bottom:14px;">
+                  <label style="font-size:12px; color:#888; display:block; margin-bottom:4px;">Primary Language</label>
+                  <select style="width:100%; padding:10px 14px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none;">
+                    <option>Hindi</option><option>Tamil</option><option>Telugu</option>
+                    <option>Marathi</option><option>Bengali</option><option>English</option>
+                  </select>
+                </div>
+                <button onclick="alert('Channel saved! ✅')" style="padding:10px 24px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">Save Changes ✅</button>
+              </div>
+            </div>
+
+            <!-- COMMUNITY TAB -->
+            <div id="cs-tab-community" style="display:none;">
+              <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Community 👥</h2>
+              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px; margin-bottom:16px;">
+                <div style="font-size:14px; font-weight:700; margin-bottom:12px;">Post an Update</div>
+                <textarea style="width:100%; padding:12px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none; resize:vertical;" rows="3" placeholder="Share something with your subscribers..."></textarea>
+                <button onclick="alert('Community posts coming soon! 🚀')" style="margin-top:10px; padding:10px 20px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">Post Update</button>
+              </div>
+              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:32px; text-align:center;">
+                <div style="font-size:32px; margin-bottom:8px;">👥</div>
+                <div style="font-size:14px; font-weight:700; margin-bottom:6px;">0 Subscribers</div>
+                <div style="font-size:12px; color:#888;">Upload videos to grow your community!</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="page" id="page-upload">
       <div class="upload-page">
         <div class="section-title">Upload Video ⬆️</div>
@@ -867,6 +1132,65 @@
 <script>
   let liked = false, subscribed = false, likeCount = 4821, cCount = 48;
   let sidebarOpen = false;
+
+  // Creator Studio tabs
+  window.showCSTab = function(tab) {
+    ['dashboard','content','analytics','earnings','customize','community'].forEach(t => {
+      document.getElementById('cs-tab-' + t).style.display = 'none';
+      document.getElementById('cs-nav-' + t).style.color = '#888';
+      document.getElementById('cs-nav-' + t).style.background = 'transparent';
+    });
+    document.getElementById('cs-tab-' + tab).style.display = 'block';
+    document.getElementById('cs-nav-' + tab).style.color = '#FF6600';
+    document.getElementById('cs-nav-' + tab).style.background = 'rgba(255,102,0,0.1)';
+  }
+
+  // Subscribe button updates sidebar
+  let subscribedChannels = JSON.parse(localStorage.getItem('bt_subs') || '[]');
+
+  window.handleSub = function() {
+    const btn = document.getElementById('sub-btn');
+    const channel = { name: 'Ramesh Khetiwala', icon: '🌾', color: '#FF6600' };
+    const idx = subscribedChannels.findIndex(c => c.name === channel.name);
+    if (idx === -1) {
+      subscribedChannels.push(channel);
+      btn.textContent = 'Subscribed ✅';
+      btn.classList.add('done');
+    } else {
+      subscribedChannels.splice(idx, 1);
+      btn.textContent = 'Subscribe';
+      btn.classList.remove('done');
+    }
+    localStorage.setItem('bt_subs', JSON.stringify(subscribedChannels));
+    updateSubscriptionsSidebar();
+  }
+
+  function updateSubscriptionsSidebar() {
+    const list = document.getElementById('subscriptions-list');
+    if (subscribedChannels.length === 0) {
+      list.innerHTML = '<div class="sidebar-item" style="color:#999; font-size:12px; padding:8px 20px;">Subscribe to channels to see them here!</div>';
+    } else {
+      list.innerHTML = subscribedChannels.map(c => `
+        <div class="sidebar-item" onclick="showPage('watch')" style="gap:8px;">
+          <div style="width:24px; height:24px; border-radius:50%; background:${c.color}; display:flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0;">${c.icon}</div>
+          <span style="font-size:13px;">${c.name}</span>
+        </div>
+      `).join('');
+    }
+  }
+  updateSubscriptionsSidebar();
+
+  // Update creator studio name
+  function updateCSInfo(user) {
+    const name = user.displayName || user.email.split('@')[0];
+    const initial = name.charAt(0).toUpperCase();
+    const csAv = document.getElementById('cs-av');
+    const csName = document.getElementById('cs-name');
+    if (csAv) csAv.textContent = initial;
+    if (csName) csName.textContent = name;
+    const csChannelName = document.getElementById('cs-channel-name');
+    if (csChannelName) csChannelName.placeholder = name + "'s Channel";
+  }
 
   // Category filter
   window.filterCat = function(btn, cat) {
