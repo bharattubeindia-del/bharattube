@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BharatTube — Watch</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f9f9f9; color: #111; }
+
+  /* NAV */
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+  .logo { font-size: 20px; font-weight: 700; color: #FF6600; cursor: pointer; }
+  .logo span { color: #111; }
+  .nav-search { display: flex; gap: 8px; flex: 1; max-width: 500px; margin: 0 24px; }
+  .nav-search input { flex: 1; padding: 8px 14px; border: 1.5px solid #ddd; border-radius: 20px; font-size: 14px; outline: none; }
+  .nav-search input:focus { border-color: #FF6600; }
+  .nav-search button { padding: 8px 16px; background: #FF6600; color: #fff; border: none; border-radius: 20px; cursor: pointer; font-size: 14px; }
+  .nav-right { display: flex; gap: 8px; }
+  .btn-upload { padding: 8px 16px; background: #FF6600; color: #fff; border: none; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: 600; }
+
+  /* LAYOUT */
+  .container { display: grid; grid-template-columns: 1fr 360px; gap: 24px; max-width: 1280px; margin: 24px auto; padding: 0 24px; }
+
+  /* VIDEO PLAYER */
+  .video-player { background: #000; border-radius: 12px; overflow: hidden; position: relative; aspect-ratio: 16/9; }
+  .video-player video { width: 100%; height: 100%; object-fit: contain; }
+  .video-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff; cursor: pointer; }
+  .play-btn { width: 72px; height: 72px; background: rgba(255,102,0,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; transition: transform 0.2s; }
+  .play-btn:hover { transform: scale(1.1); }
+  .play-icon { width: 0; height: 0; border-top: 20px solid transparent; border-bottom: 20px solid transparent; border-left: 36px solid #fff; margin-left: 6px; }
+  .video-placeholder p { font-size: 16px; color: rgba(255,255,255,0.7); }
+
+  /* VIDEO INFO */
+  .video-info { background: #fff; border-radius: 12px; padding: 20px; margin-top: 16px; }
+  .video-title { font-size: 20px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
+  .video-meta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .video-stats { display: flex; gap: 16px; font-size: 14px; color: #666; }
+  .video-actions { display: flex; gap: 8px; }
+  .action-btn { display: flex; align-items: center; gap: 6px; padding: 8px 16px; border: 1.5px solid #eee; border-radius: 20px; font-size: 14px; cursor: pointer; background: #fff; font-weight: 500; transition: all 0.2s; }
+  .action-btn:hover { border-color: #FF6600; color: #FF6600; }
+  .action-btn.liked { background: #fff3e6; border-color: #FF6600; color: #FF6600; }
+  .divider { height: 1px; background: #f0f0f0; margin: 16px 0; }
+
+  /* CREATOR */
+  .creator-row { display: flex; justify-content: space-between; align-items: center; }
+  .creator-info { display: flex; align-items: center; gap: 12px; }
+  .creator-av { width: 44px; height: 44px; border-radius: 50%; background: #FF6600; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; font-weight: 700; }
+  .creator-name { font-size: 15px; font-weight: 600; }
+  .creator-subs { font-size: 13px; color: #666; }
+  .subscribe-btn { padding: 8px 20px; background: #FF6600; color: #fff; border: none; border-radius: 20px; font-size: 14px; cursor: pointer; font-weight: 600; transition: background 0.2s; }
+  .subscribe-btn.subscribed { background: #eee; color: #333; }
+
+  /* DESCRIPTION */
+  .description { background: #f9f9f9; border-radius: 8px; padding: 14px; margin-top: 16px; font-size: 14px; color: #333; line-height: 1.6; }
+  .desc-toggle { color: #FF6600; cursor: pointer; font-weight: 600; font-size: 13px; margin-top: 8px; display: inline-block; }
+
+  /* COMMENTS */
+  .comments { background: #fff; border-radius: 12px; padding: 20px; margin-top: 16px; }
+  .comments h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+  .comment-input-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  .comment-av { width: 36px; height: 36px; border-radius: 50%; background: #FF6600; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 700; }
+  .comment-input { flex: 1; }
+  .comment-input input { width: 100%; padding: 8px 0; border: none; border-bottom: 1.5px solid #ddd; font-size: 14px; outline: none; background: transparent; }
+  .comment-input input:focus { border-bottom-color: #FF6600; }
+  .comment-btns { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+  .comment-cancel { padding: 7px 16px; background: transparent; border: none; border-radius: 20px; cursor: pointer; font-size: 13px; color: #666; }
+  .comment-submit { padding: 7px 16px; background: #FF6600; color: #fff; border: none; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600; }
+  .comment { display: flex; gap: 10px; margin-bottom: 16px; }
+  .comment-body { flex: 1; }
+  .comment-author { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .comment-text { font-size: 14px; color: #333; line-height: 1.5; }
+  .comment-time { font-size: 12px; color: #999; margin-top: 4px; }
+  .comment-like { font-size: 12px; color: #666; cursor: pointer; margin-top: 4px; }
+
+  /* RELATED VIDEOS */
+  .sidebar { }
+  .sidebar h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+  .related-video { display: flex; gap: 10px; margin-bottom: 14px; cursor: pointer; }
+  .related-thumb { width: 168px; height: 94px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .related-thumb .duration { position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 2px 5px; border-radius: 3px; }
+  .related-info { flex: 1; }
+  .related-title { font-size: 13px; font-weight: 600; line-height: 1.4; margin-bottom: 4px; }
+  .related-creator { font-size: 12px; color: #666; }
+  .related-views { font-size: 12px; color: #999; }
+
+  /* LANGUAGE BADGE */
+  .lang-badge { display: inline-block; background: #fff3e6; color: #FF6600; font-size: 11px; padding: 3px 8px; border-radius: 10px; font-weight: 600; margin-left: 8px; }
+
+  @media (max-width: 900px) {
+    .container { grid-template-columns: 1fr; }
+    .nav-search { display: none; }
+    .related-thumb { width: 120px; height: 68px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="window.location='index.html'">Bharat<span>Tube</span></div>
+  <div class="nav-search">
+    <input type="text" placeholder="Search videos in any language..." />
+    <button>🔍</button>
+  </div>
+  <div class="nav-right">
+    <button class="btn-upload" onclick="showUpload()">+ Upload</button>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- LEFT: VIDEO + INFO -->
+  <div>
+
+    <!-- VIDEO PLAYER -->
+    <div class="video-player">
+      <div class="video-placeholder" onclick="playVideo()" id="video-placeholder">
+        <div class="play-btn"><div class="play-icon"></div></div>
+        <p>Click to play video</p>
+      </div>
+      <video id="video-el" controls style="display:none;">
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- VIDEO INFO -->
+    <div class="video-info">
+      <div class="video-title">
+        Khethi Tips — Rabi Season ke liye best practices
+        <span class="lang-badge">Hindi</span>
+      </div>
+      <div class="video-meta">
+        <div class="video-stats">
+          <span id="view-count">👁️ 2,41,847 views</span>
+          <span>📅 2 days ago</span>
+          <span>🌾 Farming</span>
+        </div>
+        <div class="video-actions">
+          <button class="action-btn" id="like-btn" onclick="handleLike()">
+            👍 <span id="like-count">4,821</span>
+          </button>
+          <button class="action-btn" onclick="handleShare()">
+            🔗 Share
+          </button>
+          <button class="action-btn">
+            ⬇️ Save
+          </button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- CREATOR -->
+      <div class="creator-row">
+        <div class="creator-info">
+          <div class="creator-av">RK</div>
+          <div>
+            <div class="creator-name">Ramesh Khetiwala</div>
+            <div class="creator-subs">12,400 subscribers</div>
+          </div>
+        </div>
+        <button class="subscribe-btn" id="sub-btn" onclick="handleSubscribe()">
+          Subscribe
+        </button>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="description" id="desc">
+        <div id="desc-short">Is video mein maine Rabi season ke liye best farming tips share ki hain. Gehun, sarso aur chane ki fasal ke baare mein complete guide hai...</div>
+        <div id="desc-full" style="display:none;">
+          Is video mein maine Rabi season ke liye best farming tips share ki hain. Gehun, sarso aur chane ki fasal ke baare mein complete guide hai. Soil preparation se lekar irrigation tak sab kuch cover kiya hai. Agar aapke koi sawaal hain toh comment mein zaroor poochhe!
+          <br><br>
+          Topics covered:<br>
+          → Soil preparation tips<br>
+          → Best seeds for Rabi season<br>
+          → Irrigation techniques<br>
+          → Pest control<br>
+          → Harvesting tips
+        </div>
+        <span class="desc-toggle" onclick="toggleDesc()">Show more</span>
+      </div>
+    </div>
+
+    <!-- COMMENTS -->
+    <div class="comments">
+      <h3>💬 Comments <span style="color:#999; font-weight:400;">(<span id="comment-count">48</span>)</span></h3>
+
+      <div class="comment-input-row">
+        <div class="comment-av">U</div>
+        <div class="comment-input">
+          <input type="text" id="comment-text" placeholder="Add a comment in any language..." />
+          <div class="comment-btns">
+            <button class="comment-cancel">Cancel</button>
+            <button class="comment-submit" onclick="addComment()">Comment</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="comments-list">
+        <div class="comment">
+          <div class="comment-av" style="background:#1a5fcc;">PS</div>
+          <div class="comment-body">
+            <div class="comment-author">Priya Singh</div>
+            <div class="comment-text">Bahut achha video hai bhaiya! Maine ye tips use kiye aur meri fasal bahut achhi hui! 🌾</div>
+            <div class="comment-time">1 day ago</div>
+            <div class="comment-like">👍 24</div>
+          </div>
+        </div>
+        <div class="comment">
+          <div class="comment-av" style="background:#0a7a3e;">AK</div>
+          <div class="comment-body">
+            <div class="comment-author">Arjun Kumar</div>
+            <div class="comment-text">Ek number video! Hindi mein itni achhi farming tips pehle kabhi nahi mili. BharatTube zindabad! 🇮🇳</div>
+            <div class="comment-time">2 days ago</div>
+            <div class="comment-like">👍 18</div>
+          </div>
+        </div>
+        <div class="comment">
+          <div class="comment-av" style="background:#b5006e;">SM</div>
+          <div class="comment-body">
+            <div class="comment-author">Sunita Meena</div>
+            <div class="comment-text">Ramesh bhai next video mein vegetables ke baare mein bhi batao please! 🙏</div>
+            <div class="comment-time">2 days ago</div>
+            <div class="comment-like">👍 12</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT: RELATED VIDEOS -->
+  <div class="sidebar">
+    <h3>Related Videos</h3>
+
+    <div class="related-video" onclick="alert('Video coming soon! 🎬')">
+      <div class="related-thumb" style="background:linear-gradient(135deg,#FF6600,#ff9900);">
+        <div style="color:#fff; font-size:24px;">🌾</div>
+        <span class="duration">15:24</span>
+      </div>
+      <div class="related-info">
+        <div class="related-title">Gehun ki fasal — Complete guide 2026</div>
+        <div class="related-creator">Ramesh Khetiwala</div>
+        <div class="related-views">1.2L views • Hindi</div>
+      </div>
+    </div>
+
+    <div class="related-video" onclick="alert('Video coming soon! 🎬')">
+      <div class="related-thumb" style="background:linear-gradient(135deg,#1a5fcc,#4a90d9);">
+        <div style="color:#fff; font-size:24px;">🍳</div>
+        <span class="duration">8:45</span>
+      </div>
+      <div class="related-info">
+        <div class="related-title">Dal Makhani recipe — Authentic Punjabi style</div>
+        <div class="related-creator">Priya's Kitchen</div>
+        <div class="related-views">85K views • Hindi</div>
+      </div>
+    </div>
+
+    <div class="related-video" onclick="alert('Video coming soon! 🎬')">
+      <div class="related-thumb" style="background:linear-gradient(135deg,#0a7a3e,#2ecc71);">
+        <div style="color:#fff; font-size:24px;">💻</div>
+        <span class="duration">22:10</span>
+      </div>
+      <div class="related-info">
+        <div class="related-title">Python programming — Hindi mein seekho</div>
+        <div class="related-creator">TechWithArjun</div>
+        <div class="related-views">2.4L views • Hindi</div>
+      </div>
+    </div>
+
+    <div class="related-video" onclick="alert('Video coming soon! 🎬')">
+      <div class="related-thumb" style="background:linear-gradient(135deg,#b5006e,#e91e8c);">
+        <div style="color:#fff; font-size:24px;">💃</div>
+        <span class="duration">5:30</span>
+      </div>
+      <div class="related-info">
+        <div class="related-title">Lavani dance tutorial — Beginners ke liye</div>
+        <div class="related-creator">Nisha Dance Academy</div>
+        <div class="related-views">45K views • Marathi</div>
+      </div>
+    </div>
+
+    <div class="related-video" onclick="alert('Video coming soon! 🎬')">
+      <div class="related-thumb" style="background:linear-gradient(135deg,#6a0dad,#9b59b6);">
+        <div style="color:#fff; font-size:24px;">😂</div>
+        <span class="duration">4:15</span>
+      </div>
+      <div class="related-info">
+        <div class="related-title">Hyderabadi comedy — Ep 24</div>
+        <div class="related-creator">Telugu Talkies</div>
+        <div class="related-views">3.1L views • Telugu</div>
+      </div>
+    </div>
+
+    <div class="related-video" onclick="alert('Video coming soon! 🎬')">
+      <div class="related-thumb" style="background:linear-gradient(135deg,#cc4400,#ff6b35);">
+        <div style="color:#fff; font-size:24px;">🎵</div>
+        <span class="duration">3:45</span>
+      </div>
+      <div class="related-info">
+        <div class="related-title">Tamil folk song — Pongal special</div>
+        <div class="related-creator">Tamil Music Hub</div>
+        <div class="related-views">1.8L views • Tamil</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let liked = false;
+  let subscribed = false;
+  let likeCount = 4821;
+  let commentCount = 48;
+  let descExpanded = false;
+
+  function playVideo() {
+    document.getElementById('video-placeholder').style.display = 'none';
+    const video = document.getElementById('video-el');
+    video.style.display = 'block';
+    alert('🎬 Video player ready!\nReal videos aayenge jab creators upload karenge!\n\nBharatTube coming soon! 🇮🇳');
+  }
+
+  function handleLike() {
+    liked = !liked;
+    const btn = document.getElementById('like-btn');
+    if (liked) {
+      likeCount++;
+      btn.classList.add('liked');
+    } else {
+      likeCount--;
+      btn.classList.remove('liked');
+    }
+    document.getElementById('like-count').textContent = likeCount.toLocaleString('en-IN');
+  }
+
+  function handleShare() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'BharatTube — Khethi Tips',
+        url: window.location.href
+      });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied! Share karo! 🔗');
+    }
+  }
+
+  function handleSubscribe() {
+    subscribed = !subscribed;
+    const btn = document.getElementById('sub-btn');
+    if (subscribed) {
+      btn.textContent = 'Subscribed ✅';
+      btn.classList.add('subscribed');
+    } else {
+      btn.textContent = 'Subscribe';
+      btn.classList.remove('subscribed');
+    }
+  }
+
+  function toggleDesc() {
+    descExpanded = !descExpanded;
+    document.getElementById('desc-short').style.display = descExpanded ? 'none' : 'block';
+    document.getElementById('desc-full').style.display = descExpanded ? 'block' : 'none';
+    document.querySelector('.desc-toggle').textContent = descExpanded ? 'Show less' : 'Show more';
+  }
+
+  function addComment() {
+    const text = document.getElementById('comment-text').value;
+    if (!text.trim()) return;
+    commentCount++;
+    document.getElementById('comment-count').textContent = commentCount;
+    const div = document.createElement('div');
+    div.className = 'comment';
+    div.innerHTML = `
+      <div class="comment-av" style="background:#FF6600;">U</div>
+      <div class="comment-body">
+        <div class="comment-author">You</div>
+        <div class="comment-text">${text}</div>
+        <div class="comment-time">Just now</div>
+        <div class="comment-like">👍 0</div>
+      </div>
+    `;
+    document.getElementById('comments-list').prepend(div);
+    document.getElementById('comment-text').value = '';
+  }
+
+  function showUpload() {
+    alert('🎬 Video upload feature coming soon!\nBharatTube pe creators ka swagat hai! 🇮🇳');
+  }
+</script>
+</body>
+</html>
