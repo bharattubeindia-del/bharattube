@@ -225,8 +225,8 @@
     <div class="logo" onclick="showPage('home')">Bharat<span>Tube</span></div>
   </div>
   <div class="nav-center">
-    <input type="text" placeholder="Search videos in any language..." />
-    <button>🔍</button>
+    <input type="text" id="search-input" placeholder="Search videos in any language..." onkeyup="handleSearch()" onkeypress="if(event.key==='Enter') handleSearch()" />
+    <button onclick="handleSearch()">🔍</button>
   </div>
   <div class="nav-right" id="nav-auth">
     <button class="btn-login" onclick="showModal('login')">Login</button>
@@ -1062,6 +1062,21 @@
       </div>
     </div>
 
+    <!-- SEARCH RESULTS PAGE -->
+    <div class="page" id="page-search">
+      <div style="padding:20px 24px;">
+        <div style="font-size:14px; color:#888; margin-bottom:16px;">
+          Search results for: <strong id="search-query-display" style="color:#111;"></strong>
+        </div>
+        <div id="search-results" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:20px;"></div>
+        <div id="search-no-results" style="display:none; text-align:center; padding:48px; color:#888;">
+          <div style="font-size:48px; margin-bottom:12px;">🔍</div>
+          <div style="font-size:16px; font-weight:600; margin-bottom:8px;">Koi result nahi mila!</div>
+          <div style="font-size:14px;">Doosra keyword try karo</div>
+        </div>
+      </div>
+    </div>
+
     <div class="page" id="page-upload">
       <div class="upload-page">
         <div class="section-title">Upload Video ⬆️</div>
@@ -1416,6 +1431,57 @@
     document.querySelectorAll('.video-card').forEach(card => {
       card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
     });
+  }
+
+  // Search function
+  const allVideos = [
+    { title: 'Khethi Tips — Rabi Season ke liye best practices 🌾', creator: 'Ramesh Khetiwala', views: '2.4L', time: '2 days ago', lang: 'Hindi', cat: 'farming', bg: 'linear-gradient(135deg,#FF6600,#ff9900)', icon: '🌾', duration: '12:34' },
+    { title: 'Dal Makhani recipe — Authentic Punjabi style 🍛', creator: "Priya's Kitchen", views: '85K', time: '3 days ago', lang: 'Tamil', cat: 'cooking', bg: 'linear-gradient(135deg,#1a5fcc,#4a90d9)', icon: '🍳', duration: '8:45' },
+    { title: 'Python programming — Hindi mein seekho! 🐍', creator: 'TechWithArjun', views: '2.4L', time: '1 week ago', lang: 'Hindi', cat: 'tech', bg: 'linear-gradient(135deg,#0a7a3e,#2ecc71)', icon: '💻', duration: '22:10' },
+    { title: 'Hyderabadi comedy — Ep 24 😂', creator: 'Telugu Talkies', views: '3.1L', time: '5 days ago', lang: 'Telugu', cat: 'comedy', bg: 'linear-gradient(135deg,#b5006e,#e91e8c)', icon: '😂', duration: '4:15' },
+    { title: 'Lavani dance tutorial — Beginners ke liye 💃', creator: 'Nisha Dance Academy', views: '45K', time: '1 week ago', lang: 'Marathi', cat: 'dance', bg: 'linear-gradient(135deg,#6a0dad,#9b59b6)', icon: '💃', duration: '5:30' },
+    { title: 'Tamil folk song — Pongal special 🎶', creator: 'Tamil Music Hub', views: '1.8L', time: '2 weeks ago', lang: 'Tamil', cat: 'music', bg: 'linear-gradient(135deg,#cc4400,#ff6b35)', icon: '🎵', duration: '3:45' },
+    { title: 'Class 10 Maths — Trigonometry Hindi mein 📐', creator: 'Shiksha Academy', views: '5.2L', time: '3 days ago', lang: 'Hindi', cat: 'education', bg: 'linear-gradient(135deg,#0055cc,#3399ff)', icon: '📚', duration: '18:22' },
+    { title: 'Organic farming guide — Vegetables 🥬', creator: 'Punjab Kisan', views: '92K', time: '4 days ago', lang: 'Punjabi', cat: 'farming', bg: 'linear-gradient(135deg,#2d8a00,#5cb800)', icon: '🥬', duration: '9:15' },
+  ];
+
+  window.handleSearch = function() {
+    const query = document.getElementById('search-input').value.trim().toLowerCase();
+    if (!query) return;
+
+    showPage('search');
+    document.getElementById('search-query-display').textContent = query;
+
+    const results = allVideos.filter(v =>
+      v.title.toLowerCase().includes(query) ||
+      v.creator.toLowerCase().includes(query) ||
+      v.lang.toLowerCase().includes(query) ||
+      v.cat.toLowerCase().includes(query)
+    );
+
+    const grid = document.getElementById('search-results');
+    const noResults = document.getElementById('search-no-results');
+
+    if (results.length === 0) {
+      grid.innerHTML = '';
+      noResults.style.display = 'block';
+    } else {
+      noResults.style.display = 'none';
+      grid.innerHTML = results.map(v => `
+        <div onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="background:${v.bg}; height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+            <span style="font-size:48px;">${v.icon}</span>
+            <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">${v.duration}</span>
+            <span style="position:absolute; top:8px; left:8px; background:rgba(0,0,0,0.6); color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">${v.lang}</span>
+          </div>
+          <div style="padding:12px;">
+            <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">${v.title}</div>
+            <div style="font-size:12px; color:#888;">${v.creator}</div>
+            <div style="font-size:12px; color:#999; margin-top:3px;">${v.views} views • ${v.time}</div>
+          </div>
+        </div>
+      `).join('');
+    }
   }
 
   // Creator mode toggle
