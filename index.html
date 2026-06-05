@@ -304,6 +304,22 @@
       <div class="sidebar-item active" id="nav-home" onclick="showPage('home')">
         <span class="icon">🏠</span> Home
       </div>
+      <div class="sidebar-item" id="nav-subscriptions" onclick="showPage('subscriptions')">
+        <span class="icon">📺</span> Subscriptions
+      </div>
+      <div class="sidebar-item" id="nav-history" onclick="showPage('history')">
+        <span class="icon">📜</span> History
+      </div>
+      <div class="sidebar-item" id="nav-playlists" onclick="showPage('playlists')">
+        <span class="icon">📋</span> Playlists
+      </div>
+      <div class="sidebar-item" id="nav-watchlater" onclick="showPage('watchlater')">
+        <span class="icon">⏰</span> Watch Later
+      </div>
+      <div class="sidebar-item" id="nav-live" onclick="showPage('live')">
+        <span class="icon">🔴</span> Live
+        <span style="margin-left:auto; font-size:10px; background:#ffe6e6; color:#cc0000; padding:2px 6px; border-radius:8px; font-weight:600;">LIVE</span>
+      </div>
       <div class="sidebar-item" id="nav-watch" onclick="showPage('watch')">
         <span class="icon">🎬</span> Watch Videos
       </div>
@@ -314,17 +330,34 @@
 
     <div class="sidebar-divider"></div>
 
-    <div class="sidebar-section">
-      <div class="sidebar-label">Creator</div>
-      <div class="sidebar-item" id="nav-dashboard" onclick="showPage('dashboard')">
-        <span class="icon">📊</span> My Dashboard
-      </div>
-      <div class="sidebar-item" onclick="showPage('earnings')">
-        <span class="icon">💰</span> My Earnings
-        <span style="margin-left:auto; font-size:10px; background:#fff3e6; color:#FF6600; padding:2px 6px; border-radius:8px;">Soon</span>
-      </div>
-      <div class="sidebar-item" onclick="showPage('profile')">
-        <span class="icon">👤</span> My Profile
+    <!-- Switch to Creator Mode button -->
+    <div style="padding:8px 12px;">
+      <button onclick="toggleCreatorMode()" id="creator-mode-btn" style="width:100%; padding:10px; background:#fff3e6; color:#FF6600; border:1.5px solid #FF6600; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+        <span>🎬</span> Switch to Creator Mode
+      </button>
+    </div>
+
+    <!-- CREATOR SECTION (hidden by default) -->
+    <div id="creator-section" style="display:none;">
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Creator</div>
+        <div class="sidebar-item" id="nav-dashboard" onclick="showPage('dashboard')">
+          <span class="icon">📊</span> My Dashboard
+        </div>
+        <div class="sidebar-item" onclick="showPage('earnings')">
+          <span class="icon">💰</span> My Earnings
+          <span style="margin-left:auto; font-size:10px; background:#fff3e6; color:#FF6600; padding:2px 6px; border-radius:8px;">Soon</span>
+        </div>
+        <div class="sidebar-item" onclick="showPage('profile')">
+          <span class="icon">👤</span> My Profile
+        </div>
+        <div class="sidebar-item" onclick="showPage('creator-studio')" id="nav-creator-studio">
+          <span class="icon">🎬</span> Creator Studio
+        </div>
+        <div class="sidebar-item" onclick="showPage('upload')" id="nav-upload">
+          <span class="icon">⬆️</span> Upload Video
+        </div>
       </div>
     </div>
 
@@ -915,6 +948,120 @@
         </div>
       </div>
     </div>
+    <!-- SUBSCRIPTIONS PAGE -->
+    <div class="page" id="page-subscriptions">
+      <div style="padding:20px 24px;">
+        <h2 style="font-size:20px; font-weight:800; margin-bottom:20px;">📺 Subscriptions</h2>
+        <div style="text-align:center; padding:48px; color:#888;">
+          <div style="font-size:48px; margin-bottom:12px;">📺</div>
+          <div style="font-size:16px; font-weight:600; margin-bottom:8px;">No subscriptions yet!</div>
+          <div style="font-size:14px;">Subscribe to channels to see their latest videos here!</div>
+          <button onclick="showPage('watch')" style="margin-top:16px; padding:10px 24px; background:#FF6600; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;">Explore Videos</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTORY PAGE -->
+    <div class="page" id="page-history">
+      <div style="padding:20px 24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <h2 style="font-size:20px; font-weight:800;">📜 Watch History</h2>
+          <button onclick="alert('History cleared!')" style="padding:8px 16px; background:#f0f0f0; border:none; border-radius:8px; cursor:pointer; font-size:13px;">Clear History</button>
+        </div>
+        <div style="text-align:center; padding:48px; color:#888;">
+          <div style="font-size:48px; margin-bottom:12px;">📜</div>
+          <div style="font-size:16px; font-weight:600; margin-bottom:8px;">No history yet!</div>
+          <div style="font-size:14px;">Videos you watch will appear here</div>
+          <button onclick="showPage('watch')" style="margin-top:16px; padding:10px 24px; background:#FF6600; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;">Watch Videos</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLAYLISTS PAGE -->
+    <div class="page" id="page-playlists">
+      <div style="padding:20px 24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <h2 style="font-size:20px; font-weight:800;">📋 Playlists</h2>
+          <button onclick="alert('Create playlist coming soon!')" style="padding:8px 16px; background:#FF6600; color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">+ New Playlist</button>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:16px;">
+          <div style="background:#f9f9f9; border-radius:12px; overflow:hidden; cursor:pointer;">
+            <div style="background:linear-gradient(135deg,#FF6600,#ff9900); height:100px; display:flex; align-items:center; justify-content:center; font-size:32px; position:relative;">
+              ⏰
+              <span style="position:absolute; bottom:6px; right:8px; background:rgba(0,0,0,0.7); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">0 videos</span>
+            </div>
+            <div style="padding:10px;">
+              <div style="font-size:13px; font-weight:600;">Watch Later</div>
+              <div style="font-size:12px; color:#888;">Auto playlist</div>
+            </div>
+          </div>
+          <div style="background:#f9f9f9; border-radius:12px; overflow:hidden; cursor:pointer;">
+            <div style="background:linear-gradient(135deg,#1a5fcc,#4a90d9); height:100px; display:flex; align-items:center; justify-content:center; font-size:32px; position:relative;">
+              👍
+              <span style="position:absolute; bottom:6px; right:8px; background:rgba(0,0,0,0.7); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">0 videos</span>
+            </div>
+            <div style="padding:10px;">
+              <div style="font-size:13px; font-weight:600;">Liked Videos</div>
+              <div style="font-size:12px; color:#888;">Auto playlist</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WATCH LATER PAGE -->
+    <div class="page" id="page-watchlater">
+      <div style="padding:20px 24px;">
+        <h2 style="font-size:20px; font-weight:800; margin-bottom:20px;">⏰ Watch Later</h2>
+        <div style="text-align:center; padding:48px; color:#888;">
+          <div style="font-size:48px; margin-bottom:12px;">⏰</div>
+          <div style="font-size:16px; font-weight:600; margin-bottom:8px;">Nothing saved yet!</div>
+          <div style="font-size:14px;">Save videos to watch later by clicking the Save button</div>
+          <button onclick="showPage('watch')" style="margin-top:16px; padding:10px 24px; background:#FF6600; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;">Browse Videos</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE PAGE -->
+    <div class="page" id="page-live">
+      <div style="padding:20px 24px;">
+        <h2 style="font-size:20px; font-weight:800; margin-bottom:6px;">🔴 Live Streams</h2>
+        <p style="color:#888; font-size:14px; margin-bottom:20px;">Watch creators live right now!</p>
+        <div style="background:linear-gradient(135deg,#1a1a2e,#16213e); border-radius:16px; padding:24px; margin-bottom:20px; color:#fff; display:flex; align-items:center; gap:16px;">
+          <div style="font-size:48px;">📡</div>
+          <div>
+            <div style="display:inline-flex; align-items:center; gap:6px; background:#cc0000; color:#fff; font-size:11px; padding:3px 10px; border-radius:20px; font-weight:700; margin-bottom:8px;">
+              <div style="width:6px; height:6px; background:#fff; border-radius:50%;"></div> COMING SOON
+            </div>
+            <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Live streaming aa raha hai! 🚀</div>
+            <div style="font-size:13px; opacity:0.7;">Indian creators will go LIVE on BharatTube!</div>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:16px;">
+          <div style="background:#f9f9f9; border-radius:12px; overflow:hidden; border:1px solid #eee;">
+            <div style="background:linear-gradient(135deg,#FF6600,#ff9900); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+              <span style="font-size:40px;">🌾</span>
+              <div style="position:absolute; top:8px; left:8px; background:#cc0000; color:#fff; font-size:10px; padding:3px 8px; border-radius:4px; font-weight:700;">🔴 LIVE SOON</div>
+            </div>
+            <div style="padding:12px;">
+              <div style="font-size:14px; font-weight:600; margin-bottom:4px;">Khethi Live — Q&A with farmers 🌾</div>
+              <div style="font-size:12px; color:#888;">Ramesh Khetiwala • Hindi</div>
+            </div>
+          </div>
+          <div style="background:#f9f9f9; border-radius:12px; overflow:hidden; border:1px solid #eee;">
+            <div style="background:linear-gradient(135deg,#b5006e,#e91e8c); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+              <span style="font-size:40px;">🎵</span>
+              <div style="position:absolute; top:8px; left:8px; background:#cc0000; color:#fff; font-size:10px; padding:3px 8px; border-radius:4px; font-weight:700;">🔴 LIVE SOON</div>
+            </div>
+            <div style="padding:12px;">
+              <div style="font-size:14px; font-weight:600; margin-bottom:4px;">Tamil music live concert 🎵</div>
+              <div style="font-size:12px; color:#888;">Tamil Music Hub • Tamil</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="page" id="page-upload">
       <div class="upload-page">
         <div class="section-title">Upload Video ⬆️</div>
@@ -1098,6 +1245,8 @@
       // Show feed hide landing
       document.getElementById('video-feed').style.display = 'block';
       document.getElementById('landing-page').style.display = 'none';
+      // Apply creator mode
+      applyCreatorMode();
     } else {
       document.getElementById('sidebar').classList.add('hidden');
       document.getElementById('nav-auth').style.display = 'flex';
@@ -1267,6 +1416,34 @@
     document.querySelectorAll('.video-card').forEach(card => {
       card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
     });
+  }
+
+  // Creator mode toggle
+  let creatorMode = localStorage.getItem('bt_creator_mode') === 'true';
+
+  function applyCreatorMode() {
+    const section = document.getElementById('creator-section');
+    const btn = document.getElementById('creator-mode-btn');
+    if (creatorMode) {
+      section.style.display = 'block';
+      btn.innerHTML = '<span>✅</span> Creator Mode ON';
+      btn.style.background = '#FF6600';
+      btn.style.color = '#fff';
+    } else {
+      section.style.display = 'none';
+      btn.innerHTML = '<span>🎬</span> Switch to Creator Mode';
+      btn.style.background = '#fff3e6';
+      btn.style.color = '#FF6600';
+    }
+  }
+
+  window.toggleCreatorMode = function() {
+    creatorMode = !creatorMode;
+    localStorage.setItem('bt_creator_mode', creatorMode);
+    applyCreatorMode();
+    if (creatorMode) {
+      alert('🎬 Creator Mode ON!\nAb tum videos upload kar sakte ho aur Creator Studio use kar sakte ho! 🚀');
+    }
   }
 
   // Profile menu toggle
