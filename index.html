@@ -232,8 +232,61 @@
     <button class="btn-login" onclick="showModal('login')">Login</button>
     <button class="btn-signup" onclick="showModal('signup')">Sign Up Free</button>
   </div>
-  <div id="nav-user" style="display:none;">
-    <button class="btn-signup" onclick="showPage('dashboard')">👤 Dashboard</button>
+  <div id="nav-user" style="display:none; position:relative;">
+    <div id="profile-btn" onclick="toggleProfileMenu()" style="width:36px; height:36px; border-radius:50%; background:#FF6600; color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; cursor:pointer;" id="nav-profile-av">K</div>
+
+    <!-- Profile Dropdown Menu -->
+    <div id="profile-menu" style="display:none; position:absolute; right:0; top:44px; background:#fff; border:1px solid #eee; border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,0.15); width:280px; z-index:999; overflow:hidden;">
+
+      <!-- User Info -->
+      <div style="padding:16px; display:flex; align-items:center; gap:12px; border-bottom:1px solid #f0f0f0;">
+        <div style="width:40px; height:40px; border-radius:50%; background:#FF6600; color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; flex-shrink:0;" id="menu-av">K</div>
+        <div>
+          <div style="font-size:14px; font-weight:700;" id="menu-name">Kritant Pandey</div>
+          <div style="font-size:12px; color:#888;" id="menu-handle">@user</div>
+          <div style="font-size:12px; color:#FF6600; cursor:pointer; margin-top:2px;" onclick="showPage('profile'); toggleProfileMenu()">View your channel →</div>
+        </div>
+      </div>
+
+      <!-- Menu Items -->
+      <div style="padding:8px 0;">
+        <div onclick="showPage('creator-studio'); toggleProfileMenu()" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
+          <span style="font-size:18px;">🎬</span> Creator Studio
+        </div>
+        <div onclick="showPage('dashboard'); toggleProfileMenu()" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
+          <span style="font-size:18px;">📊</span> My Dashboard
+        </div>
+        <div onclick="showPage('earnings'); toggleProfileMenu()" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
+          <span style="font-size:18px;">💰</span> Purchases & Earnings
+        </div>
+      </div>
+
+      <div style="height:1px; background:#f0f0f0;"></div>
+
+      <div style="padding:8px 0;">
+        <div onclick="alert('Appearance coming soon!')" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
+          <span style="font-size:18px;">🌙</span> Appearance: Light
+        </div>
+        <div onclick="alert('Language coming soon!')" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
+          <span style="font-size:18px;">🌍</span> Language: Hindi/English
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
+          <span style="font-size:18px;">📍</span> Location: India 🇮🇳
+        </div>
+        <div onclick="showPage('profile'); toggleProfileMenu()" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
+          <span style="font-size:18px;">⚙️</span> Settings
+        </div>
+      </div>
+
+      <div style="height:1px; background:#f0f0f0;"></div>
+
+      <div style="padding:8px 0;">
+        <div onclick="handleLogout(); toggleProfileMenu()" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px; color:#cc0000;" onmouseover="this.style.background='#fff5f5'" onmouseout="this.style.background='transparent'">
+          <span style="font-size:18px;">🚪</span> Sign out
+        </div>
+      </div>
+
+    </div>
   </div>
 </nav>
 
@@ -1031,6 +1084,15 @@
       document.getElementById('profile-name').textContent = name;
       document.getElementById('profile-email').textContent = user.email;
       document.getElementById('p-name').value = name;
+      // Update nav profile avatar
+      const navAv = document.getElementById('nav-profile-av');
+      if (navAv) navAv.textContent = initial;
+      const menuAv = document.getElementById('menu-av');
+      if (menuAv) menuAv.textContent = initial;
+      const menuName = document.getElementById('menu-name');
+      if (menuName) menuName.textContent = name;
+      const menuHandle = document.getElementById('menu-handle');
+      if (menuHandle) menuHandle.textContent = '@' + name.toLowerCase().replace(/\s/g, '');
       // Update comment av
       document.getElementById('c-av') && (document.getElementById('c-av').textContent = initial);
       // Show feed hide landing
@@ -1206,6 +1268,21 @@
       card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
     });
   }
+
+  // Profile menu toggle
+  window.toggleProfileMenu = function() {
+    const menu = document.getElementById('profile-menu');
+    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  }
+
+  // Close menu when clicking outside
+  document.addEventListener('click', function(e) {
+    const btn = document.getElementById('profile-btn');
+    const menu = document.getElementById('profile-menu');
+    if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
+      menu.style.display = 'none';
+    }
+  });
 
   function toggleSidebar() {
     sidebarOpen = !sidebarOpen;
