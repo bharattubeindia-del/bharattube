@@ -7,8 +7,6 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Segoe UI', sans-serif; background: #f9f9f9; color: #111; }
-
-  /* NAV */
   nav { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
   .logo { font-size: 20px; font-weight: 700; color: #FF6600; cursor: pointer; }
   .logo span { color: #111; }
@@ -20,33 +18,19 @@
   .btn-login { padding: 8px 16px; background: transparent; color: #FF6600; border: 1.5px solid #FF6600; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: 600; }
   .btn-signup { padding: 8px 16px; background: #FF6600; color: #fff; border: none; border-radius: 8px; font-size: 13px; cursor: pointer; font-weight: 600; }
   .hamburger { display: none; background: none; border: none; font-size: 22px; cursor: pointer; margin-right: 8px; }
-
-  /* LAYOUT */
   .app-layout { display: flex; min-height: calc(100vh - 56px); }
-
-  /* SIDEBAR */
   .sidebar { width: 240px; background: #fff; border-right: 1px solid #eee; padding: 16px 0; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; flex-shrink: 0; transition: transform 0.3s; }
   .sidebar.hidden { display: none; }
   .sidebar-section { margin-bottom: 8px; }
   .sidebar-label { font-size: 11px; font-weight: 700; color: #999; padding: 8px 20px 4px; text-transform: uppercase; letter-spacing: 1px; }
-  .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 10px 20px; font-size: 14px; color: #333; cursor: pointer; border-radius: 8px; margin: 2px 8px; transition: background 0.2s; text-decoration: none; }
+  .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 10px 20px; font-size: 14px; color: #333; cursor: pointer; border-radius: 8px; margin: 2px 8px; transition: background 0.2s; }
   .sidebar-item:hover { background: #fff3e6; color: #FF6600; }
   .sidebar-item.active { background: #fff3e6; color: #FF6600; font-weight: 600; }
   .sidebar-item .icon { font-size: 18px; width: 24px; text-align: center; }
   .sidebar-divider { height: 1px; background: #f0f0f0; margin: 8px 16px; }
-  .sidebar-user { padding: 16px 20px; border-bottom: 1px solid #f0f0f0; margin-bottom: 8px; }
-  .sidebar-user-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
-  .sidebar-user-email { font-size: 12px; color: #888; }
-  .sidebar-user-av { width: 40px; height: 40px; border-radius: 50%; background: #FF6600; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-
-  /* MAIN CONTENT */
   .main-content { flex: 1; overflow-y: auto; }
-
-  /* PAGES */
   .page { display: none; }
   .page.active { display: block; }
-
-  /* HOME PAGE */
   .hero { text-align: center; padding: 60px 24px 40px; background: linear-gradient(180deg, #fff8f3 0%, #fff 100%); }
   .badge { display: inline-block; background: #fff3e6; color: #cc4400; font-size: 12px; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; border: 1px solid #ffb380; font-weight: 600; }
   .hero h1 { font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 14px; }
@@ -60,14 +44,10 @@
   .input-row button { padding: 11px 20px; background: #FF6600; color: #fff; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 600; }
   .counter { margin-top: 12px; font-size: 13px; color: #888; text-align: center; }
   .counter strong { color: #FF6600; }
-
-  /* STATS */
   .stats { display: flex; justify-content: center; gap: 40px; padding: 32px 24px; background: #fff; border-bottom: 1px solid #f0f0f0; flex-wrap: wrap; }
   .stat { text-align: center; }
   .stat-n { font-size: 28px; font-weight: 800; color: #FF6600; }
   .stat-l { font-size: 13px; color: #666; margin-top: 4px; }
-
-  /* FEATURES */
   .section { padding: 48px 24px; max-width: 900px; margin: 0 auto; }
   .section-title { font-size: 26px; font-weight: 800; text-align: center; margin-bottom: 8px; }
   .section-sub { font-size: 15px; color: #666; text-align: center; margin-bottom: 32px; }
@@ -77,8 +57,6 @@
   .feat-icon { font-size: 32px; margin-bottom: 10px; }
   .feat-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
   .feat-card p { font-size: 13px; color: #666; line-height: 1.6; }
-
-  /* MONETIZATION */
   .monetization { background: #0a0a0a; color: #fff; padding: 48px 24px; text-align: center; }
   .monetization .section-title { color: #fff; }
   .monetization .section-title span { color: #FF6600; }
@@ -93,8 +71,6 @@
   .cs-icon { font-size: 28px; margin-bottom: 10px; }
   .cs-title { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.7); margin-bottom: 4px; }
   .cs-earn { font-size: 16px; font-weight: 800; color: rgba(255,102,0,0.7); margin-top: 8px; }
-
-  /* COMPARE */
   .compare { padding: 48px 24px; max-width: 700px; margin: 0 auto; }
   .compare-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
   .compare-table th { padding: 14px 16px; font-size: 14px; font-weight: 700; }
@@ -105,15 +81,11 @@
   .compare-table td:first-child { font-weight: 600; background: #fafafa; }
   .compare-table td.bad { color: #cc0000; }
   .compare-table td.good { color: #0a7a3e; font-weight: 600; }
-
-  /* FOOTER CTA */
   .footer-cta { padding: 56px 24px; text-align: center; background: linear-gradient(135deg, #FF6600, #ff9900); color: #fff; }
   .footer-cta h2 { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
   .footer-cta p { font-size: 15px; opacity: 0.85; margin-bottom: 24px; }
   .footer-cta button { padding: 14px 36px; background: #fff; color: #FF6600; border: none; border-radius: 10px; font-size: 15px; font-weight: 800; cursor: pointer; }
   footer { padding: 20px 32px; border-top: 1px solid #eee; display: flex; justify-content: space-between; font-size: 13px; color: #888; flex-wrap: wrap; gap: 8px; background: #fff; }
-
-  /* DASHBOARD PAGE */
   .dashboard { padding: 32px 24px; max-width: 900px; }
   .dash-welcome { background: linear-gradient(135deg, #FF6600, #ff9900); color: #fff; border-radius: 16px; padding: 24px; margin-bottom: 24px; }
   .dash-welcome h2 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
@@ -129,8 +101,6 @@
   .dash-action-icon { font-size: 28px; }
   .dash-action-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
   .dash-action-desc { font-size: 12px; color: #888; }
-
-  /* WATCH PAGE */
   .watch-container { display: grid; grid-template-columns: 1fr 340px; gap: 20px; padding: 20px 24px; max-width: 1200px; }
   .video-player-box { background: #000; border-radius: 12px; overflow: hidden; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; cursor: pointer; }
   .video-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff; }
@@ -169,8 +139,6 @@
   .related-info { flex: 1; }
   .related-title { font-size: 12px; font-weight: 600; line-height: 1.4; margin-bottom: 3px; }
   .related-meta { font-size: 11px; color: #888; }
-
-  /* UPLOAD PAGE */
   .upload-page { padding: 32px 24px; max-width: 700px; }
   .upload-area { border: 2.5px dashed #FF6600; border-radius: 16px; padding: 48px 24px; text-align: center; cursor: pointer; background: #fff8f3; transition: background 0.2s; }
   .upload-area:hover { background: #fff3e6; }
@@ -184,9 +152,7 @@
   .form-input:focus { border-color: #FF6600; }
   .form-select { width: 100%; padding: 10px 14px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
   .upload-btn { width: 100%; padding: 13px; background: #FF6600; color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; }
-  .coming-soon-tag { display: inline-flex; align-items: center; gap: 6px; background: #fff3e6; color: #FF6600; font-size: 12px; padding: 4px 12px; border-radius: 20px; font-weight: 600; margin-top: 10px; }
-
-  /* AUTH MODAL */
+  .upload-btn:disabled { background: #ffb380; cursor: not-allowed; }
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
   .modal-overlay.show { display: flex; }
   .modal { background: #fff; border-radius: 20px; padding: 32px; width: 100%; max-width: 400px; margin: 16px; position: relative; }
@@ -201,7 +167,8 @@
   .modal-switch { text-align: center; font-size: 13px; color: #666; }
   .modal-switch span { color: #FF6600; cursor: pointer; font-weight: 600; }
   .err { color: #cc0000; font-size: 13px; margin-bottom: 8px; display: none; }
-
+  /* Toast notification */
+  #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #111; color: #fff; padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 600; z-index: 9999; display: none; }
   @media (max-width: 768px) {
     .sidebar { position: fixed; top: 56px; left: 0; height: calc(100vh - 56px); z-index: 150; transform: translateX(-100%); }
     .sidebar.open { transform: translateX(0); }
@@ -218,14 +185,16 @@
 </head>
 <body>
 
+<div id="toast"></div>
+
 <!-- NAV -->
 <nav>
   <div style="display:flex; align-items:center; gap:8px;">
-    <button class="hamburger" id="hamburger" onclick="toggleSidebar()">☰</button>
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
     <div class="logo" onclick="showPage('home')">Bharat<span>Tube</span></div>
   </div>
   <div class="nav-center">
-    <input type="text" id="search-input" placeholder="Search videos in any language..." onkeyup="handleSearch()" onkeypress="if(event.key==='Enter') handleSearch()" />
+    <input type="text" id="search-input" placeholder="Search videos in any language..." onkeypress="if(event.key==='Enter') handleSearch()" />
     <button onclick="handleSearch()">🔍</button>
   </div>
   <div class="nav-right" id="nav-auth">
@@ -233,160 +202,81 @@
     <button class="btn-signup" onclick="showModal('signup')">Sign Up Free</button>
   </div>
   <div id="nav-user" style="display:none; position:relative;">
-    <div id="profile-btn" onclick="toggleProfileMenu()" style="width:36px; height:36px; border-radius:50%; background:#FF6600; color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; cursor:pointer;" id="nav-profile-av">K</div>
-
-    <!-- Profile Dropdown Menu -->
-    <div id="profile-menu" style="display:none; position:absolute; right:0; top:44px; background:#fff; border:1px solid #eee; border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,0.15); width:280px; z-index:999; overflow:hidden;">
-
-      <!-- User Info -->
-      <div style="padding:16px; display:flex; align-items:center; gap:12px; border-bottom:1px solid #f0f0f0;">
-        <div style="width:40px; height:40px; border-radius:50%; background:#FF6600; color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; flex-shrink:0;" id="menu-av">K</div>
+    <div id="profile-btn" onclick="toggleProfileMenu()" style="width:36px;height:36px;border-radius:50%;background:#FF6600;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;cursor:pointer;">U</div>
+    <div id="profile-menu" style="display:none;position:absolute;right:0;top:44px;background:#fff;border:1px solid #eee;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.15);width:280px;z-index:999;overflow:hidden;">
+      <div style="padding:16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #f0f0f0;">
+        <div id="menu-av" style="width:40px;height:40px;border-radius:50%;background:#FF6600;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0;">U</div>
         <div>
-          <div style="font-size:14px; font-weight:700;" id="menu-name">Kritant Pandey</div>
-          <div style="font-size:12px; color:#888;" id="menu-handle">@user</div>
-          <div style="font-size:12px; color:#FF6600; cursor:pointer; margin-top:2px;" onclick="showPage('profile'); toggleProfileMenu()">View your channel →</div>
+          <div id="menu-name" style="font-size:14px;font-weight:700;">User</div>
+          <div id="menu-handle" style="font-size:12px;color:#888;">@user</div>
+          <div style="font-size:12px;color:#FF6600;cursor:pointer;margin-top:2px;" onclick="showPage('profile');toggleProfileMenu()">View your channel →</div>
         </div>
       </div>
-
-      <!-- Menu Items -->
       <div style="padding:8px 0;">
-        <div onclick="showPage('creator-studio'); toggleProfileMenu()" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
-          <span style="font-size:18px;">🎬</span> Creator Studio
-        </div>
-        <div onclick="showPage('dashboard'); toggleProfileMenu()" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
-          <span style="font-size:18px;">📊</span> My Dashboard
-        </div>
-        <div onclick="showPage('earnings'); toggleProfileMenu()" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
-          <span style="font-size:18px;">💰</span> Purchases & Earnings
-        </div>
+        <div onclick="showPage('creator-studio');toggleProfileMenu()" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'"><span style="font-size:18px;">🎬</span> Creator Studio</div>
+        <div onclick="showPage('dashboard');toggleProfileMenu()" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'"><span style="font-size:18px;">📊</span> My Dashboard</div>
+        <div onclick="showPage('earnings');toggleProfileMenu()" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'"><span style="font-size:18px;">💰</span> Purchases & Earnings</div>
       </div>
-
-      <div style="height:1px; background:#f0f0f0;"></div>
-
+      <div style="height:1px;background:#f0f0f0;"></div>
       <div style="padding:8px 0;">
-        <div onclick="alert('Appearance coming soon!')" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
-          <span style="font-size:18px;">🌙</span> Appearance: Light
-        </div>
-        <div onclick="alert('Language coming soon!')" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
-          <span style="font-size:18px;">🌍</span> Language: Hindi/English
-        </div>
-        <div style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
-          <span style="font-size:18px;">📍</span> Location: India 🇮🇳
-        </div>
-        <div onclick="showPage('profile'); toggleProfileMenu()" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
-          <span style="font-size:18px;">⚙️</span> Settings
-        </div>
+        <div onclick="showPage('profile');toggleProfileMenu()" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'"><span style="font-size:18px;">⚙️</span> Settings</div>
+        <div onclick="handleLogout();toggleProfileMenu()" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;font-size:14px;color:#cc0000;" onmouseover="this.style.background='#fff5f5'" onmouseout="this.style.background='transparent'"><span style="font-size:18px;">🚪</span> Sign out</div>
       </div>
-
-      <div style="height:1px; background:#f0f0f0;"></div>
-
-      <div style="padding:8px 0;">
-        <div onclick="handleLogout(); toggleProfileMenu()" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px; color:#cc0000;" onmouseover="this.style.background='#fff5f5'" onmouseout="this.style.background='transparent'">
-          <span style="font-size:18px;">🚪</span> Sign out
-        </div>
-      </div>
-
     </div>
   </div>
 </nav>
 
 <div class="app-layout">
 
-  <!-- SIDEBAR (shown after login) -->
+  <!-- SIDEBAR -->
   <div class="sidebar hidden" id="sidebar">
-    <div class="sidebar-user" id="sidebar-user-info">
-      <div class="sidebar-user-av" id="sidebar-av">U</div>
-      <div class="sidebar-user-name" id="sidebar-name">User</div>
-      <div class="sidebar-user-email" id="sidebar-email">user@email.com</div>
+    <!-- User info in sidebar -->
+    <div id="sidebar-user-section" style="padding:16px 20px;border-bottom:1px solid #f0f0f0;margin-bottom:8px;">
+      <div id="sidebar-av" style="width:40px;height:40px;border-radius:50%;background:#FF6600;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;margin-bottom:8px;">U</div>
+      <div id="sidebar-name" style="font-size:14px;font-weight:700;margin-bottom:2px;">User</div>
+      <div id="sidebar-email" style="font-size:12px;color:#888;">user@email.com</div>
     </div>
-
     <div class="sidebar-section">
-      <div class="sidebar-item active" id="nav-home" onclick="showPage('home')">
-        <span class="icon">🏠</span> Home
-      </div>
-      <div class="sidebar-item" id="nav-subscriptions" onclick="showPage('subscriptions')">
-        <span class="icon">📺</span> Subscriptions
-      </div>
-      <div class="sidebar-item" id="nav-history" onclick="showPage('history')">
-        <span class="icon">📜</span> History
-      </div>
-      <div class="sidebar-item" id="nav-playlists" onclick="showPage('playlists')">
-        <span class="icon">📋</span> Playlists
-      </div>
-      <div class="sidebar-item" id="nav-watchlater" onclick="showPage('watchlater')">
-        <span class="icon">⏰</span> Watch Later
-      </div>
-      <div class="sidebar-item" id="nav-live" onclick="showPage('live')">
-        <span class="icon">🔴</span> Live
-        <span style="margin-left:auto; font-size:10px; background:#ffe6e6; color:#cc0000; padding:2px 6px; border-radius:8px; font-weight:600;">LIVE</span>
-      </div>
-      <div class="sidebar-item" id="nav-watch" onclick="showPage('watch')">
-        <span class="icon">🎬</span> Watch Videos
-      </div>
-      <div class="sidebar-item" id="nav-upload" onclick="showPage('upload')">
-        <span class="icon">⬆️</span> Upload Video
-      </div>
+      <div class="sidebar-item active" id="nav-home" onclick="showPage('home')"><span class="icon">🏠</span> Home</div>
+      <div class="sidebar-item" id="nav-shorts" onclick="showPage('shorts')"><span class="icon">🩳</span> Shorts</div>
     </div>
-
     <div class="sidebar-divider"></div>
-
-    <!-- Switch to Creator Mode button -->
-    <div style="padding:8px 12px;">
-      <button onclick="toggleCreatorMode()" id="creator-mode-btn" style="width:100%; padding:10px; background:#fff3e6; color:#FF6600; border:1.5px solid #FF6600; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
-        <span>🎬</span> Switch to Creator Mode
-      </button>
-    </div>
-
-    <!-- CREATOR SECTION (hidden by default) -->
-    <div id="creator-section" style="display:none;">
-      <div class="sidebar-divider"></div>
-      <div class="sidebar-section">
-        <div class="sidebar-label">Creator</div>
-        <div class="sidebar-item" id="nav-dashboard" onclick="showPage('dashboard')">
-          <span class="icon">📊</span> My Dashboard
-        </div>
-        <div class="sidebar-item" onclick="showPage('earnings')">
-          <span class="icon">💰</span> My Earnings
-          <span style="margin-left:auto; font-size:10px; background:#fff3e6; color:#FF6600; padding:2px 6px; border-radius:8px;">Soon</span>
-        </div>
-        <div class="sidebar-item" onclick="showPage('profile')">
-          <span class="icon">👤</span> My Profile
-        </div>
-        <div class="sidebar-item" onclick="showPage('creator-studio')" id="nav-creator-studio">
-          <span class="icon">🎬</span> Creator Studio
-        </div>
-        <div class="sidebar-item" onclick="showPage('upload')" id="nav-upload">
-          <span class="icon">⬆️</span> Upload Video
-        </div>
-      </div>
-    </div>
-
-    <div class="sidebar-divider"></div>
-
     <div class="sidebar-section">
-      <div class="sidebar-label">Account</div>
-      <div class="sidebar-item" onclick="showPage('creator-studio')" id="nav-creator-studio">
-        <span class="icon">🎬</span> Creator Studio
-      </div>
-      <div class="sidebar-item" onclick="alert('Settings coming soon!')">
-        <span class="icon">⚙️</span> Settings
-      </div>
-      <div class="sidebar-item" onclick="handleLogout()" style="color:#cc0000;">
-        <span class="icon">🚪</span> Logout
-      </div>
+      <div class="sidebar-item" id="nav-subscriptions" onclick="showPage('subscriptions')"><span class="icon">📺</span> Subscriptions</div>
+      <div id="subscriptions-list"><div style="font-size:12px;color:#999;padding:4px 20px;">Subscribe to channels!</div></div>
     </div>
-
     <div class="sidebar-divider"></div>
-
-    <!-- SUBSCRIPTIONS -->
-    <div class="sidebar-section" id="subscriptions-section">
-      <div class="sidebar-label">Subscriptions</div>
-      <div id="subscriptions-list">
-        <div class="sidebar-item" style="color:#999; font-size:12px; padding:8px 20px;">
-          Subscribe to channels to see them here!
-        </div>
-      </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">You</div>
+      <div class="sidebar-item" onclick="showPage('profile')"><span class="icon">📺</span> Your channel</div>
+      <div class="sidebar-item" id="nav-history" onclick="showPage('history')"><span class="icon">📜</span> History</div>
+      <div class="sidebar-item" id="nav-playlists" onclick="showPage('playlists')"><span class="icon">📋</span> Playlists</div>
+      <div class="sidebar-item" id="nav-watchlater" onclick="showPage('watchlater')"><span class="icon">⏰</span> Watch later</div>
+      <div class="sidebar-item" id="nav-upload" onclick="showPage('upload')"><span class="icon">🎬</span> Your videos</div>
     </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">BharatTube</div>
+      <div class="sidebar-item" onclick="showPage('creator-studio')" id="nav-creator-studio"><span class="icon">🎬</span> Creator Studio</div>
+      <div class="sidebar-item" id="nav-dashboard" onclick="showPage('dashboard')"><span class="icon">📊</span> My Dashboard</div>
+      <div class="sidebar-item" onclick="showPage('earnings')"><span class="icon">💰</span> My Earnings <span style="margin-left:auto;font-size:10px;background:#fff3e6;color:#FF6600;padding:2px 6px;border-radius:8px;">Soon</span></div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Explore</div>
+      <div class="sidebar-item" onclick="showPage('live')"><span class="icon">🎵</span> Music</div>
+      <div class="sidebar-item" onclick="showPage('live')"><span class="icon">🔴</span> Live</div>
+      <div class="sidebar-item" onclick="showPage('watch')"><span class="icon">🎬</span> Films</div>
+      <div class="sidebar-item" onclick="showPage('watch')"><span class="icon">📰</span> News</div>
+      <div class="sidebar-item" onclick="showPage('watch')"><span class="icon">⚽</span> Sports</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-item" onclick="toast('Settings coming soon!')"><span class="icon">⚙️</span> Settings</div>
+      <div class="sidebar-item" onclick="toast('Help coming soon!')"><span class="icon">❓</span> Help</div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div style="padding:8px 20px;font-size:11px;color:#aaa;line-height:1.8;">© 2026 BharatTube 🇮🇳</div>
   </div>
 
   <!-- MAIN CONTENT -->
@@ -394,237 +284,128 @@
 
     <!-- HOME PAGE -->
     <div class="page active" id="page-home">
-
-      <!-- VIDEO FEED (shown after login) -->
       <div id="video-feed" style="display:none;">
-        <!-- CATEGORY FILTER -->
-        <div style="display:flex; gap:8px; padding:16px 24px; overflow-x:auto; background:#fff; border-bottom:1px solid #f0f0f0;">
-          <button onclick="filterCat(this,'all')" class="cat-btn active" style="padding:6px 16px; border-radius:20px; border:1.5px solid #FF6600; background:#FF6600; color:#fff; font-size:13px; cursor:pointer; white-space:nowrap; font-weight:600;">All</button>
-          <button onclick="filterCat(this,'farming')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">🌾 Farming</button>
-          <button onclick="filterCat(this,'cooking')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">🍳 Cooking</button>
-          <button onclick="filterCat(this,'comedy')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">😂 Comedy</button>
-          <button onclick="filterCat(this,'tech')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">💻 Tech</button>
-          <button onclick="filterCat(this,'music')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">🎵 Music</button>
-          <button onclick="filterCat(this,'dance')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">💃 Dance</button>
-          <button onclick="filterCat(this,'education')" class="cat-btn" style="padding:6px 16px; border-radius:20px; border:1.5px solid #ddd; background:#fff; color:#333; font-size:13px; cursor:pointer; white-space:nowrap;">📚 Education</button>
+        <div style="display:flex;gap:8px;padding:16px 24px;overflow-x:auto;background:#fff;border-bottom:1px solid #f0f0f0;">
+          <button onclick="filterCat(this,'all')" class="cat-btn" style="padding:6px 16px;border-radius:20px;border:1.5px solid #FF6600;background:#FF6600;color:#fff;font-size:13px;cursor:pointer;white-space:nowrap;font-weight:600;">All</button>
+          <button onclick="filterCat(this,'farming')" class="cat-btn" style="padding:6px 16px;border-radius:20px;border:1.5px solid #ddd;background:#fff;color:#333;font-size:13px;cursor:pointer;white-space:nowrap;">🌾 Farming</button>
+          <button onclick="filterCat(this,'cooking')" class="cat-btn" style="padding:6px 16px;border-radius:20px;border:1.5px solid #ddd;background:#fff;color:#333;font-size:13px;cursor:pointer;white-space:nowrap;">🍳 Cooking</button>
+          <button onclick="filterCat(this,'comedy')" class="cat-btn" style="padding:6px 16px;border-radius:20px;border:1.5px solid #ddd;background:#fff;color:#333;font-size:13px;cursor:pointer;white-space:nowrap;">😂 Comedy</button>
+          <button onclick="filterCat(this,'tech')" class="cat-btn" style="padding:6px 16px;border-radius:20px;border:1.5px solid #ddd;background:#fff;color:#333;font-size:13px;cursor:pointer;white-space:nowrap;">💻 Tech</button>
+          <button onclick="filterCat(this,'music')" class="cat-btn" style="padding:6px 16px;border-radius:20px;border:1.5px solid #ddd;background:#fff;color:#333;font-size:13px;cursor:pointer;white-space:nowrap;">🎵 Music</button>
+          <button onclick="filterCat(this,'dance')" class="cat-btn" style="padding:6px 16px;border-radius:20px;border:1.5px solid #ddd;background:#fff;color:#333;font-size:13px;cursor:pointer;white-space:nowrap;">💃 Dance</button>
+          <button onclick="filterCat(this,'education')" class="cat-btn" style="padding:6px 16px;border-radius:20px;border:1.5px solid #ddd;background:#fff;color:#333;font-size:13px;cursor:pointer;white-space:nowrap;">📚 Education</button>
         </div>
-
-        <!-- VIDEOS GRID -->
         <div style="padding:20px 24px;">
-          <div id="videos-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:20px;">
-
-            <!-- Video 1 -->
-            <div class="video-card" data-cat="farming" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#FF6600,#ff9900); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">🌾</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">12:34</span>
-                <span style="position:absolute; top:8px; left:8px; background:#FF6600; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Hindi</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Khethi Tips — Rabi Season ke liye best practices 🌾</div>
-                <div style="font-size:12px; color:#888;">Ramesh Khetiwala</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">2.4L views • 2 days ago</div>
-              </div>
+          <!-- Static demo videos + dynamic uploaded videos -->
+          <div id="videos-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">
+            <div class="video-card" data-cat="farming" onclick="showPage('watch')" style="cursor:pointer;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #eee;transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#FF6600,#ff9900);height:160px;display:flex;align-items:center;justify-content:center;position:relative;"><span style="font-size:48px;">🌾</span><span style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.8);color:#fff;font-size:11px;padding:2px 6px;border-radius:4px;">12:34</span><span style="position:absolute;top:8px;left:8px;background:#FF6600;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;">Hindi</span></div>
+              <div style="padding:12px;"><div style="font-size:14px;font-weight:600;margin-bottom:6px;line-height:1.4;">Khethi Tips — Rabi Season ke liye best practices 🌾</div><div style="font-size:12px;color:#888;">Ramesh Khetiwala</div><div style="font-size:12px;color:#999;margin-top:3px;">2.4L views • 2 days ago</div></div>
             </div>
-
-            <!-- Video 2 -->
-            <div class="video-card" data-cat="cooking" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#1a5fcc,#4a90d9); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">🍳</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">8:45</span>
-                <span style="position:absolute; top:8px; left:8px; background:#1a5fcc; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Tamil</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Dal Makhani recipe — Authentic Punjabi style 🍛</div>
-                <div style="font-size:12px; color:#888;">Priya's Kitchen</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">85K views • 3 days ago</div>
-              </div>
+            <div class="video-card" data-cat="cooking" onclick="showPage('watch')" style="cursor:pointer;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #eee;transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#1a5fcc,#4a90d9);height:160px;display:flex;align-items:center;justify-content:center;position:relative;"><span style="font-size:48px;">🍳</span><span style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.8);color:#fff;font-size:11px;padding:2px 6px;border-radius:4px;">8:45</span><span style="position:absolute;top:8px;left:8px;background:#1a5fcc;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;">Tamil</span></div>
+              <div style="padding:12px;"><div style="font-size:14px;font-weight:600;margin-bottom:6px;line-height:1.4;">Dal Makhani recipe — Authentic Punjabi style 🍛</div><div style="font-size:12px;color:#888;">Priya's Kitchen</div><div style="font-size:12px;color:#999;margin-top:3px;">85K views • 3 days ago</div></div>
             </div>
-
-            <!-- Video 3 -->
-            <div class="video-card" data-cat="tech" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#0a7a3e,#2ecc71); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">💻</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">22:10</span>
-                <span style="position:absolute; top:8px; left:8px; background:#0a7a3e; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Hindi</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Python programming — Hindi mein seekho! 🐍</div>
-                <div style="font-size:12px; color:#888;">TechWithArjun</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">2.4L views • 1 week ago</div>
-              </div>
+            <div class="video-card" data-cat="tech" onclick="showPage('watch')" style="cursor:pointer;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #eee;transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#0a7a3e,#2ecc71);height:160px;display:flex;align-items:center;justify-content:center;position:relative;"><span style="font-size:48px;">💻</span><span style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.8);color:#fff;font-size:11px;padding:2px 6px;border-radius:4px;">22:10</span><span style="position:absolute;top:8px;left:8px;background:#0a7a3e;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;">Hindi</span></div>
+              <div style="padding:12px;"><div style="font-size:14px;font-weight:600;margin-bottom:6px;line-height:1.4;">Python programming — Hindi mein seekho! 🐍</div><div style="font-size:12px;color:#888;">TechWithArjun</div><div style="font-size:12px;color:#999;margin-top:3px;">2.4L views • 1 week ago</div></div>
             </div>
-
-            <!-- Video 4 -->
-            <div class="video-card" data-cat="comedy" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#b5006e,#e91e8c); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">😂</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">4:15</span>
-                <span style="position:absolute; top:8px; left:8px; background:#b5006e; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Telugu</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Hyderabadi comedy — Ep 24 😂</div>
-                <div style="font-size:12px; color:#888;">Telugu Talkies</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">3.1L views • 5 days ago</div>
-              </div>
+            <div class="video-card" data-cat="comedy" onclick="showPage('watch')" style="cursor:pointer;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #eee;transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#b5006e,#e91e8c);height:160px;display:flex;align-items:center;justify-content:center;position:relative;"><span style="font-size:48px;">😂</span><span style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.8);color:#fff;font-size:11px;padding:2px 6px;border-radius:4px;">4:15</span><span style="position:absolute;top:8px;left:8px;background:#b5006e;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;">Telugu</span></div>
+              <div style="padding:12px;"><div style="font-size:14px;font-weight:600;margin-bottom:6px;line-height:1.4;">Hyderabadi comedy — Ep 24 😂</div><div style="font-size:12px;color:#888;">Telugu Talkies</div><div style="font-size:12px;color:#999;margin-top:3px;">3.1L views • 5 days ago</div></div>
             </div>
-
-            <!-- Video 5 -->
-            <div class="video-card" data-cat="dance" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#6a0dad,#9b59b6); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">💃</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">5:30</span>
-                <span style="position:absolute; top:8px; left:8px; background:#6a0dad; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Marathi</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Lavani dance tutorial — Beginners ke liye 💃</div>
-                <div style="font-size:12px; color:#888;">Nisha Dance Academy</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">45K views • 1 week ago</div>
-              </div>
+            <div class="video-card" data-cat="education" onclick="showPage('watch')" style="cursor:pointer;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #eee;transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="background:linear-gradient(135deg,#0055cc,#3399ff);height:160px;display:flex;align-items:center;justify-content:center;position:relative;"><span style="font-size:48px;">📚</span><span style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.8);color:#fff;font-size:11px;padding:2px 6px;border-radius:4px;">18:22</span><span style="position:absolute;top:8px;left:8px;background:#0055cc;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;">Hindi</span></div>
+              <div style="padding:12px;"><div style="font-size:14px;font-weight:600;margin-bottom:6px;line-height:1.4;">Class 10 Maths — Trigonometry Hindi mein 📐</div><div style="font-size:12px;color:#888;">Shiksha Academy</div><div style="font-size:12px;color:#999;margin-top:3px;">5.2L views • 3 days ago</div></div>
             </div>
-
-            <!-- Video 6 -->
-            <div class="video-card" data-cat="music" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#cc4400,#ff6b35); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">🎵</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">3:45</span>
-                <span style="position:absolute; top:8px; left:8px; background:#cc4400; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Tamil</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Tamil folk song — Pongal special 🎶</div>
-                <div style="font-size:12px; color:#888;">Tamil Music Hub</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">1.8L views • 2 weeks ago</div>
-              </div>
-            </div>
-
-            <!-- Video 7 -->
-            <div class="video-card" data-cat="education" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#0055cc,#3399ff); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">📚</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">18:22</span>
-                <span style="position:absolute; top:8px; left:8px; background:#0055cc; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Hindi</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Class 10 Maths — Trigonometry Hindi mein 📐</div>
-                <div style="font-size:12px; color:#888;">Shiksha Academy</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">5.2L views • 3 days ago</div>
-              </div>
-            </div>
-
-            <!-- Video 8 -->
-            <div class="video-card" data-cat="farming" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#2d8a00,#5cb800); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">🥬</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">9:15</span>
-                <span style="position:absolute; top:8px; left:8px; background:#2d8a00; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Punjabi</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Organic farming guide — Vegetables 🥬</div>
-                <div style="font-size:12px; color:#888;">Punjab Kisan</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">92K views • 4 days ago</div>
-              </div>
-            </div>
-
+            <!-- Uploaded videos will be injected here by JS -->
           </div>
         </div>
       </div>
 
-      <!-- LANDING (shown before login) -->
+      <!-- LANDING -->
       <div id="landing-page">
-      <div class="hero">
-        <div class="badge">🇮🇳 Made in India, for India</div>
-        <h1>India ka apna<br><span>YouTube — BharatTube</span></h1>
-        <p>Watch and create videos in all 22 Indian languages. Earn money from Day 1!</p>
-        <div class="signup-box">
-          <p>🚀 Be the first to know when we launch!</p>
-          <div class="input-row">
-            <input type="email" id="waitlist-email" placeholder="Enter your email" />
-            <button onclick="handleWaitlist()">Join now</button>
+        <div class="hero">
+          <div class="badge">🇮🇳 Made in India, for India</div>
+          <h1>India ka apna<br><span>YouTube — BharatTube</span></h1>
+          <p>Watch and create videos in all 22 Indian languages. Earn money from Day 1!</p>
+          <div class="signup-box">
+            <p>🚀 Be the first to know when we launch!</p>
+            <div class="input-row">
+              <input type="email" id="waitlist-email" placeholder="Enter your email" />
+              <button onclick="handleWaitlist()">Join now</button>
+            </div>
+            <div class="counter"><strong id="signup-count">0</strong> Indians already joined! 🎉</div>
           </div>
-          <div class="counter"><strong id="signup-count">0</strong> Indians already joined! 🎉</div>
         </div>
-      </div>
-      <div class="stats">
-        <div class="stat"><div class="stat-n">22</div><div class="stat-l">Indian languages</div></div>
-        <div class="stat"><div class="stat-n">80%</div><div class="stat-l">Revenue to creators</div></div>
-        <div class="stat"><div class="stat-n">Day 1</div><div class="stat-l">Start earning</div></div>
-        <div class="stat"><div class="stat-n">₹1</div><div class="stat-l">Min. withdrawal</div></div>
-      </div>
-      <div class="section" id="features">
-        <div class="section-title">Why BharatTube? 🔥</div>
-        <div class="section-sub">Har Indian ke liye!</div>
-        <div class="feat-grid">
-          <div class="feat-card"><div class="feat-icon">💰</div><h3>Earn from Day 1</h3><p>No 1000 subscriber limit. Earn via UPI instantly!</p></div>
-          <div class="feat-card"><div class="feat-icon">🗣️</div><h3>All 22 Languages</h3><p>Hindi, Tamil, Telugu, Marathi and more!</p></div>
-          <div class="feat-card"><div class="feat-icon">🛡️</div><h3>Data in India</h3><p>Your data stays on Indian servers only!</p></div>
-          <div class="feat-card"><div class="feat-icon">📶</div><h3>Works on 2G</h3><p>Even villages with slow internet can use it!</p></div>
-          <div class="feat-card"><div class="feat-icon">⚡</div><h3>Instant UPI</h3><p>Weekly payments. Minimum withdrawal ₹1!</p></div>
-          <div class="feat-card"><div class="feat-icon">🤝</div><h3>Brand Deals</h3><p>Connect with Indian brands directly!</p></div>
+        <div class="stats">
+          <div class="stat"><div class="stat-n">22</div><div class="stat-l">Indian languages</div></div>
+          <div class="stat"><div class="stat-n">80%</div><div class="stat-l">Revenue to creators</div></div>
+          <div class="stat"><div class="stat-n">Day 1</div><div class="stat-l">Start earning</div></div>
+          <div class="stat"><div class="stat-n">₹1</div><div class="stat-l">Min. withdrawal</div></div>
         </div>
-      </div>
-      <div class="monetization">
-        <div class="section-title">Creator <span>Monetization</span> 💰</div>
-        <div class="section-sub">Simple & easy earning system</div>
-        <div class="coming-soon-banner"><div class="cs-dot"></div><div class="cs-text">🚀 COMING SOON!</div></div>
-        <div class="cs-grid">
-          <div class="cs-card"><div class="cs-icon">⭐</div><div class="cs-title">Starter</div><div class="cs-earn">₹100-500/mo</div></div>
-          <div class="cs-card"><div class="cs-icon">🔥</div><div class="cs-title">Creator</div><div class="cs-earn">₹500-2K/mo</div></div>
-          <div class="cs-card"><div class="cs-icon">💎</div><div class="cs-title">Pro</div><div class="cs-earn">₹2K-10K/mo</div></div>
-          <div class="cs-card"><div class="cs-icon">🏆</div><div class="cs-title">Star</div><div class="cs-earn">₹10K-1L+/mo</div></div>
+        <div class="section">
+          <div class="section-title">Why BharatTube? 🔥</div>
+          <div class="section-sub">Har Indian ke liye!</div>
+          <div class="feat-grid">
+            <div class="feat-card"><div class="feat-icon">💰</div><h3>Earn from Day 1</h3><p>No 1000 subscriber limit. Earn via UPI instantly!</p></div>
+            <div class="feat-card"><div class="feat-icon">🗣️</div><h3>All 22 Languages</h3><p>Hindi, Tamil, Telugu, Marathi and more!</p></div>
+            <div class="feat-card"><div class="feat-icon">🛡️</div><h3>Data in India</h3><p>Your data stays on Indian servers only!</p></div>
+            <div class="feat-card"><div class="feat-icon">📶</div><h3>Works on 2G</h3><p>Even villages with slow internet can use it!</p></div>
+            <div class="feat-card"><div class="feat-icon">⚡</div><h3>Instant UPI</h3><p>Weekly payments. Minimum withdrawal ₹1!</p></div>
+            <div class="feat-card"><div class="feat-icon">🤝</div><h3>Brand Deals</h3><p>Connect with Indian brands directly!</p></div>
+          </div>
         </div>
+        <div class="monetization">
+          <div class="section-title">Creator <span>Monetization</span> 💰</div>
+          <div class="section-sub">Simple & easy earning system</div>
+          <div class="coming-soon-banner"><div class="cs-dot"></div><div class="cs-text">🚀 COMING SOON!</div></div>
+          <div class="cs-grid">
+            <div class="cs-card"><div class="cs-icon">⭐</div><div class="cs-title">Starter</div><div class="cs-earn">₹100-500/mo</div></div>
+            <div class="cs-card"><div class="cs-icon">🔥</div><div class="cs-title">Creator</div><div class="cs-earn">₹500-2K/mo</div></div>
+            <div class="cs-card"><div class="cs-icon">💎</div><div class="cs-title">Pro</div><div class="cs-earn">₹2K-10K/mo</div></div>
+            <div class="cs-card"><div class="cs-icon">🏆</div><div class="cs-title">Star</div><div class="cs-earn">₹10K-1L+/mo</div></div>
+          </div>
+        </div>
+        <div class="compare">
+          <div class="section-title">BharatTube vs YouTube 🆚</div>
+          <table class="compare-table">
+            <tr><th></th><th class="yt">YouTube</th><th class="bt">BharatTube 🇮🇳</th></tr>
+            <tr><td>Earning starts</td><td class="bad">1000 subscribers</td><td class="good">Day 1! ✅</td></tr>
+            <tr><td>Revenue share</td><td class="bad">55% to creator</td><td class="good">80% to creator</td></tr>
+            <tr><td>Min. withdrawal</td><td class="bad">$100 (~₹8,000)</td><td class="good">₹1 only!</td></tr>
+            <tr><td>Indian languages</td><td class="bad">Limited</td><td class="good">All 22 🇮🇳</td></tr>
+            <tr><td>Data storage</td><td class="bad">USA servers</td><td class="good">India servers</td></tr>
+            <tr><td>2G support</td><td class="bad">No ❌</td><td class="good">Yes ✅</td></tr>
+          </table>
+        </div>
+        <div class="footer-cta">
+          <h2>India ka apna YouTube aa raha hai! 🇮🇳</h2>
+          <p>Sign up karo aur early bird benefits pao!</p>
+          <button onclick="showModal('signup')">Join Free — Sign Up Now! 🚀</button>
+        </div>
+        <footer>
+          <span>BharatTube © 2026 — Made with pride in India 🇮🇳</span>
+          <span>📧 bharattubeindia@gmail.com</span>
+        </footer>
       </div>
-      <div class="compare" id="compare">
-        <div class="section-title">BharatTube vs YouTube 🆚</div>
-        <table class="compare-table">
-          <tr><th></th><th class="yt">YouTube</th><th class="bt">BharatTube 🇮🇳</th></tr>
-          <tr><td>Earning starts</td><td class="bad">1000 subscribers</td><td class="good">Day 1! ✅</td></tr>
-          <tr><td>Revenue share</td><td class="bad">55% to creator</td><td class="good">80% to creator</td></tr>
-          <tr><td>Min. withdrawal</td><td class="bad">$100 (~₹8,000)</td><td class="good">₹1 only!</td></tr>
-          <tr><td>Indian languages</td><td class="bad">Limited</td><td class="good">All 22 🇮🇳</td></tr>
-          <tr><td>Data storage</td><td class="bad">USA servers</td><td class="good">India servers</td></tr>
-          <tr><td>2G support</td><td class="bad">No ❌</td><td class="good">Yes ✅</td></tr>
-        </table>
-      </div>
-      <div class="footer-cta">
-        <h2>India ka apna YouTube aa raha hai! 🇮🇳</h2>
-        <p>Sign up karo aur early bird benefits pao!</p>
-        <button onclick="showModal('signup')">Join Free — Sign Up Now! 🚀</button>
-      </div>
-      <footer>
-        <span>BharatTube © 2026 — Made with pride in India 🇮🇳</span>
-        <span>📧 bharattubeindia@gmail.com</span>
-      </footer>
-      </div><!-- end landing-page -->
-    </div><!-- end page-home -->
+    </div>
+
+    <!-- DASHBOARD PAGE -->
     <div class="page" id="page-dashboard">
       <div class="dashboard">
-        <div class="dash-welcome">
-          <h2>Welcome back! 👋</h2>
-          <p id="dash-email">Loading...</p>
-        </div>
+        <div class="dash-welcome"><h2 id="dash-welcome-name">Welcome back! 👋</h2><p id="dash-email">Loading...</p></div>
         <div class="dash-grid">
           <div class="dash-card"><div class="icon">👁️</div><h4>0</h4><p>Total Views</p></div>
           <div class="dash-card"><div class="icon">💰</div><h4>₹0</h4><p>Total Earnings</p></div>
-          <div class="dash-card"><div class="icon">🎬</div><h4>0</h4><p>Videos Uploaded</p></div>
+          <div class="dash-card"><div class="icon">🎬</div><h4 id="dash-video-count">0</h4><p>Videos Uploaded</p></div>
         </div>
-        <div class="section-title" style="text-align:left; font-size:18px; margin-bottom:16px;">Quick Actions</div>
+        <div class="section-title" style="text-align:left;font-size:18px;margin-bottom:16px;">Quick Actions</div>
         <div class="dash-actions">
-          <div class="dash-action-card" onclick="showPage('upload')">
-            <div class="dash-action-icon">⬆️</div>
-            <div><div class="dash-action-title">Upload Video</div><div class="dash-action-desc">Share your content with India!</div></div>
-          </div>
-          <div class="dash-action-card" onclick="showPage('watch')">
-            <div class="dash-action-icon">🎬</div>
-            <div><div class="dash-action-title">Watch Videos</div><div class="dash-action-desc">Explore BharatTube content</div></div>
-          </div>
-          <div class="dash-action-card" onclick="alert('Coming soon! 🚀')">
-            <div class="dash-action-icon">💰</div>
-            <div><div class="dash-action-title">My Earnings</div><div class="dash-action-desc">Track your revenue</div></div>
-          </div>
-          <div class="dash-action-card" onclick="showPage('profile')">
-            <div class="dash-action-icon">👤</div>
-            <div><div class="dash-action-title">My Profile</div><div class="dash-action-desc">Edit your creator profile</div></div>
-          </div>
+          <div class="dash-action-card" onclick="showPage('upload')"><div class="dash-action-icon">⬆️</div><div><div class="dash-action-title">Upload Video</div><div class="dash-action-desc">Share your content with India!</div></div></div>
+          <div class="dash-action-card" onclick="showPage('home')"><div class="dash-action-icon">🎬</div><div><div class="dash-action-title">Watch Videos</div><div class="dash-action-desc">Explore BharatTube content</div></div></div>
+          <div class="dash-action-card" onclick="showPage('earnings')"><div class="dash-action-icon">💰</div><div><div class="dash-action-title">My Earnings</div><div class="dash-action-desc">Track your revenue</div></div></div>
+          <div class="dash-action-card" onclick="showPage('profile')"><div class="dash-action-icon">👤</div><div><div class="dash-action-title">My Profile</div><div class="dash-action-desc">Edit your creator profile</div></div></div>
         </div>
       </div>
     </div>
@@ -634,20 +415,17 @@
       <div class="watch-container">
         <div>
           <div class="video-player-box">
-            <div class="video-placeholder">
-              <div class="play-btn" onclick="alert('🎬 Real videos coming soon!\nBharatTube pe creators ka swagat hai! 🇮🇳')">
-                <div class="play-icon"></div>
+            <div id="watch-video-container" style="width:100%;height:100%;">
+              <div class="video-placeholder">
+                <div class="play-btn"><div class="play-icon"></div></div>
+                <p style="color:rgba(255,255,255,0.6);font-size:14px;margin-top:8px;">Click to play</p>
               </div>
-              <p style="color:rgba(255,255,255,0.6); font-size:14px; margin-top:8px;">Click to play</p>
             </div>
           </div>
           <div class="video-info-box">
-            <div class="video-title-text">Khethi Tips — Rabi Season guide 🌾 <span style="background:#fff3e6;color:#FF6600;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;">Hindi</span></div>
+            <div id="watch-title" class="video-title-text">Khethi Tips — Rabi Season guide 🌾</div>
             <div class="video-meta-row">
-              <div class="video-stats-text">
-                <span>👁️ 2,41,847 views</span>
-                <span>📅 2 days ago</span>
-              </div>
+              <div class="video-stats-text"><span>👁️ 2,41,847 views</span><span>📅 2 days ago</span></div>
               <div class="video-action-btns">
                 <button class="v-btn" id="like-btn" onclick="handleLike()">👍 <span id="like-count">4,821</span></button>
                 <button class="v-btn" onclick="handleShare()">🔗 Share</button>
@@ -657,10 +435,7 @@
             <div class="creator-section">
               <div class="creator-left">
                 <div class="creator-av">RK</div>
-                <div>
-                  <div class="creator-name-text">Ramesh Khetiwala</div>
-                  <div class="creator-subs-text">12,400 subscribers</div>
-                </div>
+                <div><div class="creator-name-text">Ramesh Khetiwala</div><div class="creator-subs-text">12,400 subscribers</div></div>
               </div>
               <button class="sub-btn" id="sub-btn" onclick="handleSub()">Subscribe</button>
             </div>
@@ -668,492 +443,208 @@
           <div class="comments-box">
             <h3>💬 Comments (<span id="c-count">48</span>)</h3>
             <div class="c-input-row">
-              <div class="c-av">U</div>
+              <div class="c-av" id="c-av">U</div>
               <div style="flex:1;">
                 <input class="c-input" id="c-input" placeholder="Add a comment..." />
                 <button class="c-submit" onclick="addComment()">Comment</button>
               </div>
             </div>
             <div id="c-list">
-              <div class="comment-item">
-                <div class="c-av" style="background:#1a5fcc;">PS</div>
-                <div class="comment-body"><div class="comment-author">Priya Singh</div><div class="comment-text">Bahut achha video! Maine ye tips use kiye aur fasal achhi hui! 🌾</div><div class="comment-time">1 day ago • 👍 24</div></div>
-              </div>
-              <div class="comment-item">
-                <div class="c-av" style="background:#0a7a3e;">AK</div>
-                <div class="comment-body"><div class="comment-author">Arjun Kumar</div><div class="comment-text">BharatTube zindabad! Hindi mein itni achhi farming tips! 🇮🇳</div><div class="comment-time">2 days ago • 👍 18</div></div>
-              </div>
+              <div class="comment-item"><div class="c-av" style="background:#1a5fcc;">PS</div><div class="comment-body"><div class="comment-author">Priya Singh</div><div class="comment-text">Bahut achha video! Maine ye tips use kiye aur fasal achhi hui! 🌾</div><div class="comment-time">1 day ago • 👍 24</div></div></div>
+              <div class="comment-item"><div class="c-av" style="background:#0a7a3e;">AK</div><div class="comment-body"><div class="comment-author">Arjun Kumar</div><div class="comment-text">BharatTube zindabad! 🇮🇳</div><div class="comment-time">2 days ago • 👍 18</div></div></div>
             </div>
           </div>
         </div>
         <div>
-          <div class="section-title" style="font-size:16px; margin-bottom:14px;">Related Videos</div>
+          <div class="section-title" style="font-size:16px;margin-bottom:14px;">Related Videos</div>
           <div class="related-video-item"><div class="related-thumb" style="background:linear-gradient(135deg,#FF6600,#ff9900)"><span style="font-size:22px;">🌾</span><span class="r-duration">15:24</span></div><div class="related-info"><div class="related-title">Gehun ki fasal guide 2026</div><div class="related-meta">Ramesh K • 1.2L views • Hindi</div></div></div>
           <div class="related-video-item"><div class="related-thumb" style="background:linear-gradient(135deg,#1a5fcc,#4a90d9)"><span style="font-size:22px;">🍳</span><span class="r-duration">8:45</span></div><div class="related-info"><div class="related-title">Dal Makhani — Authentic recipe</div><div class="related-meta">Priya's Kitchen • 85K views</div></div></div>
           <div class="related-video-item"><div class="related-thumb" style="background:linear-gradient(135deg,#0a7a3e,#2ecc71)"><span style="font-size:22px;">💻</span><span class="r-duration">22:10</span></div><div class="related-info"><div class="related-title">Python Hindi mein seekho</div><div class="related-meta">TechWithArjun • 2.4L views</div></div></div>
           <div class="related-video-item"><div class="related-thumb" style="background:linear-gradient(135deg,#b5006e,#e91e8c)"><span style="font-size:22px;">💃</span><span class="r-duration">5:30</span></div><div class="related-info"><div class="related-title">Lavani dance tutorial</div><div class="related-meta">Nisha Dance • 45K • Marathi</div></div></div>
-          <div class="related-video-item"><div class="related-thumb" style="background:linear-gradient(135deg,#6a0dad,#9b59b6)"><span style="font-size:22px;">😂</span><span class="r-duration">4:15</span></div><div class="related-info"><div class="related-title">Hyderabadi comedy Ep 24</div><div class="related-meta">Telugu Talkies • 3.1L views</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UPLOAD PAGE — FULLY WORKING -->
+    <div class="page" id="page-upload">
+      <div class="upload-page">
+        <div class="section-title">Upload Video ⬆️</div>
+        <p style="color:#666;font-size:14px;margin-bottom:20px;">Share your content with 140 crore Indians! 🇮🇳</p>
+
+        <div id="upload-area" class="upload-area" onclick="document.getElementById('video-file-input').click()">
+          <input type="file" id="video-file-input" accept="video/*" style="display:none;" onchange="handleVideoSelect(event)" />
+          <div class="upload-icon">🎬</div>
+          <div class="upload-title">Click karo ya video drag karo</div>
+          <div class="upload-sub">MP4, AVI, MOV — Max 500MB</div>
+        </div>
+
+        <!-- Video Preview -->
+        <div id="video-preview-box" style="display:none;margin-top:16px;background:#000;border-radius:12px;overflow:hidden;">
+          <video id="video-preview" controls style="width:100%;max-height:300px;"></video>
+          <div id="selected-file-name" style="padding:8px 12px;background:#111;color:#fff;font-size:12px;"></div>
+        </div>
+
+        <!-- Upload Progress -->
+        <div id="upload-progress-box" style="display:none;margin-top:16px;background:#fff;border:1px solid #eee;border-radius:12px;padding:16px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span style="font-size:13px;font-weight:600;">Uploading to BharatTube...</span>
+            <span id="upload-percent" style="font-size:13px;color:#FF6600;font-weight:700;">0%</span>
+          </div>
+          <div style="background:#f0f0f0;border-radius:10px;height:8px;overflow:hidden;">
+            <div id="upload-bar" style="background:linear-gradient(90deg,#FF6600,#ff9900);height:100%;width:0%;transition:width 0.3s;border-radius:10px;"></div>
+          </div>
+          <div id="upload-status" style="font-size:12px;color:#888;margin-top:8px;">Preparing upload...</div>
+        </div>
+
+        <!-- Success Box -->
+        <div id="upload-success-box" style="display:none;margin-top:16px;background:#e6faf2;border:1px solid #0a7a3e;border-radius:12px;padding:20px;text-align:center;">
+          <div style="font-size:40px;margin-bottom:8px;">🎉</div>
+          <div style="font-size:16px;font-weight:700;color:#0a7a3e;margin-bottom:4px;">Video uploaded successfully!</div>
+          <div style="font-size:13px;color:#666;margin-bottom:12px;">Tera video BharatTube pe live hai! 🇮🇳</div>
+          <div id="uploaded-video-link" style="margin-bottom:12px;"></div>
+          <button onclick="resetUpload()" style="padding:8px 20px;background:#0a7a3e;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">Upload Another Video</button>
+          <button onclick="showPage('home')" style="padding:8px 20px;background:#FF6600;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;margin-left:8px;">View on Home 🏠</button>
+        </div>
+
+        <!-- Upload Form -->
+        <div class="upload-form" id="upload-form">
+          <div class="form-group">
+            <label class="form-label">Video Title *</label>
+            <input class="form-input" id="video-title" type="text" placeholder="Apne video ka title likho..." />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea class="form-input" id="video-desc" rows="3" placeholder="Video ke baare mein batao..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Language *</label>
+            <select class="form-select" id="video-lang">
+              <option>Hindi</option><option>Tamil</option><option>Telugu</option><option>Marathi</option><option>Bengali</option><option>Gujarati</option><option>Kannada</option><option>Malayalam</option><option>Punjabi</option><option>Odia</option><option>English</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category *</label>
+            <select class="form-select" id="video-cat">
+              <option value="education">Education</option><option value="farming">Farming</option><option value="cooking">Cooking</option><option value="comedy">Comedy</option><option value="music">Music</option><option value="dance">Dance</option><option value="tech">Technology</option><option value="health">Health</option><option value="sports">Sports</option><option value="news">News</option>
+            </select>
+          </div>
+          <button class="upload-btn" id="upload-btn" onclick="uploadVideoToCloudinary()">🚀 Upload Video to BharatTube</button>
+          <p style="font-size:12px;color:#888;text-align:center;margin-top:8px;">Video Cloudinary pe store hoga • Firebase mein save hoga ✅</p>
         </div>
       </div>
     </div>
 
     <!-- CREATOR STUDIO PAGE -->
     <div class="page" id="page-creator-studio">
-      <div style="background:#0a0a0a; min-height:100vh; color:#fff; padding:0;">
-
-        <!-- Creator Studio Nav -->
-        <div style="background:#111; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #222;">
-          <div style="display:flex; align-items:center; gap:16px;">
-            <div style="font-size:18px; font-weight:800; color:#FF6600;">BharatTube</div>
-            <div style="font-size:13px; color:#888;">Creator Studio</div>
+      <div style="background:#0a0a0a;min-height:100vh;color:#fff;padding:0;">
+        <div style="background:#111;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #222;">
+          <div style="display:flex;align-items:center;gap:16px;">
+            <div style="font-size:18px;font-weight:800;color:#FF6600;">BharatTube</div>
+            <div style="font-size:13px;color:#888;">Creator Studio</div>
           </div>
-          <div style="display:flex; gap:8px;">
-            <button onclick="showPage('upload')" style="padding:8px 16px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; cursor:pointer; font-weight:600;">+ Upload Video</button>
-            <button onclick="showPage('home')" style="padding:8px 16px; background:#222; color:#fff; border:none; border-radius:8px; font-size:13px; cursor:pointer;">← Back to BharatTube</button>
+          <div style="display:flex;gap:8px;">
+            <button onclick="showPage('upload')" style="padding:8px 16px;background:#FF6600;color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;font-weight:600;">+ Upload Video</button>
+            <button onclick="showPage('home')" style="padding:8px 16px;background:#222;color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;">← Back</button>
           </div>
         </div>
-
-        <div style="display:grid; grid-template-columns:220px 1fr; min-height:calc(100vh - 56px);">
-
-          <!-- Creator Studio Sidebar -->
-          <div style="background:#111; border-right:1px solid #222; padding:16px 0;">
-            <div style="padding:16px 20px; border-bottom:1px solid #222; margin-bottom:8px;">
-              <div style="width:48px; height:48px; border-radius:50%; background:#FF6600; color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; margin-bottom:8px;" id="cs-av">K</div>
-              <div style="font-size:14px; font-weight:700;" id="cs-name">Creator</div>
-              <div style="font-size:11px; color:#888; margin-top:2px;">Your Channel</div>
+        <div style="display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 56px);">
+          <div style="background:#111;border-right:1px solid #222;padding:16px 0;">
+            <div style="padding:16px 20px;border-bottom:1px solid #222;margin-bottom:8px;">
+              <div id="cs-av" style="width:48px;height:48px;border-radius:50%;background:#FF6600;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;margin-bottom:8px;">U</div>
+              <div id="cs-name" style="font-size:14px;font-weight:700;">Creator</div>
+              <div style="font-size:11px;color:#888;margin-top:2px;">Your Channel</div>
             </div>
-            <div onclick="showCSTab('dashboard')" id="cs-nav-dashboard" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#FF6600; background:rgba(255,102,0,0.1); font-size:13px; font-weight:600;">
-              <span>📊</span> Dashboard
-            </div>
-            <div onclick="showCSTab('content')" id="cs-nav-content" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
-              <span>🎬</span> Content
-            </div>
-            <div onclick="showCSTab('analytics')" id="cs-nav-analytics" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
-              <span>📈</span> Analytics
-            </div>
-            <div onclick="showCSTab('earnings')" id="cs-nav-earnings" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
-              <span>💰</span> Earnings
-            </div>
-            <div onclick="showCSTab('customize')" id="cs-nav-customize" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
-              <span>🎨</span> Customize Channel
-            </div>
-            <div onclick="showCSTab('community')" id="cs-nav-community" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
-              <span>👥</span> Community
-            </div>
+            <div onclick="showCSTab('dashboard')" id="cs-nav-dashboard" style="display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;color:#FF6600;background:rgba(255,102,0,0.1);font-size:13px;font-weight:600;"><span>📊</span> Dashboard</div>
+            <div onclick="showCSTab('content')" id="cs-nav-content" style="display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;color:#888;font-size:13px;"><span>🎬</span> Content</div>
+            <div onclick="showCSTab('analytics')" id="cs-nav-analytics" style="display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;color:#888;font-size:13px;"><span>📈</span> Analytics</div>
+            <div onclick="showCSTab('earnings')" id="cs-nav-earnings" style="display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;color:#888;font-size:13px;"><span>💰</span> Earnings</div>
           </div>
-
-          <!-- Creator Studio Content -->
-          <div style="padding:24px; overflow-y:auto;">
-
-            <!-- DASHBOARD TAB -->
+          <div style="padding:24px;overflow-y:auto;">
             <div id="cs-tab-dashboard">
-              <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Channel Dashboard 📊</h2>
-
-              <!-- Stats -->
-              <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px;">
-                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:18px; text-align:center;">
-                  <div style="font-size:28px; font-weight:800; color:#FF6600;">0</div>
-                  <div style="font-size:12px; color:#888; margin-top:4px;">Total Views</div>
-                  <div style="font-size:11px; color:#444; margin-top:2px;">Last 28 days</div>
-                </div>
-                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:18px; text-align:center;">
-                  <div style="font-size:28px; font-weight:800; color:#FF6600;">0</div>
-                  <div style="font-size:12px; color:#888; margin-top:4px;">Subscribers</div>
-                  <div style="font-size:11px; color:#444; margin-top:2px;">Total</div>
-                </div>
-                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:18px; text-align:center;">
-                  <div style="font-size:28px; font-weight:800; color:#FF6600;">₹0</div>
-                  <div style="font-size:12px; color:#888; margin-top:4px;">Earnings</div>
-                  <div style="font-size:11px; color:#444; margin-top:2px;">This month</div>
-                </div>
-                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:18px; text-align:center;">
-                  <div style="font-size:28px; font-weight:800; color:#FF6600;">0</div>
-                  <div style="font-size:12px; color:#888; margin-top:4px;">Videos</div>
-                  <div style="font-size:11px; color:#444; margin-top:2px;">Published</div>
-                </div>
+              <h2 style="font-size:22px;font-weight:800;margin-bottom:20px;">Channel Dashboard 📊</h2>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;">
+                <div style="background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:18px;text-align:center;"><div style="font-size:28px;font-weight:800;color:#FF6600;" id="cs-views">0</div><div style="font-size:12px;color:#888;margin-top:4px;">Total Views</div></div>
+                <div style="background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:18px;text-align:center;"><div style="font-size:28px;font-weight:800;color:#FF6600;">0</div><div style="font-size:12px;color:#888;margin-top:4px;">Subscribers</div></div>
+                <div style="background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:18px;text-align:center;"><div style="font-size:28px;font-weight:800;color:#FF6600;">₹0</div><div style="font-size:12px;color:#888;margin-top:4px;">Earnings</div></div>
+                <div style="background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:18px;text-align:center;"><div style="font-size:28px;font-weight:800;color:#FF6600;" id="cs-video-count">0</div><div style="font-size:12px;color:#888;margin-top:4px;">Videos</div></div>
               </div>
-
-              <!-- Monetization Status -->
-              <div style="background:#1a1a1a; border:1px solid #FF6600; border-radius:12px; padding:20px; margin-bottom:20px;">
-                <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-                  <span style="font-size:24px;">💰</span>
-                  <div>
-                    <div style="font-size:15px; font-weight:700;">Monetization Status</div>
-                    <div style="font-size:12px; color:#888;">Your earning level</div>
-                  </div>
-                  <div style="margin-left:auto; background:rgba(255,102,0,0.2); color:#FF6600; font-size:12px; padding:4px 12px; border-radius:20px; font-weight:600;">⭐ Starter Level</div>
-                </div>
-                <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                  <div style="background:#222; border-radius:8px; padding:10px 14px; font-size:12px;">
-                    <span style="color:#FF6600;">✓</span> Account created
-                  </div>
-                  <div style="background:#222; border-radius:8px; padding:10px 14px; font-size:12px; color:#666;">
-                    <span>○</span> 10 subscribers needed
-                  </div>
-                  <div style="background:#222; border-radius:8px; padding:10px 14px; font-size:12px; color:#666;">
-                    <span>○</span> 3 videos needed
-                  </div>
-                </div>
-              </div>
-
-              <!-- Quick Actions -->
-              <h3 style="font-size:16px; font-weight:700; margin-bottom:14px;">Quick Actions</h3>
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                <div onclick="showPage('upload')" style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:border-color 0.2s;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor='#222'">
-                  <span style="font-size:28px;">⬆️</span>
-                  <div><div style="font-size:14px; font-weight:600;">Upload Video</div><div style="font-size:12px; color:#666;">Share with India!</div></div>
-                </div>
-                <div onclick="showCSTab('customize')" style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor='#222'">
-                  <span style="font-size:28px;">🎨</span>
-                  <div><div style="font-size:14px; font-weight:600;">Customize Channel</div><div style="font-size:12px; color:#666;">Make it yours!</div></div>
-                </div>
-                <div onclick="showCSTab('analytics')" style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor='#222'">
-                  <span style="font-size:28px;">📈</span>
-                  <div><div style="font-size:14px; font-weight:600;">View Analytics</div><div style="font-size:12px; color:#666;">Track growth!</div></div>
-                </div>
-                <div onclick="showCSTab('earnings')" style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor='#222'">
-                  <span style="font-size:28px;">💸</span>
-                  <div><div style="font-size:14px; font-weight:600;">My Earnings</div><div style="font-size:12px; color:#666;">View revenue!</div></div>
-                </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div onclick="showPage('upload')" style="background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:16px;cursor:pointer;display:flex;align-items:center;gap:12px;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor='#222'"><span style="font-size:28px;">⬆️</span><div><div style="font-size:14px;font-weight:600;">Upload Video</div><div style="font-size:12px;color:#666;">Share with India!</div></div></div>
+                <div onclick="showCSTab('content')" style="background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:16px;cursor:pointer;display:flex;align-items:center;gap:12px;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor='#222'"><span style="font-size:28px;">🎬</span><div><div style="font-size:14px;font-weight:600;">My Content</div><div style="font-size:12px;color:#666;">Manage videos!</div></div></div>
               </div>
             </div>
-
-            <!-- CONTENT TAB -->
             <div id="cs-tab-content" style="display:none;">
-              <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Your Content 🎬</h2>
-              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:48px; text-align:center;">
-                <div style="font-size:48px; margin-bottom:12px;">🎬</div>
-                <div style="font-size:16px; font-weight:700; margin-bottom:8px;">No videos yet!</div>
-                <div style="font-size:13px; color:#888; margin-bottom:20px;">Upload your first video and start your journey!</div>
-                <button onclick="showPage('upload')" style="padding:12px 28px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer;">Upload First Video 🚀</button>
-              </div>
+              <h2 style="font-size:22px;font-weight:800;margin-bottom:20px;">Your Content 🎬</h2>
+              <div id="cs-videos-list"><div style="background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:48px;text-align:center;"><div style="font-size:48px;margin-bottom:12px;">🎬</div><div style="font-size:16px;font-weight:700;margin-bottom:8px;">No videos yet!</div><button onclick="showPage('upload')" style="padding:12px 28px;background:#FF6600;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;">Upload First Video 🚀</button></div></div>
             </div>
-
-            <!-- ANALYTICS TAB -->
             <div id="cs-tab-analytics" style="display:none;">
-              <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Analytics 📈</h2>
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px;">
-                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px;">
-                  <div style="font-size:13px; color:#888; margin-bottom:8px;">Views (Last 28 days)</div>
-                  <div style="font-size:32px; font-weight:800; color:#FF6600;">0</div>
-                  <div style="font-size:12px; color:#444; margin-top:4px;">Upload videos to see data</div>
-                </div>
-                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px;">
-                  <div style="font-size:13px; color:#888; margin-bottom:8px;">Watch Time (Hours)</div>
-                  <div style="font-size:32px; font-weight:800; color:#FF6600;">0</div>
-                  <div style="font-size:12px; color:#444; margin-top:4px;">Upload videos to see data</div>
-                </div>
-                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px;">
-                  <div style="font-size:13px; color:#888; margin-bottom:8px;">New Subscribers</div>
-                  <div style="font-size:32px; font-weight:800; color:#FF6600;">0</div>
-                  <div style="font-size:12px; color:#444; margin-top:4px;">Last 28 days</div>
-                </div>
-                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px;">
-                  <div style="font-size:13px; color:#888; margin-bottom:8px;">Impressions</div>
-                  <div style="font-size:32px; font-weight:800; color:#FF6600;">0</div>
-                  <div style="font-size:12px; color:#444; margin-top:4px;">Last 28 days</div>
-                </div>
-              </div>
-              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:24px; text-align:center;">
-                <div style="font-size:13px; color:#666;">Upload videos to unlock detailed analytics! 📊</div>
-              </div>
+              <h2 style="font-size:22px;font-weight:800;margin-bottom:20px;">Analytics 📈</h2>
+              <div style="background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:24px;text-align:center;"><div style="font-size:13px;color:#666;">Upload videos to unlock detailed analytics! 📊</div></div>
             </div>
-
-            <!-- EARNINGS TAB -->
             <div id="cs-tab-earnings" style="display:none;">
-              <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Earnings 💰</h2>
-              <div style="background:linear-gradient(135deg,#FF6600,#ff9900); border-radius:12px; padding:24px; margin-bottom:20px;">
-                <div style="font-size:13px; opacity:0.85; margin-bottom:4px;">Total Earned</div>
-                <div style="font-size:40px; font-weight:800;">₹0.00</div>
-                <div style="font-size:12px; opacity:0.75; margin-top:4px;">UPI withdrawal available after ₹1</div>
-              </div>
-              <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:20px;">
-                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; text-align:center;">
-                  <div style="font-size:13px; color:#888;">Ad Revenue</div>
-                  <div style="font-size:22px; font-weight:800; color:#FF6600; margin-top:4px;">₹0</div>
-                </div>
-                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; text-align:center;">
-                  <div style="font-size:13px; color:#888;">Live Gifts</div>
-                  <div style="font-size:22px; font-weight:800; color:#FF6600; margin-top:4px;">₹0</div>
-                </div>
-                <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; text-align:center;">
-                  <div style="font-size:13px; color:#888;">Brand Deals</div>
-                  <div style="font-size:22px; font-weight:800; color:#FF6600; margin-top:4px;">₹0</div>
-                </div>
-              </div>
-              <div style="background:#1a1a1a; border:1px solid rgba(255,102,0,0.3); border-radius:12px; padding:20px; display:flex; align-items:center; gap:14px;">
-                <span style="font-size:32px;">⚡</span>
-                <div>
-                  <div style="font-size:14px; font-weight:700; margin-bottom:4px;">UPI Instant Payment</div>
-                  <div style="font-size:12px; color:#888;">Minimum withdrawal ₹1 • Weekly payments • Direct to your UPI</div>
-                </div>
-                <button style="margin-left:auto; padding:10px 20px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;" onclick="alert('UPI payment coming soon! 🚀')">Withdraw ₹0</button>
-              </div>
+              <h2 style="font-size:22px;font-weight:800;margin-bottom:20px;">Earnings 💰</h2>
+              <div style="background:linear-gradient(135deg,#FF6600,#ff9900);border-radius:12px;padding:24px;margin-bottom:20px;"><div style="font-size:13px;opacity:0.85;margin-bottom:4px;">Total Earned</div><div style="font-size:40px;font-weight:800;">₹0.00</div><div style="font-size:12px;opacity:0.75;margin-top:4px;">UPI withdrawal available after ₹1</div></div>
             </div>
-
-            <!-- CUSTOMIZE TAB -->
-            <div id="cs-tab-customize" style="display:none;">
-              <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Customize Channel 🎨</h2>
-
-              <!-- Channel Banner -->
-              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px; margin-bottom:16px;">
-                <div style="font-size:14px; font-weight:700; margin-bottom:12px;">Channel Banner</div>
-                <div style="height:120px; background:linear-gradient(135deg,#FF6600,#ff9900); border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; margin-bottom:10px;" onclick="alert('Banner upload coming soon!')">
-                  <div style="text-align:center; color:#fff;">
-                    <div style="font-size:24px;">🖼️</div>
-                    <div style="font-size:12px; margin-top:4px;">Click to upload banner</div>
-                  </div>
-                </div>
-                <div style="font-size:12px; color:#666;">Recommended: 2560 x 1440px</div>
-              </div>
-
-              <!-- Channel Info -->
-              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px; margin-bottom:16px;">
-                <div style="font-size:14px; font-weight:700; margin-bottom:14px;">Channel Info</div>
-                <div style="margin-bottom:12px;">
-                  <label style="font-size:12px; color:#888; display:block; margin-bottom:4px;">Channel Name</label>
-                  <input id="cs-channel-name" style="width:100%; padding:10px 14px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none;" placeholder="Your channel name..." />
-                </div>
-                <div style="margin-bottom:12px;">
-                  <label style="font-size:12px; color:#888; display:block; margin-bottom:4px;">Channel Description</label>
-                  <textarea style="width:100%; padding:10px 14px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none; resize:vertical;" rows="3" placeholder="Apne channel ke baare mein batao..."></textarea>
-                </div>
-                <div style="margin-bottom:14px;">
-                  <label style="font-size:12px; color:#888; display:block; margin-bottom:4px;">Primary Language</label>
-                  <select style="width:100%; padding:10px 14px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none;">
-                    <option>Hindi</option><option>Tamil</option><option>Telugu</option>
-                    <option>Marathi</option><option>Bengali</option><option>English</option>
-                  </select>
-                </div>
-                <button onclick="alert('Channel saved! ✅')" style="padding:10px 24px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">Save Changes ✅</button>
-              </div>
-            </div>
-
-            <!-- COMMUNITY TAB -->
-            <div id="cs-tab-community" style="display:none;">
-              <h2 style="font-size:22px; font-weight:800; margin-bottom:20px;">Community 👥</h2>
-              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px; margin-bottom:16px;">
-                <div style="font-size:14px; font-weight:700; margin-bottom:12px;">Post an Update</div>
-                <textarea style="width:100%; padding:12px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none; resize:vertical;" rows="3" placeholder="Share something with your subscribers..."></textarea>
-                <button onclick="alert('Community posts coming soon! 🚀')" style="margin-top:10px; padding:10px 20px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">Post Update</button>
-              </div>
-              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:32px; text-align:center;">
-                <div style="font-size:32px; margin-bottom:8px;">👥</div>
-                <div style="font-size:14px; font-weight:700; margin-bottom:6px;">0 Subscribers</div>
-                <div style="font-size:12px; color:#888;">Upload videos to grow your community!</div>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
     </div>
-    <!-- SUBSCRIPTIONS PAGE -->
-    <div class="page" id="page-subscriptions">
+
+    <!-- SHORTS -->
+    <div class="page" id="page-shorts">
       <div style="padding:20px 24px;">
-        <h2 style="font-size:20px; font-weight:800; margin-bottom:20px;">📺 Subscriptions</h2>
-        <div style="text-align:center; padding:48px; color:#888;">
-          <div style="font-size:48px; margin-bottom:12px;">📺</div>
-          <div style="font-size:16px; font-weight:600; margin-bottom:8px;">No subscriptions yet!</div>
-          <div style="font-size:14px;">Subscribe to channels to see their latest videos here!</div>
-          <button onclick="showPage('watch')" style="margin-top:16px; padding:10px 24px; background:#FF6600; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;">Explore Videos</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- HISTORY PAGE -->
-    <div class="page" id="page-history">
-      <div style="padding:20px 24px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-          <h2 style="font-size:20px; font-weight:800;">📜 Watch History</h2>
-          <button onclick="alert('History cleared!')" style="padding:8px 16px; background:#f0f0f0; border:none; border-radius:8px; cursor:pointer; font-size:13px;">Clear History</button>
-        </div>
-        <div style="text-align:center; padding:48px; color:#888;">
-          <div style="font-size:48px; margin-bottom:12px;">📜</div>
-          <div style="font-size:16px; font-weight:600; margin-bottom:8px;">No history yet!</div>
-          <div style="font-size:14px;">Videos you watch will appear here</div>
-          <button onclick="showPage('watch')" style="margin-top:16px; padding:10px 24px; background:#FF6600; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;">Watch Videos</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- PLAYLISTS PAGE -->
-    <div class="page" id="page-playlists">
-      <div style="padding:20px 24px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-          <h2 style="font-size:20px; font-weight:800;">📋 Playlists</h2>
-          <button onclick="alert('Create playlist coming soon!')" style="padding:8px 16px; background:#FF6600; color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">+ New Playlist</button>
-        </div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:16px;">
-          <div style="background:#f9f9f9; border-radius:12px; overflow:hidden; cursor:pointer;">
-            <div style="background:linear-gradient(135deg,#FF6600,#ff9900); height:100px; display:flex; align-items:center; justify-content:center; font-size:32px; position:relative;">
-              ⏰
-              <span style="position:absolute; bottom:6px; right:8px; background:rgba(0,0,0,0.7); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">0 videos</span>
-            </div>
-            <div style="padding:10px;">
-              <div style="font-size:13px; font-weight:600;">Watch Later</div>
-              <div style="font-size:12px; color:#888;">Auto playlist</div>
-            </div>
+        <h2 style="font-size:20px;font-weight:800;margin-bottom:20px;">🩳 BharatTube Shorts</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;">
+          <div style="border-radius:12px;overflow:hidden;cursor:pointer;" onclick="playVideo(null,'Khethi tips in 60 seconds!')">
+            <div style="background:linear-gradient(180deg,#FF6600,#ff9900);height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;"><span style="font-size:56px;">🌾</span><div style="position:absolute;bottom:0;left:0;right:0;padding:12px;background:linear-gradient(transparent,rgba(0,0,0,0.8));color:#fff;"><div style="font-size:13px;font-weight:600;">Khethi tips in 60 seconds! 🌾</div><div style="font-size:11px;opacity:0.8;margin-top:2px;">Ramesh K • 1.2L views</div></div><div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;padding:2px 6px;border-radius:4px;">0:58</div></div>
           </div>
-          <div style="background:#f9f9f9; border-radius:12px; overflow:hidden; cursor:pointer;">
-            <div style="background:linear-gradient(135deg,#1a5fcc,#4a90d9); height:100px; display:flex; align-items:center; justify-content:center; font-size:32px; position:relative;">
-              👍
-              <span style="position:absolute; bottom:6px; right:8px; background:rgba(0,0,0,0.7); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">0 videos</span>
-            </div>
-            <div style="padding:10px;">
-              <div style="font-size:13px; font-weight:600;">Liked Videos</div>
-              <div style="font-size:12px; color:#888;">Auto playlist</div>
-            </div>
+          <div style="border-radius:12px;overflow:hidden;cursor:pointer;" onclick="playVideo(null,'Hyderabadi joke')">
+            <div style="background:linear-gradient(180deg,#b5006e,#e91e8c);height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;"><span style="font-size:56px;">😂</span><div style="position:absolute;bottom:0;left:0;right:0;padding:12px;background:linear-gradient(transparent,rgba(0,0,0,0.8));color:#fff;"><div style="font-size:13px;font-weight:600;">Hyderabadi joke 😂</div><div style="font-size:11px;opacity:0.8;margin-top:2px;">Telugu Talkies • 2.4L views</div></div><div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;padding:2px 6px;border-radius:4px;">0:45</div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- WATCH LATER PAGE -->
-    <div class="page" id="page-watchlater">
-      <div style="padding:20px 24px;">
-        <h2 style="font-size:20px; font-weight:800; margin-bottom:20px;">⏰ Watch Later</h2>
-        <div style="text-align:center; padding:48px; color:#888;">
-          <div style="font-size:48px; margin-bottom:12px;">⏰</div>
-          <div style="font-size:16px; font-weight:600; margin-bottom:8px;">Nothing saved yet!</div>
-          <div style="font-size:14px;">Save videos to watch later by clicking the Save button</div>
-          <button onclick="showPage('watch')" style="margin-top:16px; padding:10px 24px; background:#FF6600; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;">Browse Videos</button>
-        </div>
-      </div>
-    </div>
+    <!-- SUBSCRIPTIONS -->
+    <div class="page" id="page-subscriptions"><div style="padding:20px 24px;"><h2 style="font-size:20px;font-weight:800;margin-bottom:20px;">📺 Subscriptions</h2><div style="text-align:center;padding:48px;color:#888;"><div style="font-size:48px;margin-bottom:12px;">📺</div><div style="font-size:16px;font-weight:600;margin-bottom:8px;">No subscriptions yet!</div><button onclick="showPage('home')" style="margin-top:16px;padding:10px 24px;background:#FF6600;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;">Explore Videos</button></div></div></div>
 
-    <!-- LIVE PAGE -->
-    <div class="page" id="page-live">
-      <div style="padding:20px 24px;">
-        <h2 style="font-size:20px; font-weight:800; margin-bottom:6px;">🔴 Live Streams</h2>
-        <p style="color:#888; font-size:14px; margin-bottom:20px;">Watch creators live right now!</p>
-        <div style="background:linear-gradient(135deg,#1a1a2e,#16213e); border-radius:16px; padding:24px; margin-bottom:20px; color:#fff; display:flex; align-items:center; gap:16px;">
-          <div style="font-size:48px;">📡</div>
-          <div>
-            <div style="display:inline-flex; align-items:center; gap:6px; background:#cc0000; color:#fff; font-size:11px; padding:3px 10px; border-radius:20px; font-weight:700; margin-bottom:8px;">
-              <div style="width:6px; height:6px; background:#fff; border-radius:50%;"></div> COMING SOON
-            </div>
-            <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Live streaming aa raha hai! 🚀</div>
-            <div style="font-size:13px; opacity:0.7;">Indian creators will go LIVE on BharatTube!</div>
-          </div>
-        </div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:16px;">
-          <div style="background:#f9f9f9; border-radius:12px; overflow:hidden; border:1px solid #eee;">
-            <div style="background:linear-gradient(135deg,#FF6600,#ff9900); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-              <span style="font-size:40px;">🌾</span>
-              <div style="position:absolute; top:8px; left:8px; background:#cc0000; color:#fff; font-size:10px; padding:3px 8px; border-radius:4px; font-weight:700;">🔴 LIVE SOON</div>
-            </div>
-            <div style="padding:12px;">
-              <div style="font-size:14px; font-weight:600; margin-bottom:4px;">Khethi Live — Q&A with farmers 🌾</div>
-              <div style="font-size:12px; color:#888;">Ramesh Khetiwala • Hindi</div>
-            </div>
-          </div>
-          <div style="background:#f9f9f9; border-radius:12px; overflow:hidden; border:1px solid #eee;">
-            <div style="background:linear-gradient(135deg,#b5006e,#e91e8c); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-              <span style="font-size:40px;">🎵</span>
-              <div style="position:absolute; top:8px; left:8px; background:#cc0000; color:#fff; font-size:10px; padding:3px 8px; border-radius:4px; font-weight:700;">🔴 LIVE SOON</div>
-            </div>
-            <div style="padding:12px;">
-              <div style="font-size:14px; font-weight:600; margin-bottom:4px;">Tamil music live concert 🎵</div>
-              <div style="font-size:12px; color:#888;">Tamil Music Hub • Tamil</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- HISTORY -->
+    <div class="page" id="page-history"><div style="padding:20px 24px;"><h2 style="font-size:20px;font-weight:800;margin-bottom:20px;">📜 Watch History</h2><div style="text-align:center;padding:48px;color:#888;"><div style="font-size:48px;margin-bottom:12px;">📜</div><div style="font-size:16px;font-weight:600;margin-bottom:8px;">No history yet!</div><button onclick="showPage('home')" style="margin-top:16px;padding:10px 24px;background:#FF6600;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;">Watch Videos</button></div></div></div>
 
-    <!-- SEARCH RESULTS PAGE -->
-    <div class="page" id="page-search">
-      <div style="padding:20px 24px;">
-        <div style="font-size:14px; color:#888; margin-bottom:16px;">
-          Search results for: <strong id="search-query-display" style="color:#111;"></strong>
-        </div>
-        <div id="search-results" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:20px;"></div>
-        <div id="search-no-results" style="display:none; text-align:center; padding:48px; color:#888;">
-          <div style="font-size:48px; margin-bottom:12px;">🔍</div>
-          <div style="font-size:16px; font-weight:600; margin-bottom:8px;">Koi result nahi mila!</div>
-          <div style="font-size:14px;">Doosra keyword try karo</div>
-        </div>
-      </div>
-    </div>
+    <!-- PLAYLISTS -->
+    <div class="page" id="page-playlists"><div style="padding:20px 24px;"><h2 style="font-size:20px;font-weight:800;margin-bottom:20px;">📋 Playlists</h2><div style="text-align:center;padding:48px;color:#888;"><div style="font-size:48px;margin-bottom:12px;">📋</div><div style="font-size:16px;font-weight:600;margin-bottom:8px;">No playlists yet!</div></div></div></div>
 
-    <div class="page" id="page-upload">
-      <div class="upload-page">
-        <div class="section-title">Upload Video ⬆️</div>
-        <p style="color:#666; font-size:14px; margin-bottom:20px;">Share your content with 140 crore Indians!</p>
-        <div class="upload-area" onclick="alert('Video upload coming soon! 🎬\nHum isko jald add karenge!')">
-          <div class="upload-icon">🎬</div>
-          <div class="upload-title">Drag & Drop your video here</div>
-          <div class="upload-sub">MP4, AVI, MOV — Max 2GB</div>
-          <div class="coming-soon-tag"><div class="cs-dot"></div> Coming Soon!</div>
-        </div>
-        <div class="upload-form">
-          <div class="form-group">
-            <label class="form-label">Video Title *</label>
-            <input class="form-input" type="text" placeholder="Apne video ka title likho..." />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Description</label>
-            <textarea class="form-input" rows="3" placeholder="Video ke baare mein batao..."></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Language *</label>
-            <select class="form-select">
-              <option>Hindi</option><option>Tamil</option><option>Telugu</option>
-              <option>Marathi</option><option>Bengali</option><option>Gujarati</option>
-              <option>Kannada</option><option>Malayalam</option><option>Punjabi</option>
-              <option>Odia</option><option>English</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Category *</label>
-            <select class="form-select">
-              <option>Education</option><option>Farming</option><option>Cooking</option>
-              <option>Comedy</option><option>Music</option><option>Dance</option>
-              <option>Technology</option><option>Health</option><option>Sports</option>
-              <option>News</option>
-            </select>
-          </div>
-          <button class="upload-btn" onclick="alert('Video upload coming soon! 🚀\nBharatTube pe creators ka swagat hai! 🇮🇳')">
-            Upload Video 🚀
-          </button>
-        </div>
-      </div>
-    </div>
+    <!-- WATCH LATER -->
+    <div class="page" id="page-watchlater"><div style="padding:20px 24px;"><h2 style="font-size:20px;font-weight:800;margin-bottom:20px;">⏰ Watch Later</h2><div style="text-align:center;padding:48px;color:#888;"><div style="font-size:48px;margin-bottom:12px;">⏰</div><div style="font-size:16px;font-weight:600;margin-bottom:8px;">Nothing saved yet!</div><button onclick="showPage('home')" style="margin-top:16px;padding:10px 24px;background:#FF6600;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;">Browse Videos</button></div></div></div>
 
-    <!-- PROFILE PAGE -->
+    <!-- LIVE -->
+    <div class="page" id="page-live"><div style="padding:20px 24px;"><h2 style="font-size:20px;font-weight:800;margin-bottom:20px;">🔴 Live Streams</h2><div style="background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:16px;padding:24px;color:#fff;text-align:center;"><div style="font-size:48px;margin-bottom:12px;">📡</div><div style="font-size:16px;font-weight:700;margin-bottom:4px;">Live streaming aa raha hai! 🚀</div><div style="font-size:13px;opacity:0.7;">Indian creators will go LIVE on BharatTube soon!</div></div></div></div>
+
+    <!-- SEARCH RESULTS -->
+    <div class="page" id="page-search"><div style="padding:20px 24px;"><div style="font-size:14px;color:#888;margin-bottom:16px;">Search results for: <strong id="search-query-display" style="color:#111;"></strong></div><div id="search-results" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;"></div><div id="search-no-results" style="display:none;text-align:center;padding:48px;color:#888;"><div style="font-size:48px;margin-bottom:12px;">🔍</div><div style="font-size:16px;font-weight:600;margin-bottom:8px;">Koi result nahi mila!</div><div style="font-size:14px;">Doosra keyword try karo</div></div></div></div>
+
+    <!-- PROFILE -->
     <div class="page" id="page-profile">
       <div class="dashboard">
         <div class="section-title" style="margin-bottom:20px;">My Profile 👤</div>
-        <div style="background:#fff; border-radius:16px; padding:24px; border:1px solid #eee;">
-          <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px;">
-            <div style="width:72px;height:72px;border-radius:50%;background:#FF6600;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;" id="profile-av">U</div>
-            <div>
-              <div style="font-size:18px;font-weight:700;" id="profile-name">User</div>
-              <div style="font-size:14px;color:#888;" id="profile-email">user@email.com</div>
-            </div>
+        <div style="background:#fff;border-radius:16px;padding:24px;border:1px solid #eee;">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+            <div id="profile-av" style="width:72px;height:72px;border-radius:50%;background:#FF6600;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;">U</div>
+            <div><div id="profile-name" style="font-size:18px;font-weight:700;">User</div><div id="profile-email" style="font-size:14px;color:#888;">user@email.com</div></div>
           </div>
           <div class="form-group"><label class="form-label">Display Name</label><input class="form-input" id="p-name" placeholder="Your name" /></div>
           <div class="form-group"><label class="form-label">Bio</label><textarea class="form-input" rows="3" placeholder="Apne baare mein batao..."></textarea></div>
           <div class="form-group"><label class="form-label">Channel Language</label><select class="form-select"><option>Hindi</option><option>Tamil</option><option>Telugu</option><option>Marathi</option><option>English</option></select></div>
-          <button class="upload-btn" onclick="alert('Profile saved! ✅')">Save Profile</button>
+          <button class="upload-btn" onclick="toast('Profile saved! ✅')">Save Profile</button>
         </div>
       </div>
     </div>
 
-    <!-- EARNINGS PAGE -->
+    <!-- EARNINGS -->
     <div class="page" id="page-earnings">
       <div class="dashboard">
         <div class="section-title" style="margin-bottom:20px;">My Earnings 💰</div>
-        <div style="background:#0a0a0a;border-radius:16px;padding:32px;text-align:center;color:#fff;margin-bottom:20px;">
-          <div style="font-size:48px;margin-bottom:8px;">💰</div>
-          <div style="font-size:18px;font-weight:700;margin-bottom:8px;">Monetization Coming Soon!</div>
-          <div style="font-size:14px;color:rgba(255,255,255,0.6);">Jab BharatTube launch hoga tab earning shuru hogi!</div>
-          <div style="margin-top:16px;display:inline-flex;align-items:center;gap:8px;background:rgba(255,102,0,0.2);border:1px solid rgba(255,102,0,0.4);border-radius:20px;padding:8px 20px;">
-            <div class="cs-dot"></div>
-            <span style="color:#FF6600;font-weight:600;font-size:13px;">Coming Soon 🚀</span>
-          </div>
-        </div>
+        <div style="background:#0a0a0a;border-radius:16px;padding:32px;text-align:center;color:#fff;margin-bottom:20px;"><div style="font-size:48px;margin-bottom:8px;">💰</div><div style="font-size:18px;font-weight:700;margin-bottom:8px;">Monetization Coming Soon!</div><div style="font-size:14px;color:rgba(255,255,255,0.6);">Jab BharatTube launch hoga tab earning shuru hogi!</div></div>
         <div class="dash-grid">
           <div class="dash-card"><div class="icon">👁️</div><h4>0</h4><p>Total Views</p></div>
           <div class="dash-card"><div class="icon">💰</div><h4>₹0</h4><p>Total Earnings</p></div>
@@ -1172,7 +663,7 @@
     <h2>Welcome back! 👋</h2>
     <p>Login to your BharatTube account</p>
     <div class="err" id="login-err"></div>
-    <button class="modal-google" onclick="handleGoogleLogin()"><img src="https://www.google.com/favicon.ico" width="16">Continue with Google</button>
+    <button class="modal-google" onclick="handleGoogleLogin()"><img src="https://www.google.com/favicon.ico" width="16"> Continue with Google</button>
     <div class="modal-divider">— or —</div>
     <input type="email" id="l-email" placeholder="Email address" />
     <input type="password" id="l-pass" placeholder="Password" />
@@ -1188,7 +679,7 @@
     <h2>Join BharatTube! 🚀</h2>
     <p>Create your free account</p>
     <div class="err" id="signup-err"></div>
-    <button class="modal-google" onclick="handleGoogleLogin()"><img src="https://www.google.com/favicon.ico" width="16">Continue with Google</button>
+    <button class="modal-google" onclick="handleGoogleLogin()"><img src="https://www.google.com/favicon.ico" width="16"> Continue with Google</button>
     <div class="modal-divider">— or —</div>
     <input type="text" id="s-name" placeholder="Your full name" />
     <input type="email" id="s-email" placeholder="Email address" />
@@ -1202,7 +693,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-  import { getFirestore, doc, setDoc, getDoc, collection, addDoc, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+  import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, query, where, orderBy, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
   const app = initializeApp({
     apiKey: "AIzaSyDOs34nOAIoMUylb4lq3bypDqqeamKwSEQ",
@@ -1217,7 +708,11 @@
   const db = getFirestore(app);
   const gProvider = new GoogleAuthProvider();
 
-  // Load count
+  // Expose db & auth globally for upload function
+  window._db = db;
+  window._auth = auth;
+
+  // Load waitlist count
   async function loadCount() {
     try {
       const d = await getDoc(doc(db, 'stats', 'waitlist'));
@@ -1226,47 +721,126 @@
   }
   loadCount();
 
-  // Auth state
+  // Load all uploaded videos from Firestore and show on home
+  window.loadUploadedVideos = async function() {
+    try {
+      const q = query(collection(db, 'videos'), orderBy('uploadedAt', 'desc'));
+      const snap = await getDocs(q);
+      const grid = document.getElementById('videos-grid');
+      // Remove previously injected uploaded cards
+      document.querySelectorAll('.user-uploaded-card').forEach(el => el.remove());
+      // Update video counts
+      const count = snap.size;
+      const dashCount = document.getElementById('dash-video-count');
+      const csCount = document.getElementById('cs-video-count');
+      if (dashCount) dashCount.textContent = count;
+      if (csCount) csCount.textContent = count;
+      // Update creator studio content tab
+      if (count > 0) {
+        const list = document.getElementById('cs-videos-list');
+        list.innerHTML = snap.docs.map(d => {
+          const v = d.data();
+          return `<div style="background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:16px;margin-bottom:12px;display:flex;gap:14px;align-items:center;">
+            <div style="width:120px;height:68px;border-radius:8px;overflow:hidden;flex-shrink:0;background:#222;">
+              <video src="${v.videoUrl}" style="width:100%;height:100%;object-fit:cover;"></video>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:14px;font-weight:700;margin-bottom:4px;">${v.title}</div>
+              <div style="font-size:12px;color:#888;">${v.language} • ${v.category} • ${v.uploaderName||'You'}</div>
+              <a href="${v.videoUrl}" target="_blank" style="font-size:12px;color:#FF6600;text-decoration:none;">View on Cloudinary →</a>
+            </div>
+          </div>`;
+        }).join('');
+      }
+      // Inject uploaded video cards at top of home grid
+      snap.docs.forEach(d => {
+        const v = d.data();
+        const card = document.createElement('div');
+        card.className = 'video-card user-uploaded-card';
+        card.dataset.cat = v.category || 'all';
+        card.style.cssText = 'cursor:pointer;border-radius:12px;overflow:hidden;background:#fff;border:2px solid #FF6600;transition:transform 0.2s;order:-1;';
+        card.onmouseover = () => card.style.transform = 'translateY(-4px)';
+        card.onmouseout = () => card.style.transform = 'translateY(0)';
+        card.onclick = () => playVideo(v.videoUrl, v.title);
+        card.innerHTML = `
+          <div style="background:#000;height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+            <video src="${v.videoUrl}" style="width:100%;height:100%;object-fit:cover;" muted></video>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+              <div style="width:44px;height:44px;background:rgba(255,102,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid #fff;margin-left:3px;"></div>
+              </div>
+            </div>
+            <span style="position:absolute;top:8px;left:8px;background:#FF6600;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;">${v.language}</span>
+            <span style="position:absolute;top:8px;right:8px;background:#0a7a3e;color:#fff;font-size:9px;padding:2px 6px;border-radius:4px;font-weight:700;">NEW ✨</span>
+          </div>
+          <div style="padding:12px;">
+            <div style="font-size:14px;font-weight:600;margin-bottom:6px;line-height:1.4;">${v.title}</div>
+            <div style="font-size:12px;color:#888;">${v.uploaderName || 'BharatTube Creator'}</div>
+            <div style="font-size:12px;color:#999;margin-top:3px;">${v.category} • Just uploaded 🔥</div>
+          </div>
+        `;
+        grid.insertBefore(card, grid.firstChild);
+      });
+    } catch(e) { console.error('Load videos error:', e); }
+  }
+
+  // Auth state change
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const name = user.displayName || user.email.split('@')[0];
       const initial = name.charAt(0).toUpperCase();
-      // Show sidebar
+
+      // Sidebar
       document.getElementById('sidebar').classList.remove('hidden');
-      document.getElementById('nav-auth').style.display = 'none';
-      document.getElementById('nav-user').style.display = 'block';
-      // Update sidebar info
       document.getElementById('sidebar-av').textContent = initial;
       document.getElementById('sidebar-name').textContent = name;
       document.getElementById('sidebar-email').textContent = user.email;
-      // Update dashboard
+
+      // Nav
+      document.getElementById('nav-auth').style.display = 'none';
+      document.getElementById('nav-user').style.display = 'block';
+      document.getElementById('profile-btn').textContent = initial;
+
+      // Profile menu
+      document.getElementById('menu-av').textContent = initial;
+      document.getElementById('menu-name').textContent = name;
+      document.getElementById('menu-handle').textContent = '@' + name.toLowerCase().replace(/\s+/g,'');
+
+      // Dashboard
+      document.getElementById('dash-welcome-name').textContent = `Welcome back, ${name}! 👋`;
       document.getElementById('dash-email').textContent = user.email;
-      // Update profile
+
+      // Profile page
       document.getElementById('profile-av').textContent = initial;
       document.getElementById('profile-name').textContent = name;
       document.getElementById('profile-email').textContent = user.email;
       document.getElementById('p-name').value = name;
-      // Update nav profile avatar
-      const navAv = document.getElementById('nav-profile-av');
-      if (navAv) navAv.textContent = initial;
-      const menuAv = document.getElementById('menu-av');
-      if (menuAv) menuAv.textContent = initial;
-      const menuName = document.getElementById('menu-name');
-      if (menuName) menuName.textContent = name;
-      const menuHandle = document.getElementById('menu-handle');
-      if (menuHandle) menuHandle.textContent = '@' + name.toLowerCase().replace(/\s/g, '');
-      // Update comment av
-      document.getElementById('c-av') && (document.getElementById('c-av').textContent = initial);
-      // Show feed hide landing
+
+      // Creator studio
+      const csAv = document.getElementById('cs-av');
+      const csName = document.getElementById('cs-name');
+      if (csAv) csAv.textContent = initial;
+      if (csName) csName.textContent = name;
+
+      // Comment avatar
+      const cAv = document.getElementById('c-av');
+      if (cAv) cAv.textContent = initial;
+
+      // Show feed
       document.getElementById('video-feed').style.display = 'block';
       document.getElementById('landing-page').style.display = 'none';
-      // Apply creator mode
-      applyCreatorMode();
+
+      // Store current user globally
+      window._currentUser = user;
+
+      // Load videos from Firestore
+      window.loadUploadedVideos();
+
     } else {
+      window._currentUser = null;
       document.getElementById('sidebar').classList.add('hidden');
       document.getElementById('nav-auth').style.display = 'flex';
       document.getElementById('nav-user').style.display = 'none';
-      // Show landing hide feed
       document.getElementById('video-feed').style.display = 'none';
       document.getElementById('landing-page').style.display = 'block';
     }
@@ -1282,8 +856,8 @@
   };
 
   window.handleEmailSignup = async () => {
-    const name = document.getElementById('s-name').value;
-    const email = document.getElementById('s-email').value;
+    const name = document.getElementById('s-name').value.trim();
+    const email = document.getElementById('s-email').value.trim();
     const pass = document.getElementById('s-pass').value;
     if (!name||!email||!pass) { showErr('signup-err','Sab fields bharo!'); return; }
     if (pass.length < 6) { showErr('signup-err','Password min 6 characters!'); return; }
@@ -1299,7 +873,7 @@
   };
 
   window.handleEmailLogin = async () => {
-    const email = document.getElementById('l-email').value;
+    const email = document.getElementById('l-email').value.trim();
     const pass = document.getElementById('l-pass').value;
     if (!email||!pass) { showErr('login-err','Email aur password dalo!'); return; }
     try {
@@ -1331,7 +905,7 @@
   }
 
   window.handleWaitlist = async () => {
-    const email = document.getElementById('waitlist-email').value;
+    const email = document.getElementById('waitlist-email').value.trim();
     if (!email) { document.getElementById('waitlist-email').focus(); return; }
     try {
       await addDoc(collection(db, 'waitlist'), { email, joinedAt: serverTimestamp() });
@@ -1344,96 +918,238 @@
       document.getElementById('waitlist-email').value = '';
       document.getElementById('waitlist-email').placeholder = '✅ You are on the waitlist!';
       setTimeout(() => { document.getElementById('waitlist-email').placeholder = 'Enter your email'; }, 4000);
-      alert('🎉 BharatTube waitlist mein aa gaye!\nJai Hind! 🇮🇳');
-    } catch(e) { alert('Error! Try again.'); }
+      toast('🎉 BharatTube waitlist mein aa gaye! Jai Hind! 🇮🇳');
+    } catch(e) { toast('Error! Try again.'); }
+  };
+
+  // Save video metadata to Firestore after Cloudinary upload
+  window.saveVideoToFirestore = async function(videoData) {
+    try {
+      const ref = await addDoc(collection(db, 'videos'), {
+        ...videoData,
+        uploadedAt: serverTimestamp()
+      });
+      console.log('Video saved to Firestore:', ref.id);
+      return ref.id;
+    } catch(e) {
+      console.error('Firestore save error:', e);
+      throw e;
+    }
   };
 
   function showErr(id, msg) {
     const el = document.getElementById(id);
-    el.textContent = msg; el.style.display = 'block';
-    setTimeout(() => el.style.display = 'none', 4000);
+    if (el) { el.textContent = msg; el.style.display = 'block'; setTimeout(() => el.style.display = 'none', 4000); }
   }
 </script>
 
 <script>
+  // ========== CLOUDINARY CONFIG ==========
+  const CLOUDINARY_CLOUD = 'dvkku8ih0';
+  const CLOUDINARY_PRESET = 'bharattube_videos';
+  // =======================================
+
+  let selectedFile = null;
   let liked = false, subscribed = false, likeCount = 4821, cCount = 48;
   let sidebarOpen = false;
 
-  // Creator Studio tabs
-  window.showCSTab = function(tab) {
-    ['dashboard','content','analytics','earnings','customize','community'].forEach(t => {
-      document.getElementById('cs-tab-' + t).style.display = 'none';
-      document.getElementById('cs-nav-' + t).style.color = '#888';
-      document.getElementById('cs-nav-' + t).style.background = 'transparent';
+  // Toast notification
+  function toast(msg, duration = 3000) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.display = 'block';
+    setTimeout(() => t.style.display = 'none', duration);
+  }
+
+  // ===== UPLOAD FUNCTIONS =====
+
+  // Step 1: User selects file
+  function handleVideoSelect(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Validate type
+    if (!file.type.startsWith('video/')) {
+      toast('❌ Sirf video files upload karo! (MP4, MOV, AVI)');
+      return;
+    }
+    // Validate size (500MB)
+    if (file.size > 500 * 1024 * 1024) {
+      toast('❌ File too large! Max 500MB allowed.');
+      return;
+    }
+
+    selectedFile = file;
+
+    // Show preview
+    const preview = document.getElementById('video-preview');
+    const previewBox = document.getElementById('video-preview-box');
+    preview.src = URL.createObjectURL(file);
+    document.getElementById('selected-file-name').textContent = `📁 ${file.name} (${(file.size/1024/1024).toFixed(1)} MB)`;
+    previewBox.style.display = 'block';
+    toast(`✅ Video selected: ${file.name}`);
+  }
+
+  // Step 2: Upload to Cloudinary via XHR (supports real progress)
+  async function uploadVideoToCloudinary() {
+    if (!window._currentUser) {
+      toast('❌ Pehle login karo!');
+      showModal('login');
+      return;
+    }
+    if (!selectedFile) {
+      toast('❌ Pehle video select karo!');
+      return;
+    }
+    const title = document.getElementById('video-title').value.trim();
+    if (!title) {
+      toast('❌ Video title likhna zaroori hai!');
+      document.getElementById('video-title').focus();
+      return;
+    }
+
+    const lang = document.getElementById('video-lang').value;
+    const cat = document.getElementById('video-cat').value;
+    const desc = document.getElementById('video-desc').value.trim();
+
+    // Disable button
+    const btn = document.getElementById('upload-btn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Uploading...';
+
+    // Show progress bar
+    document.getElementById('upload-progress-box').style.display = 'block';
+    document.getElementById('upload-form').style.opacity = '0.5';
+    document.getElementById('upload-form').style.pointerEvents = 'none';
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    formData.append('upload_preset', CLOUDINARY_PRESET);
+    formData.append('resource_type', 'video');
+
+    const xhr = new XMLHttpRequest();
+
+    // Track upload progress
+    xhr.upload.addEventListener('progress', (e) => {
+      if (e.lengthComputable) {
+        const pct = Math.round((e.loaded / e.total) * 100);
+        document.getElementById('upload-bar').style.width = pct + '%';
+        document.getElementById('upload-percent').textContent = pct + '%';
+        if (pct < 30) document.getElementById('upload-status').textContent = 'Uploading... please wait ⏳';
+        else if (pct < 70) document.getElementById('upload-status').textContent = 'Almost halfway there! 🔄';
+        else if (pct < 95) document.getElementById('upload-status').textContent = 'Almost done! 🚀';
+        else document.getElementById('upload-status').textContent = 'Processing video... ✨';
+      }
     });
-    document.getElementById('cs-tab-' + tab).style.display = 'block';
-    document.getElementById('cs-nav-' + tab).style.color = '#FF6600';
-    document.getElementById('cs-nav-' + tab).style.background = 'rgba(255,102,0,0.1)';
+
+    xhr.addEventListener('load', async () => {
+      if (xhr.status === 200) {
+        const result = JSON.parse(xhr.responseText);
+        const videoUrl = result.secure_url;
+        const publicId = result.public_id;
+        const duration = result.duration ? Math.round(result.duration) : 0;
+
+        // Save to Firestore
+        document.getElementById('upload-status').textContent = 'Saving to BharatTube database... 📦';
+        try {
+          await window.saveVideoToFirestore({
+            title,
+            description: desc,
+            language: lang,
+            category: cat,
+            videoUrl,
+            publicId,
+            duration,
+            uploaderUid: window._currentUser.uid,
+            uploaderName: window._currentUser.displayName || window._currentUser.email.split('@')[0],
+            uploaderEmail: window._currentUser.email,
+            views: 0,
+            likes: 0
+          });
+
+          // Show success
+          document.getElementById('upload-progress-box').style.display = 'none';
+          document.getElementById('upload-success-box').style.display = 'block';
+          document.getElementById('uploaded-video-link').innerHTML = `
+            <a href="${videoUrl}" target="_blank" style="color:#FF6600;font-size:13px;font-weight:600;text-decoration:none;">
+              🎬 View your video on Cloudinary →
+            </a>
+          `;
+
+          // Refresh home grid
+          if (window.loadUploadedVideos) window.loadUploadedVideos();
+          toast('🎉 Video successfully uploaded! Jai Hind! 🇮🇳');
+
+        } catch(e) {
+          document.getElementById('upload-status').textContent = '⚠️ Video uploaded but database save failed. Try again.';
+          btn.disabled = false;
+          btn.textContent = '🚀 Upload Video to BharatTube';
+        }
+
+      } else {
+        toast('❌ Upload failed! Check your internet and try again.');
+        document.getElementById('upload-status').textContent = '❌ Upload failed. Try again.';
+        btn.disabled = false;
+        btn.textContent = '🚀 Upload Video to BharatTube';
+        document.getElementById('upload-form').style.opacity = '1';
+        document.getElementById('upload-form').style.pointerEvents = 'auto';
+      }
+    });
+
+    xhr.addEventListener('error', () => {
+      toast('❌ Network error! Internet check karo.');
+      btn.disabled = false;
+      btn.textContent = '🚀 Upload Video to BharatTube';
+      document.getElementById('upload-form').style.opacity = '1';
+      document.getElementById('upload-form').style.pointerEvents = 'auto';
+    });
+
+    xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/video/upload`);
+    xhr.send(formData);
   }
 
-  // Subscribe button updates sidebar
-  let subscribedChannels = JSON.parse(localStorage.getItem('bt_subs') || '[]');
+  // Reset upload form
+  function resetUpload() {
+    selectedFile = null;
+    document.getElementById('video-title').value = '';
+    document.getElementById('video-desc').value = '';
+    document.getElementById('video-preview-box').style.display = 'none';
+    document.getElementById('upload-progress-box').style.display = 'none';
+    document.getElementById('upload-success-box').style.display = 'none';
+    document.getElementById('upload-bar').style.width = '0%';
+    document.getElementById('upload-percent').textContent = '0%';
+    document.getElementById('upload-form').style.opacity = '1';
+    document.getElementById('upload-form').style.pointerEvents = 'auto';
+    const btn = document.getElementById('upload-btn');
+    btn.disabled = false;
+    btn.textContent = '🚀 Upload Video to BharatTube';
+    document.getElementById('video-file-input').value = '';
+  }
 
-  window.handleSub = function() {
-    const btn = document.getElementById('sub-btn');
-    const channel = { name: 'Ramesh Khetiwala', icon: '🌾', color: '#FF6600' };
-    const idx = subscribedChannels.findIndex(c => c.name === channel.name);
-    if (idx === -1) {
-      subscribedChannels.push(channel);
-      btn.textContent = 'Subscribed ✅';
-      btn.classList.add('done');
+  // ===== PLAY VIDEO =====
+  function playVideo(url, title) {
+    document.getElementById('watch-title').textContent = title || 'BharatTube Video';
+    const container = document.getElementById('watch-video-container');
+    if (url) {
+      container.innerHTML = `<video src="${url}" controls autoplay style="width:100%;height:100%;border-radius:12px;" controlsList="nodownload"></video>`;
     } else {
-      subscribedChannels.splice(idx, 1);
-      btn.textContent = 'Subscribe';
-      btn.classList.remove('done');
+      container.innerHTML = `<div class="video-placeholder"><div class="play-btn"><div class="play-icon"></div></div><p style="color:rgba(255,255,255,0.6);font-size:14px;margin-top:8px;">Real videos coming soon!</p></div>`;
     }
-    localStorage.setItem('bt_subs', JSON.stringify(subscribedChannels));
-    updateSubscriptionsSidebar();
+    showPage('watch');
   }
 
-  function updateSubscriptionsSidebar() {
-    const list = document.getElementById('subscriptions-list');
-    if (subscribedChannels.length === 0) {
-      list.innerHTML = '<div class="sidebar-item" style="color:#999; font-size:12px; padding:8px 20px;">Subscribe to channels to see them here!</div>';
-    } else {
-      list.innerHTML = subscribedChannels.map(c => `
-        <div class="sidebar-item" onclick="showPage('watch')" style="gap:8px;">
-          <div style="width:24px; height:24px; border-radius:50%; background:${c.color}; display:flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0;">${c.icon}</div>
-          <span style="font-size:13px;">${c.name}</span>
-        </div>
-      `).join('');
-    }
-  }
-  updateSubscriptionsSidebar();
-
-  // Update creator studio name
-  function updateCSInfo(user) {
-    const name = user.displayName || user.email.split('@')[0];
-    const initial = name.charAt(0).toUpperCase();
-    const csAv = document.getElementById('cs-av');
-    const csName = document.getElementById('cs-name');
-    if (csAv) csAv.textContent = initial;
-    if (csName) csName.textContent = name;
-    const csChannelName = document.getElementById('cs-channel-name');
-    if (csChannelName) csChannelName.placeholder = name + "'s Channel";
-  }
-
-  // Category filter
-  window.filterCat = function(btn, cat) {
+  // ===== CATEGORY FILTER =====
+  function filterCat(btn, cat) {
     document.querySelectorAll('.cat-btn').forEach(b => {
-      b.style.background = '#fff';
-      b.style.color = '#333';
-      b.style.borderColor = '#ddd';
+      b.style.background = '#fff'; b.style.color = '#333'; b.style.borderColor = '#ddd';
     });
-    btn.style.background = '#FF6600';
-    btn.style.color = '#fff';
-    btn.style.borderColor = '#FF6600';
+    btn.style.background = '#FF6600'; btn.style.color = '#fff'; btn.style.borderColor = '#FF6600';
     document.querySelectorAll('.video-card').forEach(card => {
       card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
     });
   }
 
-  // Search function
+  // ===== SEARCH =====
   const allVideos = [
     { title: 'Khethi Tips — Rabi Season ke liye best practices 🌾', creator: 'Ramesh Khetiwala', views: '2.4L', time: '2 days ago', lang: 'Hindi', cat: 'farming', bg: 'linear-gradient(135deg,#FF6600,#ff9900)', icon: '🌾', duration: '12:34' },
     { title: 'Dal Makhani recipe — Authentic Punjabi style 🍛', creator: "Priya's Kitchen", views: '85K', time: '3 days ago', lang: 'Tamil', cat: 'cooking', bg: 'linear-gradient(135deg,#1a5fcc,#4a90d9)', icon: '🍳', duration: '8:45' },
@@ -1442,115 +1158,59 @@
     { title: 'Lavani dance tutorial — Beginners ke liye 💃', creator: 'Nisha Dance Academy', views: '45K', time: '1 week ago', lang: 'Marathi', cat: 'dance', bg: 'linear-gradient(135deg,#6a0dad,#9b59b6)', icon: '💃', duration: '5:30' },
     { title: 'Tamil folk song — Pongal special 🎶', creator: 'Tamil Music Hub', views: '1.8L', time: '2 weeks ago', lang: 'Tamil', cat: 'music', bg: 'linear-gradient(135deg,#cc4400,#ff6b35)', icon: '🎵', duration: '3:45' },
     { title: 'Class 10 Maths — Trigonometry Hindi mein 📐', creator: 'Shiksha Academy', views: '5.2L', time: '3 days ago', lang: 'Hindi', cat: 'education', bg: 'linear-gradient(135deg,#0055cc,#3399ff)', icon: '📚', duration: '18:22' },
-    { title: 'Organic farming guide — Vegetables 🥬', creator: 'Punjab Kisan', views: '92K', time: '4 days ago', lang: 'Punjabi', cat: 'farming', bg: 'linear-gradient(135deg,#2d8a00,#5cb800)', icon: '🥬', duration: '9:15' },
   ];
 
-  window.handleSearch = function() {
+  function handleSearch() {
     const query = document.getElementById('search-input').value.trim().toLowerCase();
     if (!query) return;
-
     showPage('search');
     document.getElementById('search-query-display').textContent = query;
-
-    const results = allVideos.filter(v =>
-      v.title.toLowerCase().includes(query) ||
-      v.creator.toLowerCase().includes(query) ||
-      v.lang.toLowerCase().includes(query) ||
-      v.cat.toLowerCase().includes(query)
-    );
-
+    const results = allVideos.filter(v => v.title.toLowerCase().includes(query) || v.creator.toLowerCase().includes(query) || v.lang.toLowerCase().includes(query) || v.cat.toLowerCase().includes(query));
     const grid = document.getElementById('search-results');
     const noResults = document.getElementById('search-no-results');
-
-    if (results.length === 0) {
-      grid.innerHTML = '';
-      noResults.style.display = 'block';
-    } else {
+    if (results.length === 0) { grid.innerHTML = ''; noResults.style.display = 'block'; }
+    else {
       noResults.style.display = 'none';
       grid.innerHTML = results.map(v => `
-        <div onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="background:${v.bg}; height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+        <div onclick="playVideo(null,'${v.title}')" style="cursor:pointer;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #eee;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="background:${v.bg};height:160px;display:flex;align-items:center;justify-content:center;position:relative;">
             <span style="font-size:48px;">${v.icon}</span>
-            <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">${v.duration}</span>
-            <span style="position:absolute; top:8px; left:8px; background:rgba(0,0,0,0.6); color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">${v.lang}</span>
+            <span style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.8);color:#fff;font-size:11px;padding:2px 6px;border-radius:4px;">${v.duration}</span>
+            <span style="position:absolute;top:8px;left:8px;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;">${v.lang}</span>
           </div>
-          <div style="padding:12px;">
-            <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">${v.title}</div>
-            <div style="font-size:12px; color:#888;">${v.creator}</div>
-            <div style="font-size:12px; color:#999; margin-top:3px;">${v.views} views • ${v.time}</div>
-          </div>
-        </div>
-      `).join('');
+          <div style="padding:12px;"><div style="font-size:14px;font-weight:600;margin-bottom:6px;">${v.title}</div><div style="font-size:12px;color:#888;">${v.creator}</div><div style="font-size:12px;color:#999;margin-top:3px;">${v.views} views • ${v.time}</div></div>
+        </div>`).join('');
     }
   }
 
-  // Creator mode toggle
-  let creatorMode = localStorage.getItem('bt_creator_mode') === 'true';
+  // ===== CREATOR STUDIO TABS =====
+  function showCSTab(tab) {
+    ['dashboard','content','analytics','earnings'].forEach(t => {
+      const el = document.getElementById('cs-tab-' + t);
+      const nav = document.getElementById('cs-nav-' + t);
+      if (el) el.style.display = 'none';
+      if (nav) { nav.style.color = '#888'; nav.style.background = 'transparent'; nav.style.fontWeight = 'normal'; }
+    });
+    const active = document.getElementById('cs-tab-' + tab);
+    const activeNav = document.getElementById('cs-nav-' + tab);
+    if (active) active.style.display = 'block';
+    if (activeNav) { activeNav.style.color = '#FF6600'; activeNav.style.background = 'rgba(255,102,0,0.1)'; activeNav.style.fontWeight = '600'; }
+  }
 
-  function applyCreatorMode() {
-    const section = document.getElementById('creator-section');
-    const btn = document.getElementById('creator-mode-btn');
-    if (creatorMode) {
-      section.style.display = 'block';
-      btn.innerHTML = '<span>✅</span> Creator Mode ON';
-      btn.style.background = '#FF6600';
-      btn.style.color = '#fff';
+  // ===== SUBSCRIPTIONS SIDEBAR =====
+  let subscribedChannels = JSON.parse(localStorage.getItem('bt_subs') || '[]');
+  function updateSubscriptionsSidebar() {
+    const list = document.getElementById('subscriptions-list');
+    if (!list) return;
+    if (subscribedChannels.length === 0) {
+      list.innerHTML = '<div style="font-size:12px;color:#999;padding:4px 20px;">Subscribe to channels!</div>';
     } else {
-      section.style.display = 'none';
-      btn.innerHTML = '<span>🎬</span> Switch to Creator Mode';
-      btn.style.background = '#fff3e6';
-      btn.style.color = '#FF6600';
+      list.innerHTML = subscribedChannels.map(c => `<div class="sidebar-item" onclick="showPage('watch')" style="gap:8px;"><div style="width:24px;height:24px;border-radius:50%;background:${c.color};display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">${c.icon}</div><span style="font-size:13px;">${c.name}</span></div>`).join('');
     }
   }
+  updateSubscriptionsSidebar();
 
-  window.toggleCreatorMode = function() {
-    creatorMode = !creatorMode;
-    localStorage.setItem('bt_creator_mode', creatorMode);
-    applyCreatorMode();
-    if (creatorMode) {
-      alert('🎬 Creator Mode ON!\nAb tum videos upload kar sakte ho aur Creator Studio use kar sakte ho! 🚀');
-    }
-  }
-
-  // Profile menu toggle
-  window.toggleProfileMenu = function() {
-    const menu = document.getElementById('profile-menu');
-    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-  }
-
-  // Close menu when clicking outside
-  document.addEventListener('click', function(e) {
-    const btn = document.getElementById('profile-btn');
-    const menu = document.getElementById('profile-menu');
-    if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
-      menu.style.display = 'none';
-    }
-  });
-
-  function toggleSidebar() {
-    sidebarOpen = !sidebarOpen;
-    document.getElementById('sidebar').classList.toggle('open', sidebarOpen);
-  }
-
-  function showPage(page) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + page).classList.add('active');
-    // Update sidebar active
-    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-    const navEl = document.getElementById('nav-' + page);
-    if (navEl) navEl.classList.add('active');
-    window.scrollTo(0, 0);
-    if (sidebarOpen) { sidebarOpen = false; document.getElementById('sidebar').classList.remove('open'); }
-  }
-
-  function showModal(type) { document.getElementById(type + '-modal').classList.add('show'); }
-  function closeModal(type) { document.getElementById(type + '-modal').classList.remove('show'); }
-  function switchModal(f, t) { closeModal(f); showModal(t); }
-
-  document.querySelectorAll('.modal-overlay').forEach(o => {
-    o.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
-  });
-
+  // ===== WATCH PAGE INTERACTIONS =====
   function handleLike() {
     liked = !liked;
     const btn = document.getElementById('like-btn');
@@ -1560,7 +1220,7 @@
 
   function handleShare() {
     navigator.clipboard?.writeText(window.location.href);
-    alert('Link copied! Share karo! 🔗');
+    toast('🔗 Link copied! Share karo!');
   }
 
   function handleSub() {
@@ -1568,19 +1228,63 @@
     const btn = document.getElementById('sub-btn');
     btn.textContent = subscribed ? 'Subscribed ✅' : 'Subscribe';
     btn.classList.toggle('done', subscribed);
+    const channel = { name: 'Ramesh Khetiwala', icon: '🌾', color: '#FF6600' };
+    const idx = subscribedChannels.findIndex(c => c.name === channel.name);
+    if (subscribed && idx === -1) subscribedChannels.push(channel);
+    else if (!subscribed && idx !== -1) subscribedChannels.splice(idx, 1);
+    localStorage.setItem('bt_subs', JSON.stringify(subscribedChannels));
+    updateSubscriptionsSidebar();
   }
 
   function addComment() {
-    const text = document.getElementById('c-input').value;
-    if (!text.trim()) return;
+    const text = document.getElementById('c-input').value.trim();
+    if (!text) return;
     cCount++;
     document.getElementById('c-count').textContent = cCount;
+    const initial = window._currentUser ? (window._currentUser.displayName || window._currentUser.email).charAt(0).toUpperCase() : 'U';
     const div = document.createElement('div');
     div.className = 'comment-item';
-    div.innerHTML = `<div class="c-av" style="background:#FF6600;">U</div><div class="comment-body"><div class="comment-author">You</div><div class="comment-text">${text}</div><div class="comment-time">Just now • 👍 0</div></div>`;
+    div.innerHTML = `<div class="c-av" style="background:#FF6600;">${initial}</div><div class="comment-body"><div class="comment-author">You</div><div class="comment-text">${text}</div><div class="comment-time">Just now • 👍 0</div></div>`;
     document.getElementById('c-list').prepend(div);
     document.getElementById('c-input').value = '';
   }
+
+  // ===== PAGE NAVIGATION =====
+  function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + page);
+    if (target) target.classList.add('active');
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    const navEl = document.getElementById('nav-' + page);
+    if (navEl) navEl.classList.add('active');
+    window.scrollTo(0, 0);
+    if (sidebarOpen) { sidebarOpen = false; document.getElementById('sidebar').classList.remove('open'); }
+  }
+
+  function toggleSidebar() {
+    sidebarOpen = !sidebarOpen;
+    document.getElementById('sidebar').classList.toggle('open', sidebarOpen);
+  }
+
+  function toggleProfileMenu() {
+    const menu = document.getElementById('profile-menu');
+    menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+  }
+
+  // Close profile menu when clicking outside
+  document.addEventListener('click', function(e) {
+    const btn = document.getElementById('profile-btn');
+    const menu = document.getElementById('profile-menu');
+    if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) menu.style.display = 'none';
+  });
+
+  function showModal(type) { document.getElementById(type + '-modal').classList.add('show'); }
+  function closeModal(type) { document.getElementById(type + '-modal').classList.remove('show'); }
+  function switchModal(f, t) { closeModal(f); showModal(t); }
+
+  document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
+  });
 </script>
 </body>
 </html>
