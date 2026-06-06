@@ -294,40 +294,18 @@
 
   <!-- SIDEBAR (shown after login) -->
   <div class="sidebar hidden" id="sidebar">
+    <div class="sidebar-user" id="sidebar-user-info">
+      <div class="sidebar-user-av" id="sidebar-av">U</div>
+      <div class="sidebar-user-name" id="sidebar-name">User</div>
+      <div class="sidebar-user-email" id="sidebar-email">user@email.com</div>
+    </div>
 
-    <!-- Section 1: Main Navigation -->
     <div class="sidebar-section">
       <div class="sidebar-item active" id="nav-home" onclick="showPage('home')">
         <span class="icon">🏠</span> Home
       </div>
-      <div class="sidebar-item" id="nav-shorts" onclick="showPage('shorts')">
-        <span class="icon" style="font-size:20px;">🩳</span> Shorts
-      </div>
-    </div>
-
-    <div class="sidebar-divider"></div>
-
-    <!-- Section 2: Subscriptions -->
-    <div class="sidebar-section">
       <div class="sidebar-item" id="nav-subscriptions" onclick="showPage('subscriptions')">
         <span class="icon">📺</span> Subscriptions
-        <span style="margin-left:auto; font-size:11px; color:#FF6600; font-weight:700;">›</span>
-      </div>
-      <!-- Subscribed channels list -->
-      <div id="subscriptions-list">
-        <div style="font-size:12px; color:#999; padding:4px 20px;">Subscribe to channels!</div>
-      </div>
-    </div>
-
-    <div class="sidebar-divider"></div>
-
-    <!-- Section 3: YOU -->
-    <div class="sidebar-section">
-      <div class="sidebar-label" style="display:flex; align-items:center; justify-content:space-between; padding-right:16px;">
-        You <span style="font-size:12px; color:#FF6600; cursor:pointer;">›</span>
-      </div>
-      <div class="sidebar-item" onclick="showPage('profile')">
-        <span class="icon">📺</span> Your channel
       </div>
       <div class="sidebar-item" id="nav-history" onclick="showPage('history')">
         <span class="icon">📜</span> History
@@ -336,121 +314,79 @@
         <span class="icon">📋</span> Playlists
       </div>
       <div class="sidebar-item" id="nav-watchlater" onclick="showPage('watchlater')">
-        <span class="icon">⏰</span> Watch later
+        <span class="icon">⏰</span> Watch Later
       </div>
-      <div class="sidebar-item" onclick="showPage('watch')">
-        <span class="icon">👍</span> Liked videos
+      <div class="sidebar-item" id="nav-live" onclick="showPage('live')">
+        <span class="icon">🔴</span> Live
+        <span style="margin-left:auto; font-size:10px; background:#ffe6e6; color:#cc0000; padding:2px 6px; border-radius:8px; font-weight:600;">LIVE</span>
+      </div>
+      <div class="sidebar-item" id="nav-watch" onclick="showPage('watch')">
+        <span class="icon">🎬</span> Watch Videos
       </div>
       <div class="sidebar-item" id="nav-upload" onclick="showPage('upload')">
-        <span class="icon">🎬</span> Your videos
-      </div>
-      <!-- Show more -->
-      <div class="sidebar-item" id="show-more-you" onclick="toggleYouMore()" style="color:#555;">
-        <span class="icon">⬇️</span> Show more
+        <span class="icon">⬆️</span> Upload Video
       </div>
     </div>
 
-    <!-- Hidden YOU items -->
-    <div id="you-more" style="display:none;">
+    <div class="sidebar-divider"></div>
+
+    <!-- Switch to Creator Mode button -->
+    <div style="padding:8px 12px;">
+      <button onclick="toggleCreatorMode()" id="creator-mode-btn" style="width:100%; padding:10px; background:#fff3e6; color:#FF6600; border:1.5px solid #FF6600; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+        <span>🎬</span> Switch to Creator Mode
+      </button>
+    </div>
+
+    <!-- CREATOR SECTION (hidden by default) -->
+    <div id="creator-section" style="display:none;">
+      <div class="sidebar-divider"></div>
       <div class="sidebar-section">
-        <div class="sidebar-item" onclick="showPage('watch')">
-          <span class="icon">⬇️</span> Downloads
+        <div class="sidebar-label">Creator</div>
+        <div class="sidebar-item" id="nav-dashboard" onclick="showPage('dashboard')">
+          <span class="icon">📊</span> My Dashboard
         </div>
-        <div class="sidebar-item" onclick="showPage('watch')">
-          <span class="icon">🕐</span> Watch history
+        <div class="sidebar-item" onclick="showPage('earnings')">
+          <span class="icon">💰</span> My Earnings
+          <span style="margin-left:auto; font-size:10px; background:#fff3e6; color:#FF6600; padding:2px 6px; border-radius:8px;">Soon</span>
         </div>
-        <div class="sidebar-item" id="nav-live" onclick="showPage('live')">
-          <span class="icon">🔴</span> Live
-          <span style="margin-left:auto; font-size:10px; background:#ffe6e6; color:#cc0000; padding:2px 6px; border-radius:8px; font-weight:600;">LIVE</span>
+        <div class="sidebar-item" onclick="showPage('profile')">
+          <span class="icon">👤</span> My Profile
+        </div>
+        <div class="sidebar-item" onclick="showPage('creator-studio')" id="nav-creator-studio">
+          <span class="icon">🎬</span> Creator Studio
+        </div>
+        <div class="sidebar-item" onclick="showPage('upload')" id="nav-upload">
+          <span class="icon">⬆️</span> Upload Video
         </div>
       </div>
     </div>
 
     <div class="sidebar-divider"></div>
 
-    <!-- Section 4: Creator Studio -->
     <div class="sidebar-section">
-      <div class="sidebar-label">BharatTube</div>
+      <div class="sidebar-label">Account</div>
       <div class="sidebar-item" onclick="showPage('creator-studio')" id="nav-creator-studio">
         <span class="icon">🎬</span> Creator Studio
       </div>
-      <div class="sidebar-item" id="nav-dashboard" onclick="showPage('dashboard')">
-        <span class="icon">📊</span> My Dashboard
-      </div>
-      <div class="sidebar-item" onclick="showPage('earnings')">
-        <span class="icon">💰</span> My Earnings
-        <span style="margin-left:auto; font-size:10px; background:#fff3e6; color:#FF6600; padding:2px 6px; border-radius:8px;">Soon</span>
-      </div>
-    </div>
-
-    <div class="sidebar-divider"></div>
-
-    <!-- Section 5: Explore -->
-    <div class="sidebar-section">
-      <div class="sidebar-label">Explore</div>
-      <div class="sidebar-item" onclick="document.querySelector('[onclick*=farming]').click(); showPage('home')">
-        <span class="icon">🌾</span> Farming
-      </div>
-      <div class="sidebar-item" onclick="showPage('live')">
-        <span class="icon">🎵</span> Music
-      </div>
-      <div class="sidebar-item" onclick="showPage('live')">
-        <span class="icon">🔴</span> Live
-      </div>
-      <div class="sidebar-item" onclick="showPage('watch')">
-        <span class="icon">🎬</span> Films
-      </div>
-      <div class="sidebar-item" onclick="showPage('watch')">
-        <span class="icon">📰</span> News
-      </div>
-      <div class="sidebar-item" onclick="showPage('watch')">
-        <span class="icon">⚽</span> Sports
-      </div>
-    </div>
-
-    <div class="sidebar-divider"></div>
-
-    <!-- Section 6: More from BharatTube -->
-    <div class="sidebar-section">
-      <div class="sidebar-label">More from BharatTube</div>
-      <div class="sidebar-item" onclick="alert('BharatTube Premium coming soon! 🚀')">
-        <span class="icon">💎</span> BharatTube Premium
-      </div>
-      <div class="sidebar-item" onclick="showPage('upload')">
-        <span class="icon">🎙️</span> BharatTube Studio
-      </div>
-    </div>
-
-    <div class="sidebar-divider"></div>
-
-    <!-- Section 7: Settings -->
-    <div class="sidebar-section">
       <div class="sidebar-item" onclick="alert('Settings coming soon!')">
         <span class="icon">⚙️</span> Settings
       </div>
-      <div class="sidebar-item" onclick="alert('Report history coming soon!')">
-        <span class="icon">🚩</span> Report history
-      </div>
-      <div class="sidebar-item" onclick="alert('Help coming soon!')">
-        <span class="icon">❓</span> Help
-      </div>
-      <div class="sidebar-item" onclick="alert('Send feedback coming soon!')">
-        <span class="icon">💬</span> Send feedback
+      <div class="sidebar-item" onclick="handleLogout()" style="color:#cc0000;">
+        <span class="icon">🚪</span> Logout
       </div>
     </div>
 
     <div class="sidebar-divider"></div>
 
-    <div style="padding:8px 20px; font-size:11px; color:#aaa; line-height:1.8;">
-      About Press Copyright<br>
-      Contact us Creators<br>
-      Advertise Developers<br><br>
-      Terms Privacy Policy & Safety<br>
-      How BharatTube works<br>
-      Test new features<br><br>
-      © 2026 BharatTube 🇮🇳
+    <!-- SUBSCRIPTIONS -->
+    <div class="sidebar-section" id="subscriptions-section">
+      <div class="sidebar-label">Subscriptions</div>
+      <div id="subscriptions-list">
+        <div class="sidebar-item" style="color:#999; font-size:12px; padding:8px 20px;">
+          Subscribe to channels to see them here!
+        </div>
+      </div>
     </div>
-
   </div>
 
   <!-- MAIN CONTENT -->
@@ -1012,56 +948,6 @@
         </div>
       </div>
     </div>
-    <!-- SHORTS PAGE -->
-    <div class="page" id="page-shorts">
-      <div style="padding:20px 24px;">
-        <h2 style="font-size:20px; font-weight:800; margin-bottom:6px;">🩳 BharatTube Shorts</h2>
-        <p style="color:#888; font-size:14px; margin-bottom:20px;">Short videos in Indian languages!</p>
-        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:12px;">
-          <div style="border-radius:12px; overflow:hidden; cursor:pointer; position:relative;" onclick="showPage('watch')">
-            <div style="background:linear-gradient(180deg,#FF6600,#ff9900); height:320px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative;">
-              <span style="font-size:56px;">🌾</span>
-              <div style="position:absolute; bottom:0; left:0; right:0; padding:12px; background:linear-gradient(transparent,rgba(0,0,0,0.8)); color:#fff;">
-                <div style="font-size:13px; font-weight:600;">Khethi tips in 60 seconds! 🌾</div>
-                <div style="font-size:11px; opacity:0.8; margin-top:2px;">Ramesh K • 1.2L views</div>
-              </div>
-              <div style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.6); color:#fff; font-size:10px; padding:2px 6px; border-radius:4px;">0:58</div>
-            </div>
-          </div>
-          <div style="border-radius:12px; overflow:hidden; cursor:pointer;" onclick="showPage('watch')">
-            <div style="background:linear-gradient(180deg,#b5006e,#e91e8c); height:320px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative;">
-              <span style="font-size:56px;">😂</span>
-              <div style="position:absolute; bottom:0; left:0; right:0; padding:12px; background:linear-gradient(transparent,rgba(0,0,0,0.8)); color:#fff;">
-                <div style="font-size:13px; font-weight:600;">Hyderabadi joke 😂</div>
-                <div style="font-size:11px; opacity:0.8; margin-top:2px;">Telugu Talkies • 2.4L views</div>
-              </div>
-              <div style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.6); color:#fff; font-size:10px; padding:2px 6px; border-radius:4px;">0:45</div>
-            </div>
-          </div>
-          <div style="border-radius:12px; overflow:hidden; cursor:pointer;" onclick="showPage('watch')">
-            <div style="background:linear-gradient(180deg,#1a5fcc,#4a90d9); height:320px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative;">
-              <span style="font-size:56px;">🍳</span>
-              <div style="position:absolute; bottom:0; left:0; right:0; padding:12px; background:linear-gradient(transparent,rgba(0,0,0,0.8)); color:#fff;">
-                <div style="font-size:13px; font-weight:600;">Quick recipe in Tamil! 🍳</div>
-                <div style="font-size:11px; opacity:0.8; margin-top:2px;">Priya's Kitchen • 89K views</div>
-              </div>
-              <div style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.6); color:#fff; font-size:10px; padding:2px 6px; border-radius:4px;">0:59</div>
-            </div>
-          </div>
-          <div style="border-radius:12px; overflow:hidden; cursor:pointer;" onclick="showPage('watch')">
-            <div style="background:linear-gradient(180deg,#6a0dad,#9b59b6); height:320px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative;">
-              <span style="font-size:56px;">💃</span>
-              <div style="position:absolute; bottom:0; left:0; right:0; padding:12px; background:linear-gradient(transparent,rgba(0,0,0,0.8)); color:#fff;">
-                <div style="font-size:13px; font-weight:600;">Lavani dance short! 💃</div>
-                <div style="font-size:11px; opacity:0.8; margin-top:2px;">Nisha Dance • 45K views</div>
-              </div>
-              <div style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.6); color:#fff; font-size:10px; padding:2px 6px; border-radius:4px;">0:52</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- SUBSCRIPTIONS PAGE -->
     <div class="page" id="page-subscriptions">
       <div style="padding:20px 24px;">
@@ -1595,19 +1481,6 @@
           </div>
         </div>
       `).join('');
-    }
-  }
-
-  // Toggle You section more items
-  window.toggleYouMore = function() {
-    const more = document.getElementById('you-more');
-    const btn = document.getElementById('show-more-you');
-    if (more.style.display === 'none') {
-      more.style.display = 'block';
-      btn.innerHTML = '<span class="icon">⬆️</span> Show less';
-    } else {
-      more.style.display = 'none';
-      btn.innerHTML = '<span class="icon">⬇️</span> Show more';
     }
   }
 
