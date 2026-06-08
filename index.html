@@ -1698,40 +1698,66 @@
   async function loadRealVideos() {
     try {
       const { getFirestore, collection, getDocs, orderBy, query, limit } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
-      const { initializeApp, getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+      const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
       const app = getApps()[0];
+      if (!app) return;
       const db = getFirestore(app);
 
       const q = query(collection(db, 'videos'), orderBy('createdAt', 'desc'), limit(20));
       const snapshot = await getDocs(q);
 
-      if (snapshot.empty) return;
+      if (snapshot.empty) {
+        console.log('No videos found in Firebase');
+        return;
+      }
 
       const realVideos = [];
       snapshot.forEach(doc => {
         realVideos.push({ id: doc.id, ...doc.data() });
       });
 
-      // Add real videos to grid
+      console.log('Loaded videos:', realVideos.length);
+
+      // Get grid and prepend real videos
       const grid = document.getElementById('videos-grid');
-      const realVideoHTML = realVideos.map(v => `
-        <div class="video-card" data-cat="${v.category || 'all'}" onclick="watchRealVideo('${v.videoUrl}', '${v.title}', '${v.creatorName}')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:2px solid #FF6600; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-          <div style="background:linear-gradient(135deg,#FF6600,#ff9900); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-            <video src="${v.videoUrl}" style="width:100%; height:100%; object-fit:cover;" muted></video>
+      if (!grid) return;
+
+      // Remove existing real video cards first
+      document.querySelectorAll('.real-video-card').forEach(c => c.remove());
+
+      realVideos.forEach(v => {
+        const card = document.createElement('div');
+        card.className = 'video-card real-video-card';
+        card.dataset.cat = v.category || 'all';
+        card.style.cssText = 'cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:2px solid #FF6600; transition:transform 0.2s;';
+        card.onmouseover = function() { this.style.transform = 'translateY(-4px)'; };
+        card.onmouseout = function() { this.style.transform = 'translateY(0)'; };
+        card.onclick = function() { watchRealVideo(v.videoUrl, v.title, v.creatorName); };
+
+        const mins = Math.floor((v.duration || 0) / 60);
+        const secs = String((v.duration || 0) % 60).padStart(2, '0');
+
+        card.innerHTML = `
+          <div style="background:#0a0a0a; height:160px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+            <video src="${v.videoUrl}" style="width:100%; height:100%; object-fit:cover;" muted preload="metadata"></video>
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+              <div style="width:44px; height:44px; background:rgba(255,102,0,0.9); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                <div style="width:0; height:0; border-top:10px solid transparent; border-bottom:10px solid transparent; border-left:18px solid #fff; margin-left:3px;"></div>
+              </div>
+            </div>
             <span style="position:absolute; top:8px; left:8px; background:#FF6600; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">${v.language || 'Hindi'}</span>
             <span style="position:absolute; top:8px; right:8px; background:#0a7a3e; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:700;">🆕 NEW</span>
-            <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">${Math.floor((v.duration||0)/60)}:${String((v.duration||0)%60).padStart(2,'0')}</span>
+            <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">${mins}:${secs}</span>
           </div>
           <div style="padding:12px;">
             <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">${v.title}</div>
-            <div style="font-size:12px; color:#888;">${v.creatorName}</div>
+            <div style="font-size:12px; color:#888;">${v.creatorName || 'Creator'}</div>
             <div style="font-size:12px; color:#999; margin-top:3px;">${v.views || 0} views • Just now</div>
           </div>
-        </div>
-      `).join('');
+        `;
 
-      // Prepend real videos
-      grid.insertAdjacentHTML('afterbegin', realVideoHTML);
+        grid.insertBefore(card, grid.firstChild);
+      });
 
     } catch(e) {
       console.log('Load videos error:', e);
