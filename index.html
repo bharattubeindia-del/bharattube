@@ -1697,17 +1697,18 @@
   // Load real videos from Firebase
   async function loadRealVideos() {
     try {
-      const { getFirestore, collection, getDocs, orderBy, query, limit } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+      const { getFirestore, collection, getDocs, query, limit } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
       const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
       const app = getApps()[0];
       if (!app) return;
       const db = getFirestore(app);
 
-      const q = query(collection(db, 'videos'), orderBy('createdAt', 'desc'), limit(20));
+      // Simple query without orderBy (no index needed!)
+      const q = query(collection(db, 'videos'), limit(20));
       const snapshot = await getDocs(q);
 
       if (snapshot.empty) {
-        console.log('No videos found in Firebase');
+        console.log('No videos in Firebase');
         return;
       }
 
@@ -1716,13 +1717,12 @@
         realVideos.push({ id: doc.id, ...doc.data() });
       });
 
-      console.log('Loaded videos:', realVideos.length);
+      console.log('Videos loaded:', realVideos.length);
 
-      // Get grid and prepend real videos
       const grid = document.getElementById('videos-grid');
       if (!grid) return;
 
-      // Remove existing real video cards first
+      // Remove old real video cards
       document.querySelectorAll('.real-video-card').forEach(c => c.remove());
 
       realVideos.forEach(v => {
@@ -1752,15 +1752,17 @@
           <div style="padding:12px;">
             <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">${v.title}</div>
             <div style="font-size:12px; color:#888;">${v.creatorName || 'Creator'}</div>
-            <div style="font-size:12px; color:#999; margin-top:3px;">${v.views || 0} views • Just now</div>
+            <div style="font-size:12px; color:#FF6600; margin-top:3px; font-weight:600;">▶ Play now</div>
           </div>
         `;
 
         grid.insertBefore(card, grid.firstChild);
       });
 
+      console.log('Videos added to feed!');
+
     } catch(e) {
-      console.log('Load videos error:', e);
+      console.error('Load videos error:', e);
     }
   }
 
