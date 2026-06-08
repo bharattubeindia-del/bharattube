@@ -1694,86 +1694,202 @@
     };
   }
 
-  // Load real videos from Firebase
+  // ✅ FIXED: Load real videos from Firebase
   async function loadRealVideos() {
+    const grid = document.getElementById('videos-grid');
+    if (!grid) { console.error('❌ videos-grid element nahi mila!'); return; }
+
+    // Step 1: Purane real video cards hata do (duplicate prevent)
+    document.querySelectorAll('.real-video-card').forEach(c => c.remove());
+
+    // Step 2: Loading indicator show karo at top
+    const loader = document.createElement('div');
+    loader.id = 'rv-loader';
+    loader.style.cssText = 'grid-column:1/-1; text-align:center; padding:24px; color:#888; font-size:14px;';
+    loader.innerHTML = '⏳ Videos load ho rahe hain...';
+    grid.insertBefore(loader, grid.firstChild);
+
     try {
-      const { getFirestore, collection, getDocs, query, limit } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+      const { getFirestore, collection, getDocs, query, orderBy, limit } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
       const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+
       const app = getApps()[0];
-      if (!app) return;
+      if (!app) { console.error('❌ Firebase app init nahi hua'); loader.remove(); return; }
+
       const db = getFirestore(app);
 
-      // Simple query without orderBy (no index needed!)
-      const q = query(collection(db, 'videos'), limit(20));
-      const snapshot = await getDocs(q);
+      // orderBy createdAt desc — latest videos pehle
+      // Note: Agar index error aaye to Firebase Console mein index banao
+      let snapshot;
+      try {
+        const q = query(collection(db, 'videos'), orderBy('createdAt', 'desc'), limit(30));
+        snapshot = await getDocs(q);
+      } catch(indexErr) {
+        // Index nahi bana — fallback: bina orderBy ke
+        console.warn('⚠️ Index missing, fetching without orderBy:', indexErr.message);
+        const q2 = query(collection(db, 'videos'), limit(30));
+        snapshot = await getDocs(q2);
+      }
+
+      // Loader hata do
+      loader.remove();
 
       if (snapshot.empty) {
-        console.log('No videos in Firebase');
-        return;
+        console.log('📭 Firebase mein koi video nahi hai abhi');
+        return; // Demo videos already hain grid mein — theek hai
       }
 
       const realVideos = [];
-      snapshot.forEach(doc => {
-        realVideos.push({ id: doc.id, ...doc.data() });
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        realVideos.push({ id: docSnap.id, ...data });
       });
 
-      console.log('Videos loaded:', realVideos.length);
+      console.log(`✅ ${realVideos.length} videos Firebase se load hue!`);
 
-      const grid = document.getElementById('videos-grid');
-      if (!grid) return;
-
-      // Remove old real video cards
-      document.querySelectorAll('.real-video-card').forEach(c => c.remove());
-
+      // Step 3: Har video ke liye card banao aur grid ke TOP mein daalo
       realVideos.forEach(v => {
         const card = document.createElement('div');
         card.className = 'video-card real-video-card';
-        card.dataset.cat = v.category || 'all';
-        card.style.cssText = 'cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:2px solid #FF6600; transition:transform 0.2s;';
-        card.onmouseover = function() { this.style.transform = 'translateY(-4px)'; };
-        card.onmouseout = function() { this.style.transform = 'translateY(0)'; };
-        card.onclick = function() { watchRealVideo(v.videoUrl, v.title, v.creatorName); };
+        // category field lowercase mein save hoti hai ('education', 'tech' etc.)
+        card.dataset.cat = (v.category || '').toLowerCase() || 'general';
 
-        const mins = Math.floor((v.duration || 0) / 60);
-        const secs = String((v.duration || 0) % 60).padStart(2, '0');
+        card.style.cssText = `
+          cursor:pointer;
+          border-radius:12px;
+          overflow:hidden;
+          background:#fff;
+          border:2px solid #FF6600;
+          transition:transform 0.2s, box-shadow 0.2s;
+          box-shadow: 0 2px 8px rgba(255,102,0,0.15);
+        `;
+        card.onmouseover = function() {
+          this.style.transform = 'translateY(-4px)';
+          this.style.boxShadow = '0 8px 24px rgba(255,102,0,0.25)';
+        };
+        card.onmouseout = function() {
+          this.style.transform = 'translateY(0)';
+          this.style.boxShadow = '0 2px 8px rgba(255,102,0,0.15)';
+        };
+        card.onclick = function() {
+          watchRealVideo(v.videoUrl, v.title, v.creatorName || 'Creator', v.id);
+        };
+
+        // Duration format: seconds → "mm:ss"
+        const totalSecs = Math.round(v.duration || 0);
+        const mins = Math.floor(totalSecs / 60);
+        const secs = String(totalSecs % 60).padStart(2, '0');
+        const durationStr = totalSecs > 0 ? `${mins}:${secs}` : '';
+
+        // Cloudinary auto-thumbnail from video URL
+        let thumbHtml;
+        if (v.videoUrl && v.videoUrl.includes('cloudinary.com')) {
+          // Cloudinary magic: video URL se thumbnail generate karo (second 3 pe)
+          const thumbUrl = v.videoUrl
+            .replace('/video/upload/', '/video/upload/w_480,h_270,c_fill,so_3/')
+            .replace(/\.(mp4|webm|mov|avi|mkv)$/i, '.jpg');
+
+          thumbHtml = `
+            <img src="${thumbUrl}" 
+                 style="width:100%; height:100%; object-fit:cover; display:block;"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                 alt="${v.title}">
+            <div style="display:none; width:100%; height:100%; background:linear-gradient(135deg,#FF6600,#ff9900); align-items:center; justify-content:center; flex-direction:column;">
+              <span style="font-size:40px;">🎬</span>
+              <span style="font-size:11px; color:rgba(255,255,255,0.8); margin-top:6px; text-align:center; padding:0 8px;">${v.title.substring(0,40)}</span>
+            </div>
+          `;
+        } else {
+          thumbHtml = `
+            <div style="width:100%; height:100%; background:linear-gradient(135deg,#FF6600,#ff9900); display:flex; align-items:center; justify-content:center;">
+              <span style="font-size:40px;">🎬</span>
+            </div>
+          `;
+        }
+
+        // Views format
+        const views = v.views || 0;
+        const viewsStr = views >= 1000000 ? (views/1000000).toFixed(1)+'M'
+                       : views >= 100000  ? Math.round(views/1000)+'K'
+                       : views >= 1000    ? (views/1000).toFixed(1)+'K'
+                       : String(views);
 
         card.innerHTML = `
-          <div style="background:#0a0a0a; height:160px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
-            <video src="${v.videoUrl}" style="width:100%; height:100%; object-fit:cover;" muted preload="metadata"></video>
-            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
-              <div style="width:44px; height:44px; background:rgba(255,102,0,0.9); border-radius:50%; display:flex; align-items:center; justify-content:center;">
-                <div style="width:0; height:0; border-top:10px solid transparent; border-bottom:10px solid transparent; border-left:18px solid #fff; margin-left:3px;"></div>
+          <div style="position:relative; height:175px; background:#111; overflow:hidden;">
+            ${thumbHtml}
+            <!-- Play overlay -->
+            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.2s;" class="play-overlay">
+              <div style="width:48px; height:48px; background:rgba(255,102,0,0.9); border-radius:50%; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
+                <div style="width:0; height:0; border-top:11px solid transparent; border-bottom:11px solid transparent; border-left:20px solid #fff; margin-left:3px;"></div>
               </div>
             </div>
-            <span style="position:absolute; top:8px; left:8px; background:#FF6600; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">${v.language || 'Hindi'}</span>
+            <!-- Badges -->
+            <span style="position:absolute; top:8px; left:8px; background:#FF6600; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:700;">${v.language || 'Hindi'}</span>
             <span style="position:absolute; top:8px; right:8px; background:#0a7a3e; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:700;">🆕 NEW</span>
-            <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">${mins}:${secs}</span>
+            ${durationStr ? `<span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.85); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px; font-weight:600;">${durationStr}</span>` : ''}
           </div>
           <div style="padding:12px;">
-            <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">${v.title}</div>
-            <div style="font-size:12px; color:#888;">${v.creatorName || 'Creator'}</div>
-            <div style="font-size:12px; color:#FF6600; margin-top:3px; font-weight:600;">▶ Play now</div>
+            <div style="display:flex; gap:8px; align-items:flex-start;">
+              <div style="width:32px; height:32px; border-radius:50%; background:#FF6600; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0;">
+                ${(v.creatorName || 'C')[0].toUpperCase()}
+              </div>
+              <div style="flex:1; min-width:0;">
+                <div style="font-size:13px; font-weight:700; margin-bottom:3px; line-height:1.4; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;">${v.title}</div>
+                <div style="font-size:12px; color:#666;">${v.creatorName || 'BharatTube Creator'}</div>
+                <div style="font-size:12px; color:#999; margin-top:2px;">${viewsStr} views</div>
+              </div>
+            </div>
           </div>
         `;
 
+        // Play overlay hover effect
+        card.addEventListener('mouseenter', () => {
+          const overlay = card.querySelector('.play-overlay');
+          if (overlay) overlay.style.opacity = '1';
+        });
+        card.addEventListener('mouseleave', () => {
+          const overlay = card.querySelector('.play-overlay');
+          if (overlay) overlay.style.opacity = '0';
+        });
+
+        // TOP mein add karo (real videos pehle dikhenge)
         grid.insertBefore(card, grid.firstChild);
       });
 
-      console.log('Videos added to feed!');
+      console.log(`✅ ${realVideos.length} real video cards feed mein add ho gaye!`);
 
     } catch(e) {
-      console.error('Load videos error:', e);
+      console.error('❌ loadRealVideos error:', e);
+      const ldr = document.getElementById('rv-loader');
+      if (ldr) ldr.remove();
     }
   }
 
-  // Watch real video
-  window.watchRealVideo = function(url, title, creator) {
+  // Watch real video - FIXED
+  window.watchRealVideo = function(url, title, creator, videoId) {
     showPage('watch');
-    const placeholder = document.querySelector('.video-placeholder');
     const playerBox = document.querySelector('.video-player-box');
-    playerBox.innerHTML = `<video controls autoplay style="width:100%; height:100%;" src="${url}"></video>`;
-    document.querySelector('.video-title-text').innerHTML = title;
-    document.querySelector('.creator-name-text').textContent = creator;
+    if (playerBox) {
+      playerBox.innerHTML = `<video controls autoplay style="width:100%; height:100%; border-radius:12px;" src="${url}">Aapka browser video support nahi karta.</video>`;
+    }
+    const titleEl = document.querySelector('.video-title-text');
+    if (titleEl) titleEl.textContent = title;
+    const creatorEl = document.querySelector('.creator-name-text');
+    if (creatorEl) creatorEl.textContent = creator || 'BharatTube Creator';
+
+    // Views increment Firebase mein (silent)
+    if (videoId) {
+      import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js')
+        .then(({ getFirestore, doc, updateDoc, increment }) => {
+          import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js')
+            .then(({ getApps }) => {
+              const app = getApps()[0];
+              if (!app) return;
+              const db = getFirestore(app);
+              updateDoc(doc(db, 'videos', videoId), { views: increment(1) }).catch(() => {});
+            });
+        }).catch(() => {});
+    }
   }
 
   // Load real videos on login
