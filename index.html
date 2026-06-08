@@ -1507,7 +1507,7 @@
 </script>
 
 <script>
-  let liked = false, subscribed = false, likeCount = 4821, cCount = 48;
+  let likeCount = 0, cCount = 0; // (liked/subscribed ab currentVideoId state se manage hota hai)
   let sidebarOpen = false;
 
   // ============ CLOUDINARY VIDEO UPLOAD ============
@@ -1772,7 +1772,7 @@
           this.style.boxShadow = '0 2px 8px rgba(255,102,0,0.15)';
         };
         card.onclick = function() {
-          watchRealVideo(v.videoUrl, v.title, v.creatorName || 'Creator', v.id);
+          watchRealVideo(v.videoUrl, v.title, v.creatorName || 'Creator', v.id, v.creatorId || null);
         };
 
         // Duration format: seconds → "mm:ss"
@@ -1865,30 +1865,167 @@
     }
   }
 
-  // Watch real video - FIXED
-  window.watchRealVideo = function(url, title, creator, videoId) {
+  // ============================================================
+  // CURRENT VIDEO STATE — watch page ke liye
+  // ============================================================
+  let currentVideoId = null;
+  let currentCreatorId = null;
+  let isLiked = false;
+  let isSubscribed = false;
+
+  // Firebase helpers (reusable)
+  async function getFirebaseModules() {
+    const { getFirestore, doc, getDoc, updateDoc, addDoc, getDocs,
+            collection, query, orderBy, increment, serverTimestamp, setDoc, deleteDoc } =
+      await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+    const { getAuth } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js');
+    const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+    const app = getApps()[0];
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+    return { db, auth, doc, getDoc, updateDoc, addDoc, getDocs, collection, query, orderBy, increment, serverTimestamp, setDoc, deleteDoc };
+  }
+
+  // Watch real video - FULL FIREBASE
+  window.watchRealVideo = async function(url, title, creator, videoId, creatorId, videoData) {
     showPage('watch');
+    currentVideoId = videoId;
+    currentCreatorId = creatorId || null;
+    isLiked = false;
+    isSubscribed = false;
+
+    // Video player
     const playerBox = document.querySelector('.video-player-box');
     if (playerBox) {
       playerBox.innerHTML = `<video controls autoplay style="width:100%; height:100%; border-radius:12px;" src="${url}">Aapka browser video support nahi karta.</video>`;
     }
+
+    // Title
     const titleEl = document.querySelector('.video-title-text');
     if (titleEl) titleEl.textContent = title;
+
+    // Creator name
     const creatorEl = document.querySelector('.creator-name-text');
     if (creatorEl) creatorEl.textContent = creator || 'BharatTube Creator';
 
-    // Views increment Firebase mein (silent)
-    if (videoId) {
-      import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js')
-        .then(({ getFirestore, doc, updateDoc, increment }) => {
-          import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js')
-            .then(({ getApps }) => {
-              const app = getApps()[0];
-              if (!app) return;
-              const db = getFirestore(app);
-              updateDoc(doc(db, 'videos', videoId), { views: increment(1) }).catch(() => {});
-            });
-        }).catch(() => {});
+    // Creator avatar initials
+    const creatorAvEl = document.querySelector('.creator-av');
+    if (creatorAvEl) creatorAvEl.textContent = (creator || 'B')[0].toUpperCase();
+
+    // Reset like button
+    const likeBtn = document.getElementById('like-btn');
+    if (likeBtn) likeBtn.classList.remove('active');
+
+    // Reset sub button
+    const subBtn = document.getElementById('sub-btn');
+    if (subBtn) { subBtn.textContent = 'Subscribe'; subBtn.classList.remove('done'); }
+
+    // Load real data from Firebase
+    try {
+      const { db, auth, doc, getDoc, getDocs, collection, query, orderBy, increment, updateDoc } = await getFirebaseModules();
+      const user = auth.currentUser;
+
+      // 1. Views increment
+      await updateDoc(doc(db, 'videos', videoId), { views: increment(1) }).catch(() => {});
+
+      // 2. Fetch video doc for real likes/views
+      const videoDoc = await getDoc(doc(db, 'videos', videoId)).catch(() => null);
+      if (videoDoc && videoDoc.exists()) {
+        const d = videoDoc.data();
+        const views = d.views || 0;
+        const viewsStr = views >= 1000000 ? (views/1000000).toFixed(1)+'M'
+                       : views >= 1000 ? (views/1000).toFixed(1)+'K' : String(views);
+        const statsEl = document.querySelector('.video-stats-text');
+        if (statsEl) statsEl.innerHTML = `<span>👁️ ${viewsStr} views</span><span>📅 Aaj</span>`;
+
+        const likeCountEl = document.getElementById('like-count');
+        if (likeCountEl) likeCountEl.textContent = (d.likes || 0).toLocaleString('en-IN');
+      }
+
+      // 3. Check if current user liked this video
+      if (user) {
+        const likeRef = doc(db, 'videos', videoId, 'likes', user.uid);
+        const likeDoc = await getDoc(likeRef).catch(() => null);
+        if (likeDoc && likeDoc.exists()) {
+          isLiked = true;
+          const lb = document.getElementById('like-btn');
+          if (lb) lb.classList.add('active');
+        }
+      }
+
+      // 4. Fetch creator subscriber count
+      if (creatorId) {
+        const creatorDoc = await getDoc(doc(db, 'users', creatorId)).catch(() => null);
+        if (creatorDoc && creatorDoc.exists()) {
+          const subs = creatorDoc.data().subscribers || 0;
+          const subsEl = document.querySelector('.creator-subs-text');
+          if (subsEl) subsEl.textContent = subs.toLocaleString('en-IN') + ' subscribers';
+        }
+
+        // Check if subscribed
+        if (user) {
+          const subRef = doc(db, 'users', creatorId, 'subscribers', user.uid);
+          const subDoc = await getDoc(subRef).catch(() => null);
+          if (subDoc && subDoc.exists()) {
+            isSubscribed = true;
+            const sb = document.getElementById('sub-btn');
+            if (sb) { sb.textContent = 'Subscribed ✅'; sb.classList.add('done'); }
+          }
+        }
+      }
+
+      // 5. Load real comments
+      loadComments(db, videoId, query, collection, orderBy, getDocs);
+
+    } catch(e) {
+      console.error('watchRealVideo error:', e);
+    }
+  }
+
+  // Load comments from Firebase
+  async function loadComments(db, videoId, query, collection, orderBy, getDocs) {
+    try {
+      const cList = document.getElementById('c-list');
+      if (!cList) return;
+
+      let snap;
+      try {
+        const q = query(collection(db, 'videos', videoId, 'comments'), orderBy('createdAt', 'desc'));
+        snap = await getDocs(q);
+      } catch(e) {
+        // No index — fetch without orderBy
+        snap = await getDocs(collection(db, 'videos', videoId, 'comments'));
+      }
+
+      const cCountEl = document.getElementById('c-count');
+
+      if (snap.empty) {
+        // Demo comments rakhne ke liye nahi hatate — seedha real comments dikhao
+        if (cCountEl) cCountEl.textContent = '0';
+        cList.innerHTML = '<div style="text-align:center; color:#999; padding:24px; font-size:14px;">Pehla comment karo! 💬</div>';
+        return;
+      }
+
+      if (cCountEl) cCountEl.textContent = snap.size;
+      const comments = [];
+      snap.forEach(d => comments.push({ id: d.id, ...d.data() }));
+
+      cList.innerHTML = comments.map(c => {
+        const initial = (c.userName || 'U')[0].toUpperCase();
+        const colors = ['#FF6600','#1a5fcc','#0a7a3e','#b5006e','#6a0dad'];
+        const color = colors[initial.charCodeAt(0) % colors.length];
+        return `
+          <div class="comment-item">
+            <div class="c-av" style="background:${color};">${initial}</div>
+            <div class="comment-body">
+              <div class="comment-author">${c.userName || 'User'}</div>
+              <div class="comment-text">${c.text || ''}</div>
+              <div class="comment-time">${c.createdAt ? 'Abhi' : 'Recently'} • 👍 0</div>
+            </div>
+          </div>`;
+      }).join('');
+    } catch(e) {
+      console.error('loadComments error:', e);
     }
   }
 
@@ -2101,11 +2238,39 @@
     o.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('show'); });
   });
 
-  function handleLike() {
-    liked = !liked;
+  async function handleLike() {
+    if (!currentVideoId) return;
     const btn = document.getElementById('like-btn');
-    liked ? (likeCount++, btn.classList.add('active')) : (likeCount--, btn.classList.remove('active'));
-    document.getElementById('like-count').textContent = likeCount.toLocaleString('en-IN');
+    const likeCountEl = document.getElementById('like-count');
+
+    try {
+      const { db, auth, doc, setDoc, deleteDoc, updateDoc, increment, serverTimestamp } = await getFirebaseModules();
+      const user = auth.currentUser;
+      if (!user) { alert('Like karne ke liye login karo! 🔐'); return; }
+
+      const likeRef = doc(db, 'videos', currentVideoId, 'likes', user.uid);
+      const videoRef = doc(db, 'videos', currentVideoId);
+
+      if (!isLiked) {
+        // Like karo
+        await setDoc(likeRef, { userId: user.uid, createdAt: serverTimestamp() });
+        await updateDoc(videoRef, { likes: increment(1) });
+        isLiked = true;
+        btn.classList.add('active');
+        const cur = parseInt(likeCountEl.textContent.replace(/,/g, '')) || 0;
+        likeCountEl.textContent = (cur + 1).toLocaleString('en-IN');
+      } else {
+        // Unlike karo
+        await deleteDoc(likeRef);
+        await updateDoc(videoRef, { likes: increment(-1) });
+        isLiked = false;
+        btn.classList.remove('active');
+        const cur = parseInt(likeCountEl.textContent.replace(/,/g, '')) || 1;
+        likeCountEl.textContent = Math.max(0, cur - 1).toLocaleString('en-IN');
+      }
+    } catch(e) {
+      console.error('handleLike error:', e);
+    }
   }
 
   function handleShare() {
@@ -2113,23 +2278,122 @@
     alert('Link copied! Share karo! 🔗');
   }
 
-  function handleSub() {
-    subscribed = !subscribed;
+  async function handleSub() {
+    if (!currentCreatorId) return;
     const btn = document.getElementById('sub-btn');
-    btn.textContent = subscribed ? 'Subscribed ✅' : 'Subscribe';
-    btn.classList.toggle('done', subscribed);
+    const subsEl = document.querySelector('.creator-subs-text');
+
+    try {
+      const { db, auth, doc, setDoc, deleteDoc, updateDoc, increment, serverTimestamp } = await getFirebaseModules();
+      const user = auth.currentUser;
+      if (!user) { alert('Subscribe karne ke liye login karo! 🔐'); return; }
+      if (user.uid === currentCreatorId) { alert('Apne aap ko subscribe nahi kar sakte! 😄'); return; }
+
+      const subRef = doc(db, 'users', currentCreatorId, 'subscribers', user.uid);
+      const creatorRef = doc(db, 'users', currentCreatorId);
+
+      if (!isSubscribed) {
+        // Subscribe karo
+        await setDoc(subRef, { userId: user.uid, createdAt: serverTimestamp() });
+        await updateDoc(creatorRef, { subscribers: increment(1) }).catch(async () => {
+          await setDoc(creatorRef, { subscribers: 1 }, { merge: true });
+        });
+        isSubscribed = true;
+        btn.textContent = 'Subscribed ✅';
+        btn.classList.add('done');
+        // Update subscriber count display
+        if (subsEl) {
+          const cur = parseInt((subsEl.textContent || '0').replace(/[^0-9]/g, '')) || 0;
+          subsEl.textContent = (cur + 1).toLocaleString('en-IN') + ' subscribers';
+        }
+      } else {
+        // Unsubscribe karo
+        await deleteDoc(subRef);
+        await updateDoc(creatorRef, { subscribers: increment(-1) }).catch(() => {});
+        isSubscribed = false;
+        btn.textContent = 'Subscribe';
+        btn.classList.remove('done');
+        if (subsEl) {
+          const cur = parseInt((subsEl.textContent || '1').replace(/[^0-9]/g, '')) || 1;
+          subsEl.textContent = Math.max(0, cur - 1).toLocaleString('en-IN') + ' subscribers';
+        }
+      }
+    } catch(e) {
+      console.error('handleSub error:', e);
+    }
   }
 
-  function addComment() {
-    const text = document.getElementById('c-input').value;
-    if (!text.trim()) return;
-    cCount++;
-    document.getElementById('c-count').textContent = cCount;
-    const div = document.createElement('div');
-    div.className = 'comment-item';
-    div.innerHTML = `<div class="c-av" style="background:#FF6600;">U</div><div class="comment-body"><div class="comment-author">You</div><div class="comment-text">${text}</div><div class="comment-time">Just now • 👍 0</div></div>`;
-    document.getElementById('c-list').prepend(div);
-    document.getElementById('c-input').value = '';
+  async function addComment() {
+    const input = document.getElementById('c-input');
+    const text = input ? input.value.trim() : '';
+    if (!text) return;
+    if (!currentVideoId) {
+      // Fallback: local only
+      const cList = document.getElementById('c-list');
+      const cCountEl = document.getElementById('c-count');
+      cCount++;
+      if (cCountEl) cCountEl.textContent = cCount;
+      const div = document.createElement('div');
+      div.className = 'comment-item';
+      div.innerHTML = `<div class="c-av" style="background:#FF6600;">U</div><div class="comment-body"><div class="comment-author">You</div><div class="comment-text">${text}</div><div class="comment-time">Just now • 👍 0</div></div>`;
+      if (cList) cList.prepend(div);
+      if (input) input.value = '';
+      return;
+    }
+
+    try {
+      const { db, auth, collection, addDoc, serverTimestamp, doc, updateDoc, increment } = await getFirebaseModules();
+      const user = auth.currentUser;
+      if (!user) { alert('Comment karne ke liye login karo! 🔐'); return; }
+
+      const userName = user.displayName || user.email.split('@')[0];
+
+      // Firebase mein save karo
+      await addDoc(collection(db, 'videos', currentVideoId, 'comments'), {
+        text: text,
+        userId: user.uid,
+        userName: userName,
+        createdAt: serverTimestamp()
+      });
+
+      // Comment count increment
+      await updateDoc(doc(db, 'videos', currentVideoId), { comments: increment(1) }).catch(() => {});
+
+      // UI update — nayi comment seedha dikhao
+      const cList = document.getElementById('c-list');
+      const cCountEl = document.getElementById('c-count');
+
+      const initial = userName[0].toUpperCase();
+      const colors = ['#FF6600','#1a5fcc','#0a7a3e','#b5006e','#6a0dad'];
+      const color = colors[initial.charCodeAt(0) % colors.length];
+
+      const div = document.createElement('div');
+      div.className = 'comment-item';
+      div.innerHTML = `
+        <div class="c-av" style="background:${color};">${initial}</div>
+        <div class="comment-body">
+          <div class="comment-author">${userName}</div>
+          <div class="comment-text">${text}</div>
+          <div class="comment-time">Abhi • 👍 0</div>
+        </div>`;
+
+      // "Pehla comment" message hata do
+      const emptyMsg = cList ? cList.querySelector('div[style*="text-align:center"]') : null;
+      if (emptyMsg) emptyMsg.remove();
+
+      if (cList) cList.prepend(div);
+      if (input) input.value = '';
+
+      // Count update
+      if (cCountEl) {
+        const cur = parseInt(cCountEl.textContent) || 0;
+        cCountEl.textContent = cur + 1;
+      }
+
+    } catch(e) {
+      console.error('addComment error:', e);
+      alert('Comment nahi hua! Try again.');
+    }
   }
 </script>
 </body>
