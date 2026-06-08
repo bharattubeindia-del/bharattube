@@ -294,18 +294,40 @@
 
   <!-- SIDEBAR (shown after login) -->
   <div class="sidebar hidden" id="sidebar">
-    <div class="sidebar-user" id="sidebar-user-info">
-      <div class="sidebar-user-av" id="sidebar-av">U</div>
-      <div class="sidebar-user-name" id="sidebar-name">User</div>
-      <div class="sidebar-user-email" id="sidebar-email">user@email.com</div>
-    </div>
 
+    <!-- Section 1: Main Navigation -->
     <div class="sidebar-section">
       <div class="sidebar-item active" id="nav-home" onclick="showPage('home')">
         <span class="icon">🏠</span> Home
       </div>
+      <div class="sidebar-item" id="nav-shorts" onclick="showPage('shorts')">
+        <span class="icon" style="font-size:20px;">🩳</span> Shorts
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- Section 2: Subscriptions -->
+    <div class="sidebar-section">
       <div class="sidebar-item" id="nav-subscriptions" onclick="showPage('subscriptions')">
         <span class="icon">📺</span> Subscriptions
+        <span style="margin-left:auto; font-size:11px; color:#FF6600; font-weight:700;">›</span>
+      </div>
+      <!-- Subscribed channels list -->
+      <div id="subscriptions-list">
+        <div style="font-size:12px; color:#999; padding:4px 20px;">Subscribe to channels!</div>
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- Section 3: YOU -->
+    <div class="sidebar-section">
+      <div class="sidebar-label" style="display:flex; align-items:center; justify-content:space-between; padding-right:16px;">
+        You <span style="font-size:12px; color:#FF6600; cursor:pointer;">›</span>
+      </div>
+      <div class="sidebar-item" onclick="showPage('profile')">
+        <span class="icon">📺</span> Your channel
       </div>
       <div class="sidebar-item" id="nav-history" onclick="showPage('history')">
         <span class="icon">📜</span> History
@@ -314,79 +336,121 @@
         <span class="icon">📋</span> Playlists
       </div>
       <div class="sidebar-item" id="nav-watchlater" onclick="showPage('watchlater')">
-        <span class="icon">⏰</span> Watch Later
+        <span class="icon">⏰</span> Watch later
       </div>
-      <div class="sidebar-item" id="nav-live" onclick="showPage('live')">
-        <span class="icon">🔴</span> Live
-        <span style="margin-left:auto; font-size:10px; background:#ffe6e6; color:#cc0000; padding:2px 6px; border-radius:8px; font-weight:600;">LIVE</span>
-      </div>
-      <div class="sidebar-item" id="nav-watch" onclick="showPage('watch')">
-        <span class="icon">🎬</span> Watch Videos
+      <div class="sidebar-item" onclick="showPage('watch')">
+        <span class="icon">👍</span> Liked videos
       </div>
       <div class="sidebar-item" id="nav-upload" onclick="showPage('upload')">
-        <span class="icon">⬆️</span> Upload Video
+        <span class="icon">🎬</span> Your videos
+      </div>
+      <!-- Show more -->
+      <div class="sidebar-item" id="show-more-you" onclick="toggleYouMore()" style="color:#555;">
+        <span class="icon">⬇️</span> Show more
       </div>
     </div>
 
-    <div class="sidebar-divider"></div>
-
-    <!-- Switch to Creator Mode button -->
-    <div style="padding:8px 12px;">
-      <button onclick="toggleCreatorMode()" id="creator-mode-btn" style="width:100%; padding:10px; background:#fff3e6; color:#FF6600; border:1.5px solid #FF6600; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
-        <span>🎬</span> Switch to Creator Mode
-      </button>
-    </div>
-
-    <!-- CREATOR SECTION (hidden by default) -->
-    <div id="creator-section" style="display:none;">
-      <div class="sidebar-divider"></div>
+    <!-- Hidden YOU items -->
+    <div id="you-more" style="display:none;">
       <div class="sidebar-section">
-        <div class="sidebar-label">Creator</div>
-        <div class="sidebar-item" id="nav-dashboard" onclick="showPage('dashboard')">
-          <span class="icon">📊</span> My Dashboard
+        <div class="sidebar-item" onclick="showPage('watch')">
+          <span class="icon">⬇️</span> Downloads
         </div>
-        <div class="sidebar-item" onclick="showPage('earnings')">
-          <span class="icon">💰</span> My Earnings
-          <span style="margin-left:auto; font-size:10px; background:#fff3e6; color:#FF6600; padding:2px 6px; border-radius:8px;">Soon</span>
+        <div class="sidebar-item" onclick="showPage('watch')">
+          <span class="icon">🕐</span> Watch history
         </div>
-        <div class="sidebar-item" onclick="showPage('profile')">
-          <span class="icon">👤</span> My Profile
-        </div>
-        <div class="sidebar-item" onclick="showPage('creator-studio')" id="nav-creator-studio">
-          <span class="icon">🎬</span> Creator Studio
-        </div>
-        <div class="sidebar-item" onclick="showPage('upload')" id="nav-upload">
-          <span class="icon">⬆️</span> Upload Video
+        <div class="sidebar-item" id="nav-live" onclick="showPage('live')">
+          <span class="icon">🔴</span> Live
+          <span style="margin-left:auto; font-size:10px; background:#ffe6e6; color:#cc0000; padding:2px 6px; border-radius:8px; font-weight:600;">LIVE</span>
         </div>
       </div>
     </div>
 
     <div class="sidebar-divider"></div>
 
+    <!-- Section 4: Creator Studio -->
     <div class="sidebar-section">
-      <div class="sidebar-label">Account</div>
+      <div class="sidebar-label">BharatTube</div>
       <div class="sidebar-item" onclick="showPage('creator-studio')" id="nav-creator-studio">
         <span class="icon">🎬</span> Creator Studio
       </div>
-      <div class="sidebar-item" onclick="alert('Settings coming soon!')">
-        <span class="icon">⚙️</span> Settings
+      <div class="sidebar-item" id="nav-dashboard" onclick="showPage('dashboard')">
+        <span class="icon">📊</span> My Dashboard
       </div>
-      <div class="sidebar-item" onclick="handleLogout()" style="color:#cc0000;">
-        <span class="icon">🚪</span> Logout
+      <div class="sidebar-item" onclick="showPage('earnings')">
+        <span class="icon">💰</span> My Earnings
+        <span style="margin-left:auto; font-size:10px; background:#fff3e6; color:#FF6600; padding:2px 6px; border-radius:8px;">Soon</span>
       </div>
     </div>
 
     <div class="sidebar-divider"></div>
 
-    <!-- SUBSCRIPTIONS -->
-    <div class="sidebar-section" id="subscriptions-section">
-      <div class="sidebar-label">Subscriptions</div>
-      <div id="subscriptions-list">
-        <div class="sidebar-item" style="color:#999; font-size:12px; padding:8px 20px;">
-          Subscribe to channels to see them here!
-        </div>
+    <!-- Section 5: Explore -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">Explore</div>
+      <div class="sidebar-item" onclick="document.querySelector('[onclick*=farming]').click(); showPage('home')">
+        <span class="icon">🌾</span> Farming
+      </div>
+      <div class="sidebar-item" onclick="showPage('live')">
+        <span class="icon">🎵</span> Music
+      </div>
+      <div class="sidebar-item" onclick="showPage('live')">
+        <span class="icon">🔴</span> Live
+      </div>
+      <div class="sidebar-item" onclick="showPage('watch')">
+        <span class="icon">🎬</span> Films
+      </div>
+      <div class="sidebar-item" onclick="showPage('watch')">
+        <span class="icon">📰</span> News
+      </div>
+      <div class="sidebar-item" onclick="showPage('watch')">
+        <span class="icon">⚽</span> Sports
       </div>
     </div>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- Section 6: More from BharatTube -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">More from BharatTube</div>
+      <div class="sidebar-item" onclick="alert('BharatTube Premium coming soon! 🚀')">
+        <span class="icon">💎</span> BharatTube Premium
+      </div>
+      <div class="sidebar-item" onclick="showPage('upload')">
+        <span class="icon">🎙️</span> BharatTube Studio
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- Section 7: Settings -->
+    <div class="sidebar-section">
+      <div class="sidebar-item" onclick="alert('Settings coming soon!')">
+        <span class="icon">⚙️</span> Settings
+      </div>
+      <div class="sidebar-item" onclick="alert('Report history coming soon!')">
+        <span class="icon">🚩</span> Report history
+      </div>
+      <div class="sidebar-item" onclick="alert('Help coming soon!')">
+        <span class="icon">❓</span> Help
+      </div>
+      <div class="sidebar-item" onclick="alert('Send feedback coming soon!')">
+        <span class="icon">💬</span> Send feedback
+      </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div style="padding:8px 20px; font-size:11px; color:#aaa; line-height:1.8;">
+      About Press Copyright<br>
+      Contact us Creators<br>
+      Advertise Developers<br><br>
+      Terms Privacy Policy & Safety<br>
+      How BharatTube works<br>
+      Test new features<br><br>
+      © 2026 BharatTube 🇮🇳
+    </div>
+
   </div>
 
   <!-- MAIN CONTENT -->
@@ -948,6 +1012,56 @@
         </div>
       </div>
     </div>
+    <!-- SHORTS PAGE -->
+    <div class="page" id="page-shorts">
+      <div style="padding:20px 24px;">
+        <h2 style="font-size:20px; font-weight:800; margin-bottom:6px;">🩳 BharatTube Shorts</h2>
+        <p style="color:#888; font-size:14px; margin-bottom:20px;">Short videos in Indian languages!</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:12px;">
+          <div style="border-radius:12px; overflow:hidden; cursor:pointer; position:relative;" onclick="showPage('watch')">
+            <div style="background:linear-gradient(180deg,#FF6600,#ff9900); height:320px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative;">
+              <span style="font-size:56px;">🌾</span>
+              <div style="position:absolute; bottom:0; left:0; right:0; padding:12px; background:linear-gradient(transparent,rgba(0,0,0,0.8)); color:#fff;">
+                <div style="font-size:13px; font-weight:600;">Khethi tips in 60 seconds! 🌾</div>
+                <div style="font-size:11px; opacity:0.8; margin-top:2px;">Ramesh K • 1.2L views</div>
+              </div>
+              <div style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.6); color:#fff; font-size:10px; padding:2px 6px; border-radius:4px;">0:58</div>
+            </div>
+          </div>
+          <div style="border-radius:12px; overflow:hidden; cursor:pointer;" onclick="showPage('watch')">
+            <div style="background:linear-gradient(180deg,#b5006e,#e91e8c); height:320px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative;">
+              <span style="font-size:56px;">😂</span>
+              <div style="position:absolute; bottom:0; left:0; right:0; padding:12px; background:linear-gradient(transparent,rgba(0,0,0,0.8)); color:#fff;">
+                <div style="font-size:13px; font-weight:600;">Hyderabadi joke 😂</div>
+                <div style="font-size:11px; opacity:0.8; margin-top:2px;">Telugu Talkies • 2.4L views</div>
+              </div>
+              <div style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.6); color:#fff; font-size:10px; padding:2px 6px; border-radius:4px;">0:45</div>
+            </div>
+          </div>
+          <div style="border-radius:12px; overflow:hidden; cursor:pointer;" onclick="showPage('watch')">
+            <div style="background:linear-gradient(180deg,#1a5fcc,#4a90d9); height:320px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative;">
+              <span style="font-size:56px;">🍳</span>
+              <div style="position:absolute; bottom:0; left:0; right:0; padding:12px; background:linear-gradient(transparent,rgba(0,0,0,0.8)); color:#fff;">
+                <div style="font-size:13px; font-weight:600;">Quick recipe in Tamil! 🍳</div>
+                <div style="font-size:11px; opacity:0.8; margin-top:2px;">Priya's Kitchen • 89K views</div>
+              </div>
+              <div style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.6); color:#fff; font-size:10px; padding:2px 6px; border-radius:4px;">0:59</div>
+            </div>
+          </div>
+          <div style="border-radius:12px; overflow:hidden; cursor:pointer;" onclick="showPage('watch')">
+            <div style="background:linear-gradient(180deg,#6a0dad,#9b59b6); height:320px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative;">
+              <span style="font-size:56px;">💃</span>
+              <div style="position:absolute; bottom:0; left:0; right:0; padding:12px; background:linear-gradient(transparent,rgba(0,0,0,0.8)); color:#fff;">
+                <div style="font-size:13px; font-weight:600;">Lavani dance short! 💃</div>
+                <div style="font-size:11px; opacity:0.8; margin-top:2px;">Nisha Dance • 45K views</div>
+              </div>
+              <div style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.6); color:#fff; font-size:10px; padding:2px 6px; border-radius:4px;">0:52</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- SUBSCRIPTIONS PAGE -->
     <div class="page" id="page-subscriptions">
       <div style="padding:20px 24px;">
@@ -1080,25 +1194,55 @@
     <div class="page" id="page-upload">
       <div class="upload-page">
         <div class="section-title">Upload Video ⬆️</div>
-        <p style="color:#666; font-size:14px; margin-bottom:20px;">Share your content with 140 crore Indians!</p>
-        <div class="upload-area" onclick="alert('Video upload coming soon! 🎬\nHum isko jald add karenge!')">
+        <p style="color:#666; font-size:14px; margin-bottom:20px;">Share your content with 140 crore Indians! 🇮🇳</p>
+
+        <!-- Upload Area -->
+        <div id="upload-area" class="upload-area" onclick="document.getElementById('video-file-input').click()" style="position:relative;">
+          <input type="file" id="video-file-input" accept="video/*" style="display:none;" onchange="handleVideoSelect(event)" />
           <div class="upload-icon">🎬</div>
-          <div class="upload-title">Drag & Drop your video here</div>
-          <div class="upload-sub">MP4, AVI, MOV — Max 2GB</div>
-          <div class="coming-soon-tag"><div class="cs-dot"></div> Coming Soon!</div>
+          <div class="upload-title">Click karo ya video drag karo</div>
+          <div class="upload-sub">MP4, AVI, MOV — Max 100MB</div>
         </div>
-        <div class="upload-form">
+
+        <!-- Video Preview -->
+        <div id="video-preview-box" style="display:none; margin-top:16px; background:#000; border-radius:12px; overflow:hidden;">
+          <video id="video-preview" controls style="width:100%; max-height:300px;"></video>
+          <div id="selected-file-name" style="padding:8px 12px; background:#111; color:#fff; font-size:12px;"></div>
+        </div>
+
+        <!-- Upload Progress -->
+        <div id="upload-progress-box" style="display:none; margin-top:16px; background:#fff; border:1px solid #eee; border-radius:12px; padding:16px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span style="font-size:13px; font-weight:600;">Uploading to BharatTube...</span>
+            <span id="upload-percent" style="font-size:13px; color:#FF6600; font-weight:700;">0%</span>
+          </div>
+          <div style="background:#f0f0f0; border-radius:10px; height:8px; overflow:hidden;">
+            <div id="upload-bar" style="background:linear-gradient(90deg,#FF6600,#ff9900); height:100%; width:0%; transition:width 0.3s; border-radius:10px;"></div>
+          </div>
+          <div id="upload-status" style="font-size:12px; color:#888; margin-top:8px;">Preparing upload...</div>
+        </div>
+
+        <!-- Success Box -->
+        <div id="upload-success-box" style="display:none; margin-top:16px; background:#e6faf2; border:1px solid #0a7a3e; border-radius:12px; padding:16px; text-align:center;">
+          <div style="font-size:32px; margin-bottom:8px;">🎉</div>
+          <div style="font-size:16px; font-weight:700; color:#0a7a3e; margin-bottom:4px;">Video uploaded successfully!</div>
+          <div style="font-size:13px; color:#666;">Tera video BharatTube pe live hai!</div>
+          <button onclick="resetUpload()" style="margin-top:12px; padding:8px 20px; background:#0a7a3e; color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">Upload Another Video</button>
+        </div>
+
+        <!-- Upload Form -->
+        <div class="upload-form" id="upload-form">
           <div class="form-group">
             <label class="form-label">Video Title *</label>
-            <input class="form-input" type="text" placeholder="Apne video ka title likho..." />
+            <input class="form-input" id="video-title" type="text" placeholder="Apne video ka title likho..." />
           </div>
           <div class="form-group">
             <label class="form-label">Description</label>
-            <textarea class="form-input" rows="3" placeholder="Video ke baare mein batao..."></textarea>
+            <textarea class="form-input" id="video-desc" rows="3" placeholder="Video ke baare mein batao..."></textarea>
           </div>
           <div class="form-group">
             <label class="form-label">Language *</label>
-            <select class="form-select">
+            <select class="form-select" id="video-lang">
               <option>Hindi</option><option>Tamil</option><option>Telugu</option>
               <option>Marathi</option><option>Bengali</option><option>Gujarati</option>
               <option>Kannada</option><option>Malayalam</option><option>Punjabi</option>
@@ -1107,16 +1251,17 @@
           </div>
           <div class="form-group">
             <label class="form-label">Category *</label>
-            <select class="form-select">
-              <option>Education</option><option>Farming</option><option>Cooking</option>
-              <option>Comedy</option><option>Music</option><option>Dance</option>
-              <option>Technology</option><option>Health</option><option>Sports</option>
+            <select class="form-select" id="video-cat">
+              <option>Education</option><option value="farming">Farming</option><option value="cooking">Cooking</option>
+              <option value="comedy">Comedy</option><option value="music">Music</option><option value="dance">Dance</option>
+              <option value="tech">Technology</option><option>Health</option><option>Sports</option>
               <option>News</option>
             </select>
           </div>
-          <button class="upload-btn" onclick="alert('Video upload coming soon! 🚀\nBharatTube pe creators ka swagat hai! 🇮🇳')">
-            Upload Video 🚀
+          <button class="upload-btn" id="upload-btn" onclick="uploadVideoToCloudinary()">
+            🚀 Upload Video to BharatTube
           </button>
+          <p style="font-size:12px; color:#888; text-align:center; margin-top:8px;">Video Cloudinary pe store hoga • Firebase mein save hoga</p>
         </div>
       </div>
     </div>
@@ -1262,6 +1407,8 @@
       document.getElementById('landing-page').style.display = 'none';
       // Apply creator mode
       applyCreatorMode();
+      // Load real videos
+      loadRealVideos();
     } else {
       document.getElementById('sidebar').classList.add('hidden');
       document.getElementById('nav-auth').style.display = 'flex';
@@ -1358,6 +1505,247 @@
 <script>
   let liked = false, subscribed = false, likeCount = 4821, cCount = 48;
   let sidebarOpen = false;
+
+  // ============ CLOUDINARY VIDEO UPLOAD ============
+  const CLOUDINARY_CLOUD = 'dvkku8ih0';
+  const CLOUDINARY_PRESET = 'bharattube_videos';
+
+  let selectedVideoFile = null;
+
+  window.handleVideoSelect = function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Check file size (100MB max)
+    if (file.size > 100 * 1024 * 1024) {
+      alert('❌ File bahut bada hai!\nMaximum 100MB allowed hai.');
+      return;
+    }
+
+    selectedVideoFile = file;
+
+    // Show preview
+    const preview = document.getElementById('video-preview');
+    const previewBox = document.getElementById('video-preview-box');
+    const fileName = document.getElementById('selected-file-name');
+
+    preview.src = URL.createObjectURL(file);
+    previewBox.style.display = 'block';
+    fileName.textContent = `📁 ${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB)`;
+
+    // Update upload area
+    document.getElementById('upload-area').style.background = '#e6faf2';
+    document.getElementById('upload-area').style.borderColor = '#0a7a3e';
+    document.getElementById('upload-area').innerHTML = `
+      <div style="font-size:48px;">✅</div>
+      <div style="font-size:16px; font-weight:700; color:#0a7a3e;">Video selected!</div>
+      <div style="font-size:13px; color:#666;">${file.name}</div>
+      <div style="font-size:12px; color:#888; margin-top:4px;">Click to change video</div>
+      <input type="file" id="video-file-input" accept="video/*" style="display:none;" onchange="handleVideoSelect(event)" />
+    `;
+  }
+
+  window.uploadVideoToCloudinary = async function() {
+    const title = document.getElementById('video-title').value.trim();
+    const desc = document.getElementById('video-desc').value.trim();
+    const lang = document.getElementById('video-lang').value;
+    const cat = document.getElementById('video-cat').value;
+
+    if (!selectedVideoFile) {
+      alert('❌ Pehle video select karo!'); return;
+    }
+    if (!title) {
+      alert('❌ Video title likho!'); return;
+    }
+
+    // Show progress
+    document.getElementById('upload-progress-box').style.display = 'block';
+    document.getElementById('upload-btn').disabled = true;
+    document.getElementById('upload-btn').textContent = 'Uploading...';
+
+    try {
+      // Upload to Cloudinary
+      const formData = new FormData();
+      formData.append('file', selectedVideoFile);
+      formData.append('upload_preset', CLOUDINARY_PRESET);
+      formData.append('folder', 'bharattube/videos');
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/video/upload`);
+
+      // Progress tracking
+      xhr.upload.onprogress = function(e) {
+        if (e.lengthComputable) {
+          const percent = Math.round((e.loaded / e.total) * 100);
+          document.getElementById('upload-bar').style.width = percent + '%';
+          document.getElementById('upload-percent').textContent = percent + '%';
+          document.getElementById('upload-status').textContent =
+            percent < 50 ? 'Uploading video...' :
+            percent < 80 ? 'Almost there...' :
+            'Processing video...';
+        }
+      };
+
+      xhr.onload = async function() {
+        if (xhr.status === 200) {
+          const result = JSON.parse(xhr.responseText);
+          const videoUrl = result.secure_url;
+          const publicId = result.public_id;
+          const duration = result.duration || 0;
+
+          // Save to Firebase
+          document.getElementById('upload-status').textContent = 'Saving to Firebase...';
+
+          try {
+            const { getFirestore, collection, addDoc, serverTimestamp, getDoc, doc } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+            const { getAuth } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js');
+            const { initializeApp, getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+
+            const apps = getApps();
+            const app = apps[0];
+            const db = getFirestore(app);
+            const auth = getAuth(app);
+            const user = auth.currentUser;
+
+            await addDoc(collection(db, 'videos'), {
+              title: title,
+              description: desc,
+              language: lang,
+              category: cat.toLowerCase(),
+              videoUrl: videoUrl,
+              publicId: publicId,
+              duration: Math.round(duration),
+              creatorId: user ? user.uid : 'anonymous',
+              creatorName: user ? (user.displayName || user.email) : 'Anonymous',
+              createdAt: serverTimestamp(),
+              views: 0,
+              likes: 0,
+              status: 'published'
+            });
+
+            // Show success
+            document.getElementById('upload-progress-box').style.display = 'none';
+            document.getElementById('upload-success-box').style.display = 'block';
+            document.getElementById('upload-form').style.display = 'none';
+
+            // Load real videos on home feed
+            loadRealVideos();
+
+          } catch(fbErr) {
+            console.log('Firebase save error:', fbErr);
+            // Still show success since Cloudinary worked
+            document.getElementById('upload-progress-box').style.display = 'none';
+            document.getElementById('upload-success-box').style.display = 'block';
+          }
+
+        } else {
+          throw new Error('Upload failed: ' + xhr.status);
+        }
+      };
+
+      xhr.onerror = function() {
+        alert('❌ Upload failed! Internet check karo.');
+        resetUploadUI();
+      };
+
+      xhr.send(formData);
+
+    } catch(err) {
+      console.error(err);
+      alert('❌ Error: ' + err.message);
+      resetUploadUI();
+    }
+  }
+
+  function resetUploadUI() {
+    document.getElementById('upload-btn').disabled = false;
+    document.getElementById('upload-btn').textContent = '🚀 Upload Video to BharatTube';
+    document.getElementById('upload-progress-box').style.display = 'none';
+  }
+
+  window.resetUpload = function() {
+    selectedVideoFile = null;
+    document.getElementById('upload-success-box').style.display = 'none';
+    document.getElementById('upload-form').style.display = 'block';
+    document.getElementById('upload-progress-box').style.display = 'none';
+    document.getElementById('video-preview-box').style.display = 'none';
+    document.getElementById('video-title').value = '';
+    document.getElementById('video-desc').value = '';
+    document.getElementById('upload-bar').style.width = '0%';
+    document.getElementById('upload-percent').textContent = '0%';
+    document.getElementById('upload-btn').disabled = false;
+    document.getElementById('upload-btn').textContent = '🚀 Upload Video to BharatTube';
+
+    // Reset upload area
+    document.getElementById('upload-area').style.background = '#fff8f3';
+    document.getElementById('upload-area').style.borderColor = '#FF6600';
+    document.getElementById('upload-area').innerHTML = `
+      <input type="file" id="video-file-input" accept="video/*" style="display:none;" onchange="handleVideoSelect(event)" />
+      <div class="upload-icon">🎬</div>
+      <div class="upload-title">Click karo ya video drag karo</div>
+      <div class="upload-sub">MP4, AVI, MOV — Max 100MB</div>
+    `;
+    document.getElementById('upload-area').onclick = function() {
+      document.getElementById('video-file-input').click();
+    };
+  }
+
+  // Load real videos from Firebase
+  async function loadRealVideos() {
+    try {
+      const { getFirestore, collection, getDocs, orderBy, query, limit } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+      const { initializeApp, getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+      const app = getApps()[0];
+      const db = getFirestore(app);
+
+      const q = query(collection(db, 'videos'), orderBy('createdAt', 'desc'), limit(20));
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) return;
+
+      const realVideos = [];
+      snapshot.forEach(doc => {
+        realVideos.push({ id: doc.id, ...doc.data() });
+      });
+
+      // Add real videos to grid
+      const grid = document.getElementById('videos-grid');
+      const realVideoHTML = realVideos.map(v => `
+        <div class="video-card" data-cat="${v.category || 'all'}" onclick="watchRealVideo('${v.videoUrl}', '${v.title}', '${v.creatorName}')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:2px solid #FF6600; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="background:linear-gradient(135deg,#FF6600,#ff9900); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
+            <video src="${v.videoUrl}" style="width:100%; height:100%; object-fit:cover;" muted></video>
+            <span style="position:absolute; top:8px; left:8px; background:#FF6600; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">${v.language || 'Hindi'}</span>
+            <span style="position:absolute; top:8px; right:8px; background:#0a7a3e; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:700;">🆕 NEW</span>
+            <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">${Math.floor((v.duration||0)/60)}:${String((v.duration||0)%60).padStart(2,'0')}</span>
+          </div>
+          <div style="padding:12px;">
+            <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">${v.title}</div>
+            <div style="font-size:12px; color:#888;">${v.creatorName}</div>
+            <div style="font-size:12px; color:#999; margin-top:3px;">${v.views || 0} views • Just now</div>
+          </div>
+        </div>
+      `).join('');
+
+      // Prepend real videos
+      grid.insertAdjacentHTML('afterbegin', realVideoHTML);
+
+    } catch(e) {
+      console.log('Load videos error:', e);
+    }
+  }
+
+  // Watch real video
+  window.watchRealVideo = function(url, title, creator) {
+    showPage('watch');
+    const placeholder = document.querySelector('.video-placeholder');
+    const playerBox = document.querySelector('.video-player-box');
+    playerBox.innerHTML = `<video controls autoplay style="width:100%; height:100%;" src="${url}"></video>`;
+    document.querySelector('.video-title-text').innerHTML = title;
+    document.querySelector('.creator-name-text').textContent = creator;
+  }
+
+  // Load real videos on login
+  // (called from auth state)
 
   // Creator Studio tabs
   window.showCSTab = function(tab) {
@@ -1481,6 +1869,19 @@
           </div>
         </div>
       `).join('');
+    }
+  }
+
+  // Toggle You section more items
+  window.toggleYouMore = function() {
+    const more = document.getElementById('you-more');
+    const btn = document.getElementById('show-more-you');
+    if (more.style.display === 'none') {
+      more.style.display = 'block';
+      btn.innerHTML = '<span class="icon">⬆️</span> Show less';
+    } else {
+      more.style.display = 'none';
+      btn.innerHTML = '<span class="icon">⬇️</span> Show more';
     }
   }
 
