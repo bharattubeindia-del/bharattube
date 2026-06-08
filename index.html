@@ -2039,6 +2039,7 @@
   function applyCreatorMode() {
     const section = document.getElementById('creator-section');
     const btn = document.getElementById('creator-mode-btn');
+    if (!section || !btn) return; // ✅ null check — crash nahi hoga
     if (creatorMode) {
       section.style.display = 'block';
       btn.innerHTML = '<span>✅</span> Creator Mode ON';
