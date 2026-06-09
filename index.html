@@ -2131,8 +2131,8 @@
               </div>
             </div>
             <div style="display:flex; flex-direction:column; gap:6px;">
-              <button onclick="showPage('upload')" style="padding:6px 12px; background:#222; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer;">✏️ Edit</button>
-              <button onclick="alert('Delete coming soon!')" style="padding:6px 12px; background:#3a0000; color:#ff4444; border:none; border-radius:6px; font-size:12px; cursor:pointer;">🗑️ Delete</button>
+              <button onclick="editVideo('${v.id}', '${v.title.replace(/'/g, "\\'")}', '${v.description || ''}', '${v.language || 'Hindi'}', '${v.category || 'general'}')" style="padding:6px 12px; background:#222; color:#fff; border:none; border-radius:6px; font-size:12px; cursor:pointer;">✏️ Edit</button>
+              <button onclick="deleteVideo('${v.id}', '${v.publicId || ''}')" style="padding:6px 12px; background:#3a0000; color:#ff4444; border:none; border-radius:6px; font-size:12px; cursor:pointer;">🗑️ Delete</button>
             </div>
           </div>
         `).join('')}
@@ -2494,6 +2494,126 @@
     } catch(e) {
       console.error('addComment error:', e);
       alert('Comment nahi hua! Try again.');
+    }
+  }
+</script>
+<!-- VIDEO EDIT MODAL -->
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal" style="max-width:480px;">
+    <button class="modal-close" onclick="closeModal('edit')">✕</button>
+    <h2>✏️ Edit Video</h2>
+    <p>Video details update karo</p>
+    <input type="hidden" id="edit-video-id" />
+    <div style="margin-bottom:12px;">
+      <label style="font-size:13px; font-weight:600; color:#333; display:block; margin-bottom:6px;">Title *</label>
+      <input type="text" id="edit-title" class="modal" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:8px; font-size:14px; outline:none; margin-bottom:0;" />
+    </div>
+    <div style="margin-bottom:12px;">
+      <label style="font-size:13px; font-weight:600; color:#333; display:block; margin-bottom:6px;">Description</label>
+      <textarea id="edit-desc" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:8px; font-size:14px; outline:none; resize:vertical;" rows="3"></textarea>
+    </div>
+    <div style="margin-bottom:12px;">
+      <label style="font-size:13px; font-weight:600; color:#333; display:block; margin-bottom:6px;">Language</label>
+      <select id="edit-lang" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:8px; font-size:14px; outline:none; background:#fff;">
+        <option>Hindi</option><option>Tamil</option><option>Telugu</option>
+        <option>Marathi</option><option>Bengali</option><option>Gujarati</option>
+        <option>Kannada</option><option>Malayalam</option><option>Punjabi</option>
+        <option>Odia</option><option>English</option>
+      </select>
+    </div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:13px; font-weight:600; color:#333; display:block; margin-bottom:6px;">Category</label>
+      <select id="edit-cat" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:8px; font-size:14px; outline:none; background:#fff;">
+        <option value="education">Education</option>
+        <option value="farming">Farming</option>
+        <option value="cooking">Cooking</option>
+        <option value="comedy">Comedy</option>
+        <option value="music">Music</option>
+        <option value="dance">Dance</option>
+        <option value="tech">Technology</option>
+        <option value="health">Health</option>
+        <option value="sports">Sports</option>
+        <option value="news">News</option>
+      </select>
+    </div>
+    <div class="err" id="edit-err"></div>
+    <button class="modal-btn" onclick="saveVideoEdit()" style="margin-bottom:8px;">💾 Save Changes</button>
+    <button onclick="closeModal('edit')" style="width:100%; padding:10px; background:#f0f0f0; border:none; border-radius:8px; font-size:14px; cursor:pointer; color:#333;">Cancel</button>
+  </div>
+</div>
+
+<script>
+  // Edit Video
+  window.editVideo = function(id, title, desc, lang, cat) {
+    document.getElementById('edit-video-id').value = id;
+    document.getElementById('edit-title').value = title;
+    document.getElementById('edit-desc').value = desc;
+    document.getElementById('edit-lang').value = lang;
+    document.getElementById('edit-cat').value = cat;
+    document.getElementById('edit-modal').classList.add('show');
+  }
+
+  window.saveVideoEdit = async function() {
+    const id = document.getElementById('edit-video-id').value;
+    const title = document.getElementById('edit-title').value.trim();
+    const desc = document.getElementById('edit-desc').value.trim();
+    const lang = document.getElementById('edit-lang').value;
+    const cat = document.getElementById('edit-cat').value;
+
+    if (!title) {
+      const err = document.getElementById('edit-err');
+      err.textContent = 'Title khali nahi ho sakta!';
+      err.style.display = 'block';
+      setTimeout(() => err.style.display = 'none', 3000);
+      return;
+    }
+
+    try {
+      const { getFirestore, doc, updateDoc } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+      const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+      const app = getApps()[0];
+      const db = getFirestore(app);
+
+      await updateDoc(doc(db, 'videos', id), {
+        title: title,
+        description: desc,
+        language: lang,
+        category: cat
+      });
+
+      closeModal('edit');
+      alert('✅ Video updated successfully!');
+      // Reload creator videos
+      loadCreatorVideos();
+
+    } catch(e) {
+      console.error('Edit error:', e);
+      alert('❌ Update failed! Try again.');
+    }
+  }
+
+  // Delete Video
+  window.deleteVideo = async function(id, publicId) {
+    if (!confirm('⚠️ Kya aap sach mein yeh video delete karna chahte ho?\n\nYeh action undo nahi ho sakta!')) return;
+
+    try {
+      const { getFirestore, doc, deleteDoc } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+      const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+      const app = getApps()[0];
+      const db = getFirestore(app);
+
+      // Delete from Firebase
+      await deleteDoc(doc(db, 'videos', id));
+
+      alert('🗑️ Video deleted successfully!');
+
+      // Reload creator videos & home feed
+      loadCreatorVideos();
+      loadRealVideos();
+
+    } catch(e) {
+      console.error('Delete error:', e);
+      alert('❌ Delete failed! Try again.');
     }
   }
 </script>
