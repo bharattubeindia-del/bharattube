@@ -1,0 +1,40 @@
+{
+  "name": "BharatTube — India ka apna YouTube",
+  "short_name": "BharatTube",
+  "description": "Watch and create videos in all 22 Indian languages. Earn money from Day 1!",
+  "start_url": "/bharattube/",
+  "scope": "/bharattube/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#FF6600",
+  "orientation": "portrait-primary",
+  "lang": "hi",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192x192/FF6600/ffffff?text=BT",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://via.placeholder.com/512x512/FF6600/ffffff?text=BT",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["entertainment", "social"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Home",
+      "url": "/bharattube/",
+      "description": "BharatTube Home"
+    },
+    {
+      "name": "Upload Video",
+      "url": "/bharattube/#upload",
+      "description": "Upload a new video"
+    }
+  ]
+}
