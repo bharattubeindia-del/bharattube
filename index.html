@@ -51,6 +51,11 @@
   .sidebar-item.active { background: #fff3e6; color: #FF6600; font-weight: 600; }
   .sidebar-item .icon { font-size: 18px; width: 24px; text-align: center; }
   .sidebar-divider { height: 1px; background: #f0f0f0; margin: 8px 16px; }
+  .settings-row { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; border-bottom:1px solid #f9f9f9; cursor:pointer; transition:background 0.15s; }
+  .settings-row:hover { background:#fafafa; }
+  .settings-row:last-child { border-bottom:none; }
+  .faq-item { transition:box-shadow 0.2s; }
+  .faq-item:hover { box-shadow:0 2px 12px rgba(255,102,0,0.1); }
   .sidebar-user { padding: 16px 20px; border-bottom: 1px solid #f0f0f0; margin-bottom: 8px; }
   .sidebar-user-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
   .sidebar-user-email { font-size: 12px; color: #888; }
@@ -434,10 +439,10 @@
     <!-- Section 6: More from BharatTube -->
     <div class="sidebar-section">
       <div class="sidebar-label">More from BharatTube</div>
-      <div class="sidebar-item" onclick="alert('BharatTube Premium coming soon! 🚀')">
+      <div class="sidebar-item" onclick="showPage('premium')">
         <span class="icon">💎</span> BharatTube Premium
       </div>
-      <div class="sidebar-item" onclick="showPage('upload')">
+      <div class="sidebar-item" onclick="showPage('creator-studio')">
         <span class="icon">🎙️</span> BharatTube Studio
       </div>
     </div>
@@ -446,16 +451,16 @@
 
     <!-- Section 7: Settings -->
     <div class="sidebar-section">
-      <div class="sidebar-item" onclick="alert('Settings coming soon!')">
+      <div class="sidebar-item" onclick="showPage('settings')">
         <span class="icon">⚙️</span> Settings
       </div>
-      <div class="sidebar-item" onclick="alert('Report history coming soon!')">
+      <div class="sidebar-item" onclick="showPage('report-history')">
         <span class="icon">🚩</span> Report history
       </div>
-      <div class="sidebar-item" onclick="alert('Help coming soon!')">
+      <div class="sidebar-item" onclick="showPage('help')">
         <span class="icon">❓</span> Help
       </div>
-      <div class="sidebar-item" onclick="alert('Send feedback coming soon!')">
+      <div class="sidebar-item" onclick="showPage('feedback')">
         <span class="icon">💬</span> Send feedback
       </div>
     </div>
@@ -1340,6 +1345,232 @@
       </div>
     </div>
 
+    <!-- ==================== PREMIUM PAGE ==================== -->
+    <div class="page" id="page-premium">
+      <div style="max-width:900px;margin:0 auto;padding:32px 24px;">
+        <div style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);border-radius:20px;padding:48px 32px;text-align:center;color:#fff;margin-bottom:32px;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:rgba(255,102,0,0.12);border-radius:50%;"></div>
+          <div style="font-size:52px;margin-bottom:12px;">💎</div>
+          <div style="font-size:28px;font-weight:800;margin-bottom:8px;">BharatTube Premium</div>
+          <div style="font-size:15px;opacity:0.8;margin-bottom:24px;">India ka sabse best video experience — bina ads ke!</div>
+          <div style="display:inline-flex;align-items:baseline;gap:6px;background:rgba(255,255,255,0.1);border-radius:16px;padding:12px 28px;margin-bottom:24px;">
+            <span style="font-size:36px;font-weight:800;color:#FFD700;">&#8377;99</span>
+            <span style="font-size:15px;opacity:0.7;">/month</span>
+          </div><br>
+          <button onclick="handlePremiumSubscribe()" style="background:linear-gradient(135deg,#FF6600,#ff9900);color:#fff;border:none;border-radius:12px;padding:14px 40px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(255,102,0,0.4);">&#128640; Abhi Subscribe Karo</button>
+          <div style="font-size:12px;opacity:0.6;margin-top:10px;">Pehle 7 din FREE &bull; Kabhi bhi cancel karo</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;">
+          <div style="background:#fff;border-radius:16px;padding:24px;border:2px solid #eee;text-align:center;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor='#eee'">
+            <div style="font-size:28px;margin-bottom:8px;">&#128197;</div>
+            <div style="font-size:15px;font-weight:700;margin-bottom:4px;">Monthly</div>
+            <div style="font-size:26px;font-weight:800;color:#FF6600;margin-bottom:4px;">&#8377;99</div>
+            <div style="font-size:12px;color:#888;margin-bottom:16px;">per month</div>
+            <button onclick="handlePremiumSubscribe('monthly')" style="width:100%;padding:10px;background:#FF6600;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;">Choose</button>
+          </div>
+          <div style="background:#fff;border-radius:16px;padding:24px;border:3px solid #FF6600;text-align:center;position:relative;box-shadow:0 8px 24px rgba(255,102,0,0.15);">
+            <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#FF6600;color:#fff;font-size:11px;padding:3px 14px;border-radius:20px;font-weight:700;">MOST POPULAR &#11088;</div>
+            <div style="font-size:28px;margin-bottom:8px;">&#128198;</div>
+            <div style="font-size:15px;font-weight:700;margin-bottom:4px;">Yearly</div>
+            <div style="font-size:26px;font-weight:800;color:#FF6600;margin-bottom:4px;">&#8377;799</div>
+            <div style="font-size:12px;color:#888;margin-bottom:4px;">per year</div>
+            <div style="font-size:11px;color:#0a7a3e;font-weight:600;margin-bottom:12px;">Save &#8377;389!</div>
+            <button onclick="handlePremiumSubscribe('yearly')" style="width:100%;padding:10px;background:#FF6600;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;">Choose</button>
+          </div>
+          <div style="background:#fff;border-radius:16px;padding:24px;border:2px solid #eee;text-align:center;" onmouseover="this.style.borderColor='#FF6600'" onmouseout="this.style.borderColor='#eee'">
+            <div style="font-size:28px;margin-bottom:8px;">&#128106;</div>
+            <div style="font-size:15px;font-weight:700;margin-bottom:4px;">Family</div>
+            <div style="font-size:26px;font-weight:800;color:#FF6600;margin-bottom:4px;">&#8377;149</div>
+            <div style="font-size:12px;color:#888;margin-bottom:4px;">per month</div>
+            <div style="font-size:11px;color:#0a7a3e;font-weight:600;margin-bottom:12px;">Up to 5 members</div>
+            <button onclick="handlePremiumSubscribe('family')" style="width:100%;padding:10px;background:#FF6600;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;">Choose</button>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:28px;border:1px solid #eee;">
+          <div style="font-size:18px;font-weight:800;margin-bottom:20px;">Premium ke saath kya milega? &#127873;</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="display:flex;align-items:center;gap:10px;padding:12px;background:#fff8f3;border-radius:10px;border:1px solid #ffe0cc;"><span style="font-size:20px;">&#128683;</span><span style="font-size:13px;font-weight:600;">Koi bhi ads nahi</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:12px;background:#fff8f3;border-radius:10px;border:1px solid #ffe0cc;"><span style="font-size:20px;">&#128229;</span><span style="font-size:13px;font-weight:600;">Videos download karo</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:12px;background:#fff8f3;border-radius:10px;border:1px solid #ffe0cc;"><span style="font-size:20px;">&#127925;</span><span style="font-size:13px;font-weight:600;">Background mein play</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:12px;background:#fff8f3;border-radius:10px;border:1px solid #ffe0cc;"><span style="font-size:20px;">&#128241;</span><span style="font-size:13px;font-weight:600;">Offline mode</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:12px;background:#fff8f3;border-radius:10px;border:1px solid #ffe0cc;"><span style="font-size:20px;">&#127909;</span><span style="font-size:13px;font-weight:600;">4K Ultra HD quality</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:12px;background:#fff8f3;border-radius:10px;border:1px solid #ffe0cc;"><span style="font-size:20px;">&#9889;</span><span style="font-size:13px;font-weight:600;">Fast streaming</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:12px;background:#fff8f3;border-radius:10px;border:1px solid #ffe0cc;"><span style="font-size:20px;">&#128064;</span><span style="font-size:13px;font-weight:600;">Early access to features</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:12px;background:#fff8f3;border-radius:10px;border:1px solid #ffe0cc;"><span style="font-size:20px;">&#127775;</span><span style="font-size:13px;font-weight:600;">Exclusive BharatTube content</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SETTINGS PAGE ==================== -->
+    <div class="page" id="page-settings">
+      <div style="max-width:700px;margin:0 auto;padding:32px 24px;">
+        <div style="font-size:22px;font-weight:800;margin-bottom:24px;">&#9881;&#65039; Settings</div>
+        <div style="background:#fff;border-radius:16px;border:1px solid #eee;overflow:hidden;margin-bottom:16px;">
+          <div style="padding:16px 20px;font-size:13px;font-weight:700;color:#888;border-bottom:1px solid #f0f0f0;background:#fafafa;">ACCOUNT</div>
+          <div class="settings-row" onclick="var el=document.getElementById('set-name-input');el.style.display=el.style.display==='none'?'block':'none';" style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;cursor:pointer;border-bottom:1px solid #f9f9f9;">
+            <div><div style="font-size:14px;font-weight:600;">Display Name</div><div style="font-size:12px;color:#888;" id="set-name-val">Login karo</div></div>
+            <span style="color:#FF6600;font-size:13px;font-weight:600;">Edit &#9999;&#65039;</span>
+          </div>
+          <div id="set-name-input" style="display:none;padding:12px 20px;border-bottom:1px solid #f0f0f0;">
+            <input id="set-name-field" style="width:100%;padding:10px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;outline:none;margin-bottom:8px;" placeholder="Apna naam likho...">
+            <button onclick="saveSetting('name')" style="padding:8px 20px;background:#FF6600;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">Save &#9989;</button>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #f9f9f9;">
+            <div><div style="font-size:14px;font-weight:600;">Email</div><div style="font-size:12px;color:#888;" id="set-email-val">Login karo</div></div>
+            <span style="color:#aaa;font-size:12px;">Verified &#10003;</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;cursor:pointer;" onclick="handleLogout()">
+            <div><div style="font-size:14px;font-weight:600;color:#cc4444;">Sign Out</div><div style="font-size:12px;color:#888;">Apne account se bahar jao</div></div>
+            <span style="color:#cc4444;">&#8594;</span>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:16px;border:1px solid #eee;overflow:hidden;margin-bottom:16px;">
+          <div style="padding:16px 20px;font-size:13px;font-weight:700;color:#888;border-bottom:1px solid #f0f0f0;background:#fafafa;">PREFERENCES</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #f9f9f9;">
+            <div><div style="font-size:14px;font-weight:600;">Default Language</div><div style="font-size:12px;color:#888;">Video feed language</div></div>
+            <select id="set-lang" onchange="saveSetting('lang')" style="padding:6px 10px;border:1.5px solid #ddd;border-radius:8px;font-size:13px;outline:none;color:#333;">
+              <option value="hindi">Hindi</option>
+              <option value="english" selected>English</option>
+              <option value="tamil">Tamil</option>
+              <option value="telugu">Telugu</option>
+              <option value="marathi">Marathi</option>
+              <option value="bengali">Bengali</option>
+            </select>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #f9f9f9;">
+            <div><div style="font-size:14px;font-weight:600;">Autoplay</div><div style="font-size:12px;color:#888;">Next video auto chalaye</div></div>
+            <label style="position:relative;display:inline-block;width:44px;height:24px;cursor:pointer;">
+              <input type="checkbox" id="set-autoplay" checked onchange="saveSetting('autoplay')" style="opacity:0;width:0;height:0;position:absolute;">
+              <span id="autoplay-track" style="position:absolute;inset:0;background:#FF6600;border-radius:24px;transition:0.3s;"></span>
+              <span id="autoplay-dot" style="position:absolute;width:18px;height:18px;left:23px;bottom:3px;background:#fff;border-radius:50%;transition:0.3s;"></span>
+            </label>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:16px;border:1px solid #eee;overflow:hidden;margin-bottom:16px;">
+          <div style="padding:16px 20px;font-size:13px;font-weight:700;color:#888;border-bottom:1px solid #f0f0f0;background:#fafafa;">PRIVACY &amp; DATA</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #f9f9f9;cursor:pointer;" onclick="showPage('report-history')">
+            <div><div style="font-size:14px;font-weight:600;">Report History</div><div style="font-size:12px;color:#888;">Tumhare reports dekho</div></div>
+            <span style="color:#888;">&#8594;</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;cursor:pointer;" onclick="if(confirm('Watch history clear karna chahte ho?')){localStorage.removeItem('bt_history');alert('History clear ho gayi! &#9989;')}">
+            <div><div style="font-size:14px;font-weight:600;color:#cc4444;">Clear Watch History</div><div style="font-size:12px;color:#888;">Sab kuch hata do</div></div>
+            <span style="color:#cc4444;">&#128465;&#65039;</span>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:16px;border:1px solid #eee;overflow:hidden;">
+          <div style="padding:16px 20px;font-size:13px;font-weight:700;color:#888;border-bottom:1px solid #f0f0f0;background:#fafafa;">ABOUT</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #f9f9f9;"><div style="font-size:14px;font-weight:600;">Version</div><span style="color:#888;font-size:13px;">BharatTube v1.0.0</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #f9f9f9;cursor:pointer;" onclick="showPage('help')"><div style="font-size:14px;font-weight:600;">Help &amp; Support</div><span style="color:#888;">&#8594;</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;cursor:pointer;" onclick="showPage('feedback')"><div style="font-size:14px;font-weight:600;">Send Feedback</div><span style="color:#888;">&#8594;</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== REPORT HISTORY PAGE ==================== -->
+    <div class="page" id="page-report-history">
+      <div style="max-width:700px;margin:0 auto;padding:32px 24px;">
+        <div style="font-size:22px;font-weight:800;margin-bottom:8px;">&#128681; Report History</div>
+        <div style="font-size:14px;color:#888;margin-bottom:24px;">Tumhare dwara submit kiye gaye reports</div>
+        <div id="report-list">
+          <div style="background:#fff;border-radius:16px;border:1px solid #eee;padding:48px;text-align:center;">
+            <div style="font-size:48px;margin-bottom:12px;">&#127881;</div>
+            <div style="font-size:16px;font-weight:700;margin-bottom:8px;">Koi report nahi!</div>
+            <div style="font-size:13px;color:#888;">Tumne abhi tak koi content report nahi kiya.</div>
+          </div>
+        </div>
+        <div style="background:#fff3e6;border-radius:12px;padding:16px;margin-top:20px;border:1px solid #ffe0cc;">
+          <div style="font-size:13px;font-weight:600;color:#FF6600;margin-bottom:4px;">&#128203; Kaise report karte hain?</div>
+          <div style="font-size:13px;color:#666;line-height:1.6;">Kisi bhi video ke neeche teen dots (&#8942;) pe click karo aur "Report" option choose karo. Humari team 24 ghante mein review karegi.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== HELP PAGE ==================== -->
+    <div class="page" id="page-help">
+      <div style="max-width:700px;margin:0 auto;padding:32px 24px;">
+        <div style="font-size:22px;font-weight:800;margin-bottom:8px;">&#10067; Help &amp; Support</div>
+        <div style="font-size:14px;color:#888;margin-bottom:24px;">Koi bhi problem? Hum help karenge!</div>
+        <div style="display:flex;gap:8px;margin-bottom:28px;">
+          <input id="help-search" placeholder="Apna sawaal likho..." style="flex:1;padding:12px 16px;border:1.5px solid #ddd;border-radius:10px;font-size:14px;outline:none;" oninput="filterHelp(this.value)" onfocus="this.style.borderColor='#FF6600'" onblur="this.style.borderColor='#ddd'">
+          <button style="padding:12px 20px;background:#FF6600;color:#fff;border:none;border-radius:10px;font-size:14px;cursor:pointer;">&#128269;</button>
+        </div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:14px;">Aksar Pooche Jaane Wale Sawaal</div>
+        <div id="help-faqs">
+          <div class="faq-item" style="background:#fff;border-radius:12px;border:1px solid #eee;margin-bottom:10px;overflow:hidden;">
+            <div onclick="toggleFaq(0)" style="padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;">Video upload kaise kare?<span id="faq-icon-0" style="color:#FF6600;font-size:18px;">+</span></div>
+            <div id="faq-ans-0" style="display:none;padding:0 20px 16px;font-size:13px;color:#555;line-height:1.7;border-top:1px solid #f0f0f0;">Creator Studio pe jao &rarr; Upload Video button dabao &rarr; Video chunno &rarr; Title, category bharke Submit karo. Cloudinary pe automatically save ho jayega!</div>
+          </div>
+          <div class="faq-item" style="background:#fff;border-radius:12px;border:1px solid #eee;margin-bottom:10px;overflow:hidden;">
+            <div onclick="toggleFaq(1)" style="padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;">Login kaise kare?<span id="faq-icon-1" style="color:#FF6600;font-size:18px;">+</span></div>
+            <div id="faq-ans-1" style="display:none;padding:0 20px 16px;font-size:13px;color:#555;line-height:1.7;border-top:1px solid #f0f0f0;">Top right corner mein Login button dabao &rarr; Email/password ya Google se login karo.</div>
+          </div>
+          <div class="faq-item" style="background:#fff;border-radius:12px;border:1px solid #eee;margin-bottom:10px;overflow:hidden;">
+            <div onclick="toggleFaq(2)" style="padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;">Subscribe kaise kare?<span id="faq-icon-2" style="color:#FF6600;font-size:18px;">+</span></div>
+            <div id="faq-ans-2" style="display:none;padding:0 20px 16px;font-size:13px;color:#555;line-height:1.7;border-top:1px solid #f0f0f0;">Koi bhi video kholo &rarr; Creator ke naam ke neeche Subscribe button dabao. Orange = subscribed!</div>
+          </div>
+          <div class="faq-item" style="background:#fff;border-radius:12px;border:1px solid #eee;margin-bottom:10px;overflow:hidden;">
+            <div onclick="toggleFaq(3)" style="padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;">Premium kya hai?<span id="faq-icon-3" style="color:#FF6600;font-size:18px;">+</span></div>
+            <div id="faq-ans-3" style="display:none;padding:0 20px 16px;font-size:13px;color:#555;line-height:1.7;border-top:1px solid #f0f0f0;">&#8377;99/month mein: koi ads nahi, download feature, background play, 4K quality. Pehle 7 din free trial!</div>
+          </div>
+          <div class="faq-item" style="background:#fff;border-radius:12px;border:1px solid #eee;margin-bottom:10px;overflow:hidden;">
+            <div onclick="toggleFaq(4)" style="padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;">Creator Studio kya hai?<span id="faq-icon-4" style="color:#FF6600;font-size:18px;">+</span></div>
+            <div id="faq-ans-4" style="display:none;padding:0 20px 16px;font-size:13px;color:#555;line-height:1.7;border-top:1px solid #f0f0f0;">Apne uploaded videos manage karne ki jagah. Views, likes, aur delete option milega.</div>
+          </div>
+        </div>
+        <div style="background:linear-gradient(135deg,#FF6600,#ff9900);border-radius:16px;padding:24px;text-align:center;color:#fff;margin-top:24px;">
+          <div style="font-size:24px;margin-bottom:8px;">&#128172;</div>
+          <div style="font-size:16px;font-weight:700;margin-bottom:6px;">Aur help chahiye?</div>
+          <div style="font-size:13px;opacity:0.85;margin-bottom:16px;">Email karo humein — 24 ghante mein jawab milega!</div>
+          <a href="mailto:support@bharattube.in" style="background:#fff;color:#FF6600;padding:10px 24px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;">&#128231; support@bharattube.in</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== FEEDBACK PAGE ==================== -->
+    <div class="page" id="page-feedback">
+      <div style="max-width:700px;margin:0 auto;padding:32px 24px;">
+        <div style="font-size:22px;font-weight:800;margin-bottom:8px;">&#128172; Send Feedback</div>
+        <div style="font-size:14px;color:#888;margin-bottom:24px;">Tumhara feedback BharatTube ko better banata hai! &#127470;&#127475;</div>
+        <div style="background:#fff;border-radius:16px;border:1px solid #eee;padding:24px;margin-bottom:16px;text-align:center;">
+          <div style="font-size:15px;font-weight:600;margin-bottom:16px;">BharatTube ko kitne stars doge? &#11088;</div>
+          <div id="star-rating" style="display:flex;justify-content:center;gap:10px;margin-bottom:8px;">
+            <span onclick="setRating(1)" id="star-1" style="font-size:36px;cursor:pointer;">&#11088;</span>
+            <span onclick="setRating(2)" id="star-2" style="font-size:36px;cursor:pointer;">&#11088;</span>
+            <span onclick="setRating(3)" id="star-3" style="font-size:36px;cursor:pointer;">&#11088;</span>
+            <span onclick="setRating(4)" id="star-4" style="font-size:36px;cursor:pointer;">&#11088;</span>
+            <span onclick="setRating(5)" id="star-5" style="font-size:36px;cursor:pointer;">&#11088;</span>
+          </div>
+          <div id="rating-text" style="font-size:13px;color:#888;height:20px;"></div>
+        </div>
+        <div style="background:#fff;border-radius:16px;border:1px solid #eee;padding:24px;margin-bottom:16px;">
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;">Feedback kis baare mein hai?</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;" id="fb-cats">
+            <button onclick="selectFbCat(this)" style="padding:8px 16px;border:1.5px solid #ddd;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;">&#128027; Bug Report</button>
+            <button onclick="selectFbCat(this)" style="padding:8px 16px;border:1.5px solid #ddd;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;">&#128161; New Feature</button>
+            <button onclick="selectFbCat(this)" style="padding:8px 16px;border:1.5px solid #ddd;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;">&#127912; Design</button>
+            <button onclick="selectFbCat(this)" style="padding:8px 16px;border:1.5px solid #ddd;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;">&#9889; Performance</button>
+            <button onclick="selectFbCat(this)" style="padding:8px 16px;border:1.5px solid #ddd;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;">&#128249; Video Quality</button>
+            <button onclick="selectFbCat(this)" style="padding:8px 16px;border:1.5px solid #ddd;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;">&#128272; Account Issue</button>
+            <button onclick="selectFbCat(this)" style="padding:8px 16px;border:1.5px solid #ddd;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;">&#128077; Compliment</button>
+            <button onclick="selectFbCat(this)" style="padding:8px 16px;border:1.5px solid #ddd;border-radius:20px;background:#fff;font-size:13px;cursor:pointer;">&#129300; Other</button>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:16px;border:1px solid #eee;padding:24px;margin-bottom:16px;">
+          <div style="font-size:14px;font-weight:600;margin-bottom:12px;">Apna feedback likho &#9997;&#65039;</div>
+          <textarea id="fb-text" rows="5" placeholder="Yahan apna experience, suggestion, ya complaint likho..." style="width:100%;padding:12px;border:1.5px solid #ddd;border-radius:10px;font-size:14px;outline:none;resize:vertical;font-family:inherit;" oninput="document.getElementById('fb-char').textContent=this.value.length+' / 500 characters'" onfocus="this.style.borderColor='#FF6600'" onblur="this.style.borderColor='#ddd'"></textarea>
+          <div style="font-size:12px;color:#aaa;text-align:right;margin-top:4px;" id="fb-char">0 / 500 characters</div>
+        </div>
+        <button onclick="submitFeedback()" style="width:100%;padding:16px;background:linear-gradient(135deg,#FF6600,#ff9900);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(255,102,0,0.3);">&#128640; Feedback Bhejo</button>
+        <div id="fb-success" style="display:none;background:#e8f5e9;border-radius:12px;padding:24px;text-align:center;margin-top:16px;border:1px solid #c8e6c9;">
+          <div style="font-size:36px;margin-bottom:8px;">&#127881;</div>
+          <div style="font-size:16px;font-weight:700;color:#2e7d32;margin-bottom:4px;">Shukriya!</div>
+          <div style="font-size:13px;color:#555;">Tumhara feedback mil gaya. BharatTube ko aur better banane mein help karoge! &#127470;&#127475;</div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </div>
 
@@ -2180,6 +2411,148 @@
     }
     localStorage.setItem('bt_subs', JSON.stringify(subscribedChannels));
     updateSubscriptionsSidebar();
+
+  // ==================== PREMIUM ====================
+  window.handlePremiumSubscribe = function(plan) {
+    const plans = { monthly:'₹99/month', yearly:'₹799/year', family:'₹149/month' };
+    const price = plans[plan] || '₹99/month';
+    alert('💎 BharatTube Premium — ' + price + '\n\nPayment gateway jald aa raha hai! Tab tak:\n✅ Account create rakho\n✅ Videos upload karo\n✅ Community grow karo\n\nLaunch pe pehle Premium milega! 🚀');
+  }
+
+  // ==================== SETTINGS ====================
+  window.saveSetting = async function(type) {
+    if (type === 'name') {
+      const newName = document.getElementById('set-name-field').value.trim();
+      if (!newName) return;
+      try {
+        const { getAuth, updateProfile } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js');
+        const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+        const auth = getAuth(getApps()[0]);
+        if (auth.currentUser) {
+          await updateProfile(auth.currentUser, { displayName: newName });
+          document.getElementById('set-name-val').textContent = newName;
+          document.getElementById('set-name-input').style.display = 'none';
+          alert('✅ Naam update ho gaya: ' + newName);
+        }
+      } catch(e) { alert('❌ Update nahi hua: ' + e.message); }
+    } else if (type === 'lang') {
+      const lang = document.getElementById('set-lang').value;
+      localStorage.setItem('bt_lang', lang);
+    } else if (type === 'autoplay') {
+      const val = document.getElementById('set-autoplay').checked;
+      localStorage.setItem('bt_autoplay', val);
+      const dot = document.getElementById('autoplay-dot');
+      const track = document.getElementById('autoplay-track');
+      if (dot) dot.style.left = val ? '23px' : '3px';
+      if (track) track.style.background = val ? '#FF6600' : '#ccc';
+    }
+  }
+
+  // Load settings page data when user visits
+  function loadSettingsData() {
+    import('https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js').then(({ getAuth }) => {
+      import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js').then(({ getApps }) => {
+        const auth = getAuth(getApps()[0]);
+        const user = auth.currentUser;
+        if (user) {
+          const nameEl = document.getElementById('set-name-val');
+          const emailEl = document.getElementById('set-email-val');
+          const nameField = document.getElementById('set-name-field');
+          if (nameEl) nameEl.textContent = user.displayName || 'Not set';
+          if (emailEl) emailEl.textContent = user.email || 'Not set';
+          if (nameField) nameField.value = user.displayName || '';
+        }
+      });
+    }).catch(() => {});
+  }
+
+  // ==================== FEEDBACK ====================
+  let selectedRating = 0;
+  let selectedFbCat = '';
+
+  window.setRating = function(n) {
+    selectedRating = n;
+    const labels = ['','Bahut bura 😞','Theek hai 😐','Acha hai 😊','Bahut acha 😄','Zabardast! 🤩'];
+    const el = document.getElementById('rating-text');
+    if (el) el.textContent = labels[n] || '';
+    for (let i = 1; i <= 5; i++) {
+      const s = document.getElementById('star-' + i);
+      if (s) s.style.filter = i <= n ? 'none' : 'grayscale(100%) opacity(0.4)';
+    }
+  }
+
+  window.selectFbCat = function(btn) {
+    document.querySelectorAll('#fb-cats button').forEach(b => {
+      b.style.background = '#fff';
+      b.style.borderColor = '#ddd';
+      b.style.color = '#333';
+    });
+    btn.style.background = '#fff3e6';
+    btn.style.borderColor = '#FF6600';
+    btn.style.color = '#FF6600';
+    selectedFbCat = btn.textContent;
+  }
+
+  window.submitFeedback = async function() {
+    const text = (document.getElementById('fb-text') || {}).value || '';
+    if (!text.trim()) { alert('Pehle feedback likho! ✍️'); return; }
+    if (!selectedRating) { alert('Pehle rating do! ⭐'); return; }
+
+    try {
+      const { getFirestore, collection, addDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+      const { getAuth } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js');
+      const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+      const app = getApps()[0];
+      const db = getFirestore(app);
+      const auth = getAuth(app);
+      const user = auth.currentUser;
+
+      await addDoc(collection(db, 'feedback'), {
+        text: text.trim(),
+        rating: selectedRating,
+        category: selectedFbCat || 'General',
+        userId: user ? user.uid : 'anonymous',
+        userName: user ? (user.displayName || user.email) : 'Anonymous',
+        createdAt: serverTimestamp()
+      });
+    } catch(e) {
+      console.log('Feedback save error (non-critical):', e.message);
+    }
+
+    // Show success
+    const fbSuccess = document.getElementById('fb-success');
+    if (fbSuccess) fbSuccess.style.display = 'block';
+    const fbText = document.getElementById('fb-text');
+    if (fbText) fbText.value = '';
+    document.querySelectorAll('#fb-cats button').forEach(b => { b.style.background='#fff'; b.style.borderColor='#ddd'; b.style.color='#333'; });
+    for (let i = 1; i <= 5; i++) { const s = document.getElementById('star-'+i); if(s) s.style.filter=''; }
+    selectedRating = 0; selectedFbCat = '';
+  }
+
+  // ==================== HELP FAQ ====================
+  window.toggleFaq = function(i) {
+    const ans = document.getElementById('faq-ans-' + i);
+    const icon = document.getElementById('faq-icon-' + i);
+    if (!ans) return;
+    const isOpen = ans.style.display !== 'none';
+    ans.style.display = isOpen ? 'none' : 'block';
+    if (icon) icon.textContent = isOpen ? '+' : '−';
+  }
+
+  window.filterHelp = function(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.style.display = text.includes(q) ? 'block' : 'none';
+    });
+  }
+
+    // Trigger page-specific data loading
+  const origShowPage = window.showPage;
+  window.showPage = function(page) {
+    origShowPage(page);
+    if (page === 'settings') loadSettingsData();
+  };
   }
 
   function updateSubscriptionsSidebar() {
@@ -2196,6 +2569,148 @@
     }
   }
   updateSubscriptionsSidebar();
+
+  // ==================== PREMIUM ====================
+  window.handlePremiumSubscribe = function(plan) {
+    const plans = { monthly:'₹99/month', yearly:'₹799/year', family:'₹149/month' };
+    const price = plans[plan] || '₹99/month';
+    alert('💎 BharatTube Premium — ' + price + '\n\nPayment gateway jald aa raha hai! Tab tak:\n✅ Account create rakho\n✅ Videos upload karo\n✅ Community grow karo\n\nLaunch pe pehle Premium milega! 🚀');
+  }
+
+  // ==================== SETTINGS ====================
+  window.saveSetting = async function(type) {
+    if (type === 'name') {
+      const newName = document.getElementById('set-name-field').value.trim();
+      if (!newName) return;
+      try {
+        const { getAuth, updateProfile } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js');
+        const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+        const auth = getAuth(getApps()[0]);
+        if (auth.currentUser) {
+          await updateProfile(auth.currentUser, { displayName: newName });
+          document.getElementById('set-name-val').textContent = newName;
+          document.getElementById('set-name-input').style.display = 'none';
+          alert('✅ Naam update ho gaya: ' + newName);
+        }
+      } catch(e) { alert('❌ Update nahi hua: ' + e.message); }
+    } else if (type === 'lang') {
+      const lang = document.getElementById('set-lang').value;
+      localStorage.setItem('bt_lang', lang);
+    } else if (type === 'autoplay') {
+      const val = document.getElementById('set-autoplay').checked;
+      localStorage.setItem('bt_autoplay', val);
+      const dot = document.getElementById('autoplay-dot');
+      const track = document.getElementById('autoplay-track');
+      if (dot) dot.style.left = val ? '23px' : '3px';
+      if (track) track.style.background = val ? '#FF6600' : '#ccc';
+    }
+  }
+
+  // Load settings page data when user visits
+  function loadSettingsData() {
+    import('https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js').then(({ getAuth }) => {
+      import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js').then(({ getApps }) => {
+        const auth = getAuth(getApps()[0]);
+        const user = auth.currentUser;
+        if (user) {
+          const nameEl = document.getElementById('set-name-val');
+          const emailEl = document.getElementById('set-email-val');
+          const nameField = document.getElementById('set-name-field');
+          if (nameEl) nameEl.textContent = user.displayName || 'Not set';
+          if (emailEl) emailEl.textContent = user.email || 'Not set';
+          if (nameField) nameField.value = user.displayName || '';
+        }
+      });
+    }).catch(() => {});
+  }
+
+  // ==================== FEEDBACK ====================
+  let selectedRating = 0;
+  let selectedFbCat = '';
+
+  window.setRating = function(n) {
+    selectedRating = n;
+    const labels = ['','Bahut bura 😞','Theek hai 😐','Acha hai 😊','Bahut acha 😄','Zabardast! 🤩'];
+    const el = document.getElementById('rating-text');
+    if (el) el.textContent = labels[n] || '';
+    for (let i = 1; i <= 5; i++) {
+      const s = document.getElementById('star-' + i);
+      if (s) s.style.filter = i <= n ? 'none' : 'grayscale(100%) opacity(0.4)';
+    }
+  }
+
+  window.selectFbCat = function(btn) {
+    document.querySelectorAll('#fb-cats button').forEach(b => {
+      b.style.background = '#fff';
+      b.style.borderColor = '#ddd';
+      b.style.color = '#333';
+    });
+    btn.style.background = '#fff3e6';
+    btn.style.borderColor = '#FF6600';
+    btn.style.color = '#FF6600';
+    selectedFbCat = btn.textContent;
+  }
+
+  window.submitFeedback = async function() {
+    const text = (document.getElementById('fb-text') || {}).value || '';
+    if (!text.trim()) { alert('Pehle feedback likho! ✍️'); return; }
+    if (!selectedRating) { alert('Pehle rating do! ⭐'); return; }
+
+    try {
+      const { getFirestore, collection, addDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+      const { getAuth } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js');
+      const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+      const app = getApps()[0];
+      const db = getFirestore(app);
+      const auth = getAuth(app);
+      const user = auth.currentUser;
+
+      await addDoc(collection(db, 'feedback'), {
+        text: text.trim(),
+        rating: selectedRating,
+        category: selectedFbCat || 'General',
+        userId: user ? user.uid : 'anonymous',
+        userName: user ? (user.displayName || user.email) : 'Anonymous',
+        createdAt: serverTimestamp()
+      });
+    } catch(e) {
+      console.log('Feedback save error (non-critical):', e.message);
+    }
+
+    // Show success
+    const fbSuccess = document.getElementById('fb-success');
+    if (fbSuccess) fbSuccess.style.display = 'block';
+    const fbText = document.getElementById('fb-text');
+    if (fbText) fbText.value = '';
+    document.querySelectorAll('#fb-cats button').forEach(b => { b.style.background='#fff'; b.style.borderColor='#ddd'; b.style.color='#333'; });
+    for (let i = 1; i <= 5; i++) { const s = document.getElementById('star-'+i); if(s) s.style.filter=''; }
+    selectedRating = 0; selectedFbCat = '';
+  }
+
+  // ==================== HELP FAQ ====================
+  window.toggleFaq = function(i) {
+    const ans = document.getElementById('faq-ans-' + i);
+    const icon = document.getElementById('faq-icon-' + i);
+    if (!ans) return;
+    const isOpen = ans.style.display !== 'none';
+    ans.style.display = isOpen ? 'none' : 'block';
+    if (icon) icon.textContent = isOpen ? '+' : '−';
+  }
+
+  window.filterHelp = function(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.style.display = text.includes(q) ? 'block' : 'none';
+    });
+  }
+
+    // Trigger page-specific data loading
+  const origShowPage = window.showPage;
+  window.showPage = function(page) {
+    origShowPage(page);
+    if (page === 'settings') loadSettingsData();
+  };
 
   // Update creator studio name
   function updateCSInfo(user) {
