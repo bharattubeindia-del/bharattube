@@ -1041,13 +1041,41 @@
               <!-- Channel Banner -->
               <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px; margin-bottom:16px;">
                 <div style="font-size:14px; font-weight:700; margin-bottom:12px;">Channel Banner</div>
-                <div style="height:120px; background:linear-gradient(135deg,#FF6600,#ff9900); border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; margin-bottom:10px;" onclick="alert('Banner upload coming soon!')">
-                  <div style="text-align:center; color:#fff;">
+                <div id="cc-banner-box" style="height:120px; background:linear-gradient(135deg,#FF6600,#ff9900); border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; margin-bottom:10px; position:relative; overflow:hidden; background-size:cover; background-position:center;" onclick="document.getElementById('cc-banner-input').click()">
+                  <div id="cc-banner-placeholder" style="text-align:center; color:#fff;">
                     <div style="font-size:24px;">🖼️</div>
                     <div style="font-size:12px; margin-top:4px;">Click to upload banner</div>
                   </div>
+                  <div id="cc-banner-overlay" style="display:none; position:absolute; inset:0; background:rgba(0,0,0,0.4); align-items:center; justify-content:center; color:#fff; font-size:13px; font-weight:600;">Change Banner</div>
                 </div>
-                <div style="font-size:12px; color:#666;">Recommended: 2560 x 1440px</div>
+                <input type="file" id="cc-banner-input" accept="image/*" style="display:none;" onchange="handleChannelImageSelect(event,'banner')">
+                <div style="font-size:12px; color:#666;">Recommended: 2560 x 1440px • Max 5MB</div>
+              </div>
+
+              <!-- Channel Logo -->
+              <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px; margin-bottom:16px;">
+                <div style="font-size:14px; font-weight:700; margin-bottom:12px;">Channel Logo</div>
+                <div style="display:flex; align-items:center; gap:16px;">
+                  <div id="cc-logo-box" onclick="document.getElementById('cc-logo-input').click()" style="width:80px; height:80px; border-radius:50%; background:#FF6600; color:#fff; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:700; cursor:pointer; flex-shrink:0; background-size:cover; background-position:center; border:2px solid #333; position:relative; overflow:hidden;">
+                    <span id="cc-logo-initial">K</span>
+                  </div>
+                  <div>
+                    <button onclick="document.getElementById('cc-logo-input').click()" style="padding:8px 18px; background:#222; color:#fff; border:1px solid #333; border-radius:8px; font-size:13px; cursor:pointer; font-weight:600;">📷 Photo Change Karo</button>
+                    <div style="font-size:12px; color:#666; margin-top:8px;">Recommended: 800 x 800px • Square image • Max 5MB</div>
+                  </div>
+                </div>
+                <input type="file" id="cc-logo-input" accept="image/*" style="display:none;" onchange="handleChannelImageSelect(event,'logo')">
+              </div>
+
+              <!-- Upload Progress -->
+              <div id="cc-progress-box" style="display:none; background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:16px; margin-bottom:16px;">
+                <div style="display:flex; justify-content:space-between; font-size:12px; color:#888; margin-bottom:8px;">
+                  <span id="cc-progress-status">Uploading...</span>
+                  <span id="cc-progress-percent">0%</span>
+                </div>
+                <div style="background:#333; border-radius:10px; height:6px; overflow:hidden;">
+                  <div id="cc-progress-bar" style="background:#FF6600; height:100%; width:0%; transition:width 0.2s;"></div>
+                </div>
               </div>
 
               <!-- Channel Info -->
@@ -1059,16 +1087,17 @@
                 </div>
                 <div style="margin-bottom:12px;">
                   <label style="font-size:12px; color:#888; display:block; margin-bottom:4px;">Channel Description</label>
-                  <textarea style="width:100%; padding:10px 14px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none; resize:vertical;" rows="3" placeholder="Apne channel ke baare mein batao..."></textarea>
+                  <textarea id="cs-channel-desc" style="width:100%; padding:10px 14px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none; resize:vertical;" rows="3" placeholder="Apne channel ke baare mein batao..."></textarea>
                 </div>
                 <div style="margin-bottom:14px;">
                   <label style="font-size:12px; color:#888; display:block; margin-bottom:4px;">Primary Language</label>
-                  <select style="width:100%; padding:10px 14px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none;">
+                  <select id="cs-channel-lang" style="width:100%; padding:10px 14px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none;">
                     <option>Hindi</option><option>Tamil</option><option>Telugu</option>
                     <option>Marathi</option><option>Bengali</option><option>English</option>
+                    <option>Gujarati</option><option>Punjabi</option>
                   </select>
                 </div>
-                <button onclick="alert('Channel saved! ✅')" style="padding:10px 24px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">Save Changes ✅</button>
+                <button id="cc-save-btn" onclick="saveChannelCustomization()" style="padding:10px 24px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">Save Changes ✅</button>
               </div>
             </div>
 
@@ -1722,6 +1751,8 @@
       applyCreatorMode();
       // Load real videos
       loadRealVideos();
+      // Apply saved channel logo everywhere (sidebar, nav, profile etc.)
+      loadGlobalAvatar(user.uid);
     } else {
       document.getElementById('sidebar').classList.add('hidden');
       document.getElementById('nav-auth').style.display = 'flex';
@@ -2356,6 +2387,9 @@
     if (tab === 'content') {
       loadCreatorVideos();
     }
+    if (tab === 'customize') loadChannelCustomization();
+    if (tab === 'analytics' && typeof loadAnalyticsData === 'function') loadAnalyticsData();
+    if (tab === 'dashboard' && typeof loadCreatorStudioData === 'function') loadCreatorStudioData();
   }
 
   // Load creator's own videos in Creator Studio
@@ -2807,6 +2841,239 @@
     if (csName) csName.textContent = name;
     const csChannelName = document.getElementById('cs-channel-name');
     if (csChannelName) csChannelName.placeholder = name + "'s Channel";
+    const ccLogoInitial = document.getElementById('cc-logo-initial');
+    if (ccLogoInitial) ccLogoInitial.textContent = initial;
+    // Load saved channel customization from Firebase
+    loadChannelCustomization();
+  }
+
+  // Load saved avatar/banner globally on auth state change (any page)
+  async function loadGlobalAvatar(uid) {
+    try {
+      const { getFirestore, doc, getDoc } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+      const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+      const db = getFirestore(getApps()[0]);
+      const userDoc = await getDoc(doc(db, 'users', uid)).catch(() => null);
+      if (userDoc && userDoc.exists()) {
+        const d = userDoc.data();
+        if (d.photoURL) applyChannelAvatar(d.photoURL);
+        if (d.bannerURL) applyChannelBanner(d.bannerURL);
+        if (d.channelName) {
+          const csName = document.getElementById('cs-name');
+          if (csName) csName.textContent = d.channelName;
+          const sidebarName = document.getElementById('sidebar-name');
+          if (sidebarName) sidebarName.textContent = d.channelName;
+        }
+      }
+    } catch(e) { console.error('loadGlobalAvatar error:', e); }
+  }
+
+  // ============ CHANNEL CUSTOMIZATION (Logo / Banner / Info) ============
+  let selectedChannelImage = { logo: null, banner: null };
+
+  // Apply a photo URL to every avatar element across the app
+  window.applyChannelAvatar = function(url) {
+    const ids = ['sidebar-av','cs-av','profile-av','profile-av-big','nav-profile-av','menu-av','cc-logo-box'];
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (url) {
+        el.style.backgroundImage = `url('${url}')`;
+        el.style.backgroundSize = 'cover';
+        el.style.backgroundPosition = 'center';
+        const span = el.querySelector('span');
+        if (span) span.style.visibility = 'hidden';
+        else el.dataset.hadText = el.textContent;
+        if (!span) el.textContent = '';
+      } else {
+        el.style.backgroundImage = '';
+        const span = el.querySelector('span');
+        if (span) span.style.visibility = 'visible';
+        else if (el.dataset.hadText) el.textContent = el.dataset.hadText;
+      }
+    });
+    // Watch page creator avatar (class based)
+    document.querySelectorAll('.creator-av').forEach(el => {
+      if (url) {
+        el.style.backgroundImage = `url('${url}')`;
+        el.style.backgroundSize = 'cover';
+        el.style.backgroundPosition = 'center';
+        el.dataset.hadText = el.dataset.hadText || el.textContent;
+        el.textContent = '';
+      } else {
+        el.style.backgroundImage = '';
+        if (el.dataset.hadText) el.textContent = el.dataset.hadText;
+      }
+    });
+  }
+
+  // Apply banner image to customize tab + future channel page
+  window.applyChannelBanner = function(url) {
+    const box = document.getElementById('cc-banner-box');
+    const placeholder = document.getElementById('cc-banner-placeholder');
+    const overlay = document.getElementById('cc-banner-overlay');
+    if (!box) return;
+    if (url) {
+      box.style.backgroundImage = `url('${url}')`;
+      if (placeholder) placeholder.style.display = 'none';
+      if (overlay) { overlay.style.display = 'flex'; box.onmouseover = () => overlay.style.opacity='1'; }
+    } else {
+      box.style.backgroundImage = '';
+      if (placeholder) placeholder.style.display = 'block';
+      if (overlay) overlay.style.display = 'none';
+    }
+  }
+
+  // File select handler - shows preview immediately
+  window.handleChannelImageSelect = function(event, type) {
+    const file = event.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert('❌ File bahut bada hai! Max 5MB allowed.');
+      return;
+    }
+    selectedChannelImage[type] = file;
+    const previewUrl = URL.createObjectURL(file);
+    if (type === 'logo') {
+      applyChannelAvatar(previewUrl);
+    } else {
+      applyChannelBanner(previewUrl);
+    }
+  }
+
+  // Upload single image to Cloudinary, returns secure_url
+  function uploadImageToCloudinary(file, folder, onProgress) {
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', CLOUDINARY_PRESET);
+      formData.append('folder', folder);
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`);
+      xhr.upload.onprogress = function(e) {
+        if (e.lengthComputable && onProgress) {
+          onProgress(Math.round((e.loaded / e.total) * 100));
+        }
+      };
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          const result = JSON.parse(xhr.responseText);
+          resolve(result.secure_url);
+        } else {
+          reject(new Error('Upload failed: ' + xhr.status));
+        }
+      };
+      xhr.onerror = () => reject(new Error('Network error'));
+      xhr.send(formData);
+    });
+  }
+
+  // Save everything - logo, banner, name, description, language
+  window.saveChannelCustomization = async function() {
+    const btn = document.getElementById('cc-save-btn');
+    const progBox = document.getElementById('cc-progress-box');
+    const progBar = document.getElementById('cc-progress-bar');
+    const progPct = document.getElementById('cc-progress-percent');
+    const progStatus = document.getElementById('cc-progress-status');
+
+    try {
+      const { getFirestore, doc, setDoc } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+      const { getAuth } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js');
+      const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+      const app = getApps()[0];
+      const db = getFirestore(app);
+      const auth = getAuth(app);
+      const user = auth.currentUser;
+      if (!user) { alert('Login karo pehle!'); return; }
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Saving...'; }
+
+      const updateData = {
+        channelName: document.getElementById('cs-channel-name').value.trim() || (user.displayName || user.email.split('@')[0]),
+        channelDesc: document.getElementById('cs-channel-desc').value.trim(),
+        channelLang: document.getElementById('cs-channel-lang').value,
+        updatedAt: new Date().toISOString()
+      };
+
+      // Upload logo if a new one was selected
+      if (selectedChannelImage.logo) {
+        if (progBox) progBox.style.display = 'block';
+        if (progStatus) progStatus.textContent = 'Uploading logo...';
+        const logoUrl = await uploadImageToCloudinary(selectedChannelImage.logo, 'bharattube/avatars', pct => {
+          if (progBar) progBar.style.width = pct + '%';
+          if (progPct) progPct.textContent = pct + '%';
+        });
+        updateData.photoURL = logoUrl;
+      }
+
+      // Upload banner if a new one was selected
+      if (selectedChannelImage.banner) {
+        if (progBox) progBox.style.display = 'block';
+        if (progStatus) progStatus.textContent = 'Uploading banner...';
+        if (progBar) progBar.style.width = '0%';
+        if (progPct) progPct.textContent = '0%';
+        const bannerUrl = await uploadImageToCloudinary(selectedChannelImage.banner, 'bharattube/banners', pct => {
+          if (progBar) progBar.style.width = pct + '%';
+          if (progPct) progPct.textContent = pct + '%';
+        });
+        updateData.bannerURL = bannerUrl;
+      }
+
+      // Save to Firestore
+      await setDoc(doc(db, 'users', user.uid), updateData, { merge: true });
+
+      // Update UI everywhere
+      if (updateData.photoURL) applyChannelAvatar(updateData.photoURL);
+      if (updateData.bannerURL) applyChannelBanner(updateData.bannerURL);
+      const csName = document.getElementById('cs-name');
+      if (csName) csName.textContent = updateData.channelName;
+      const sidebarName = document.getElementById('sidebar-name');
+      if (sidebarName) sidebarName.textContent = updateData.channelName;
+
+      selectedChannelImage = { logo: null, banner: null };
+      if (progBox) progBox.style.display = 'none';
+
+      if (btn) { btn.textContent = '✅ Saved!'; btn.style.background = '#0a7a3e'; }
+      setTimeout(() => { if(btn){btn.textContent='Save Changes ✅';btn.style.background='#FF6600';btn.disabled=false;} }, 2000);
+
+    } catch(e) {
+      console.error('saveChannelCustomization error:', e);
+      alert('❌ Save nahi hua: ' + e.message);
+      if (btn) { btn.textContent = 'Save Changes ✅'; btn.disabled = false; }
+      if (progBox) progBox.style.display = 'none';
+    }
+  }
+
+  // Load saved channel customization when Customize tab opens
+  async function loadChannelCustomization() {
+    try {
+      const { getFirestore, doc, getDoc } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
+      const { getAuth } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js');
+      const { getApps } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js');
+      const app = getApps()[0];
+      const db = getFirestore(app);
+      const auth = getAuth(app);
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const userDoc = await getDoc(doc(db, 'users', user.uid)).catch(() => null);
+      if (!userDoc || !userDoc.exists()) return;
+      const d = userDoc.data();
+
+      const nameInput = document.getElementById('cs-channel-name');
+      const descInput = document.getElementById('cs-channel-desc');
+      const langSelect = document.getElementById('cs-channel-lang');
+      if (nameInput && d.channelName) nameInput.value = d.channelName;
+      if (descInput && d.channelDesc) descInput.value = d.channelDesc;
+      if (langSelect && d.channelLang) langSelect.value = d.channelLang;
+
+      if (d.photoURL) applyChannelAvatar(d.photoURL);
+      if (d.bannerURL) applyChannelBanner(d.bannerURL);
+
+    } catch(e) {
+      console.error('loadChannelCustomization error:', e);
+    }
   }
 
   // Category filter
