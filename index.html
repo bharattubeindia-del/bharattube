@@ -3197,5 +3197,42 @@
     }
   }
 </script>
+
+<script>
+  // FAQ Toggle
+  window.toggleFAQ = function(el) {
+    const answer = el.nextElementSibling;
+    const icon = el.querySelector('span:last-child');
+    if (answer.style.display === 'none' || !answer.style.display) {
+      answer.style.display = 'block';
+      if (icon) icon.textContent = '−';
+    } else {
+      answer.style.display = 'none';
+      if (icon) icon.textContent = '+';
+    }
+  }
+
+  // Feedback type selector
+  window.selectFeedbackType = function(btn) {
+    document.querySelectorAll('.feedback-type-btn').forEach(b => {
+      b.style.background = '#fff';
+      b.style.color = '#333';
+      b.style.borderColor = '#ddd';
+    });
+    btn.style.background = '#FF6600';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#FF6600';
+  }
+
+  // Star rating
+  let currentRating = 0;
+  window.setRating = function(n) {
+    currentRating = n;
+    for (let i = 1; i <= 5; i++) {
+      const star = document.getElementById('star-' + i);
+      if (star) star.style.opacity = i <= n ? '1' : '0.3';
+    }
+  }
+</script>
 </body>
 </html>
