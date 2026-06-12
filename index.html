@@ -23,7 +23,47 @@
 <link rel="icon" type="image/png" href="https://via.placeholder.com/32x32/FF6600/ffffff?text=BT">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Segoe UI', sans-serif; background: #f9f9f9; color: #111; }
+  :root {
+    --bg-main: #f9f9f9;
+    --bg-card: #fff;
+    --text-main: #111;
+    --text-sub: #888;
+    --border-c: #eee;
+    --bg-hover: #fafafa;
+  }
+  body { font-family: 'Segoe UI', sans-serif; background: var(--bg-main); color: var(--text-main); transition: background 0.25s, color 0.25s; }
+
+  body.dark {
+    --bg-main: #0f0f0f;
+    --bg-card: #1a1a1a;
+    --text-main: #f1f1f1;
+    --text-sub: #aaa;
+    --border-c: #2a2a2a;
+    --bg-hover: #222;
+  }
+  body.dark .top-bar, body.dark .sidebar, body.dark .page,
+  body.dark .video-card, body.dark .modal, body.dark .upload-box,
+  body.dark .form-input, body.dark .form-select, body.dark .dash-card,
+  body.dark .comment-item, body.dark .faq-item {
+    background: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border-color: var(--border-c) !important;
+  }
+  body.dark input, body.dark textarea, body.dark select {
+    background: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border-color: var(--border-c) !important;
+  }
+  body.dark .sidebar-item, body.dark .nav-link, body.dark .comment-text,
+  body.dark .creator-name-text, body.dark p, body.dark span, body.dark div,
+  body.dark label, body.dark h1, body.dark h2, body.dark h3, body.dark h4 {
+    color: var(--text-main);
+  }
+  body.dark .sidebar-item:hover, body.dark .settings-row:hover { background: var(--bg-hover) !important; }
+  body.dark ::placeholder { color: #777; }
+  body.dark .search-bar input { background: #1a1a1a !important; color: #fff !important; border-color: #333 !important; }
+  body.dark .top-bar { border-bottom-color: var(--border-c) !important; }
+  body.dark .sidebar-divider { background: var(--border-c) !important; }
 
   /* NAV */
   nav { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
@@ -239,6 +279,7 @@
 </style>
 </head>
 <body>
+<script>if(localStorage.getItem('bt_dark')==='1')document.body.classList.add('dark');</script>
 
 <!-- NAV -->
 <nav>
@@ -1439,6 +1480,14 @@
             </select>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #f9f9f9;">
+            <div><div style="font-size:14px;font-weight:600;">🌙 Dark Mode</div><div style="font-size:12px;color:#888;">Aankhon ke liye aaram</div></div>
+            <label style="position:relative;display:inline-block;width:44px;height:24px;cursor:pointer;">
+              <input type="checkbox" id="set-dark" onchange="saveSetting('dark')" style="opacity:0;width:0;height:0;position:absolute;">
+              <span id="dark-track" style="position:absolute;inset:0;background:#ccc;border-radius:24px;transition:0.3s;"></span>
+              <span id="dark-dot" style="position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:0.3s;"></span>
+            </label>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #f9f9f9;">
             <div><div style="font-size:14px;font-weight:600;">Autoplay</div><div style="font-size:12px;color:#888;">Next video auto chalaye</div></div>
             <label style="position:relative;display:inline-block;width:44px;height:24px;cursor:pointer;">
               <input type="checkbox" id="set-autoplay" checked onchange="saveSetting('autoplay')" style="opacity:0;width:0;height:0;position:absolute;">
@@ -2445,11 +2494,29 @@
       const track = document.getElementById('autoplay-track');
       if (dot) dot.style.left = val ? '23px' : '3px';
       if (track) track.style.background = val ? '#FF6600' : '#ccc';
+    } else if (type === 'dark') {
+      const val = document.getElementById('set-dark').checked;
+      applyDarkMode(val);
     }
+  }
+
+  // Apply / toggle dark mode + save preference + update toggle UI
+  window.applyDarkMode = function(isDark) {
+    document.body.classList.toggle('dark', isDark);
+    localStorage.setItem('bt_dark', isDark ? '1' : '0');
+    const dot = document.getElementById('dark-dot');
+    const track = document.getElementById('dark-track');
+    const chk = document.getElementById('set-dark');
+    if (dot) dot.style.left = isDark ? '23px' : '3px';
+    if (track) track.style.background = isDark ? '#FF6600' : '#ccc';
+    if (chk) chk.checked = isDark;
   }
 
   // Load settings page data when user visits
   function loadSettingsData() {
+    // Sync dark mode toggle UI with saved preference
+    applyDarkMode(localStorage.getItem('bt_dark') === '1');
+
     import('https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js').then(({ getAuth }) => {
       import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js').then(({ getApps }) => {
         const auth = getAuth(getApps()[0]);
@@ -2603,11 +2670,29 @@
       const track = document.getElementById('autoplay-track');
       if (dot) dot.style.left = val ? '23px' : '3px';
       if (track) track.style.background = val ? '#FF6600' : '#ccc';
+    } else if (type === 'dark') {
+      const val = document.getElementById('set-dark').checked;
+      applyDarkMode(val);
     }
+  }
+
+  // Apply / toggle dark mode + save preference + update toggle UI
+  window.applyDarkMode = function(isDark) {
+    document.body.classList.toggle('dark', isDark);
+    localStorage.setItem('bt_dark', isDark ? '1' : '0');
+    const dot = document.getElementById('dark-dot');
+    const track = document.getElementById('dark-track');
+    const chk = document.getElementById('set-dark');
+    if (dot) dot.style.left = isDark ? '23px' : '3px';
+    if (track) track.style.background = isDark ? '#FF6600' : '#ccc';
+    if (chk) chk.checked = isDark;
   }
 
   // Load settings page data when user visits
   function loadSettingsData() {
+    // Sync dark mode toggle UI with saved preference
+    applyDarkMode(localStorage.getItem('bt_dark') === '1');
+
     import('https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js').then(({ getAuth }) => {
       import('https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js').then(({ getApps }) => {
         const auth = getAuth(getApps()[0]);
