@@ -5,13 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BharatTube — India ka apna YouTube</title>
 
+<!-- SEO Meta Tags -->
+<meta name="description" content="BharatTube — India ka apna YouTube. Watch and create videos in all 22 Indian languages. Earn money from Day 1. Data stays in India.">
+<meta name="keywords" content="BharatTube, Indian YouTube, Hindi videos, Indian creators, video platform India, earn money videos">
+<meta name="author" content="BharatTube">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph (Facebook/WhatsApp) -->
+<meta property="og:title" content="BharatTube — India ka apna YouTube">
+<meta property="og:description" content="Watch and create videos in all 22 Indian languages. Earn money from Day 1!">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bharattubeindia-del.github.io/bharattube/">
+<meta property="og:image" content="https://via.placeholder.com/1200x630/FF6600/ffffff?text=BharatTube">
+<meta property="og:locale" content="hi_IN">
+<meta property="og:site_name" content="BharatTube">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BharatTube — India ka apna YouTube">
+<meta name="twitter:description" content="Watch and create videos in all 22 Indian languages!">
+<meta name="twitter:image" content="https://via.placeholder.com/1200x630/FF6600/ffffff?text=BharatTube">
+
 <!-- PWA Meta Tags -->
 <meta name="theme-color" content="#FF6600">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="BharatTube">
-<meta name="description" content="India ka apna YouTube — Watch and create videos in all 22 Indian languages!">
 
 <!-- PWA Manifest -->
 <link rel="manifest" href="manifest.json">
@@ -21,6 +41,27 @@
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="https://via.placeholder.com/32x32/FF6600/ffffff?text=BT">
+
+<!-- Inter Font (Professional) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "BharatTube",
+  "url": "https://bharattubeindia-del.github.io/bharattube/",
+  "description": "India ka apna YouTube — Watch and create videos in all 22 Indian languages",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://bharattubeindia-del.github.io/bharattube/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
@@ -30,8 +71,86 @@
     --text-sub: #888;
     --border-c: #eee;
     --bg-hover: #fafafa;
+    --orange: #FF6600;
+    --orange-light: #fff3e6;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
   }
-  body { font-family: 'Segoe UI', sans-serif; background: var(--bg-main); color: var(--text-main); transition: background 0.25s, color 0.25s; }
+  body { font-family: 'Inter', 'Segoe UI', sans-serif; background: var(--bg-main); color: var(--text-main); transition: background 0.25s, color 0.25s; -webkit-font-smoothing: antialiased; }
+
+  /* ===== TOAST NOTIFICATIONS ===== */
+  #toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+  }
+  .toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    min-width: 280px;
+    max-width: 380px;
+    box-shadow: var(--shadow-lg);
+    animation: toastIn 0.3s ease forwards;
+    pointer-events: all;
+  }
+  .toast.success { background: #1a7a3e; }
+  .toast.error { background: #cc2200; }
+  .toast.info { background: #1a5fcc; }
+  .toast.warning { background: #cc7700; }
+  .toast.orange { background: var(--orange); }
+  .toast-icon { font-size: 18px; flex-shrink: 0; }
+  .toast-msg { flex: 1; line-height: 1.4; }
+  .toast-close { cursor: pointer; opacity: 0.7; font-size: 16px; flex-shrink: 0; }
+  .toast-close:hover { opacity: 1; }
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes toastOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(40px); }
+  }
+
+  /* ===== SKELETON LOADING ===== */
+  .skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-sm);
+  }
+  body.dark .skeleton {
+    background: linear-gradient(90deg, #2a2a2a 25%, #333 50%, #2a2a2a 75%);
+    background-size: 200% 100%;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  .skeleton-card {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--bg-card);
+    border: 1px solid var(--border-c);
+  }
+  .skeleton-thumb { height: 160px; }
+  .skeleton-line { height: 14px; margin: 10px 12px 6px; }
+  .skeleton-line.short { width: 60%; }
+  .skeleton-line.shorter { width: 40%; margin-bottom: 12px; }
 
   body.dark {
     --bg-main: #0f0f0f;
@@ -279,6 +398,9 @@
 </style>
 </head>
 <body>
+
+<!-- Toast Notification Container -->
+<div id="toast-container"></div>
 <script>if(localStorage.getItem('bt_dark')==='1')document.body.classList.add('dark');</script>
 
 <!-- NAV -->
@@ -748,7 +870,7 @@
             <div class="dash-action-icon">🎬</div>
             <div><div class="dash-action-title">Watch Videos</div><div class="dash-action-desc">Explore BharatTube content</div></div>
           </div>
-          <div class="dash-action-card" onclick="alert('Coming soon! 🚀')">
+          <div class="dash-action-card" onclick="showToast('Coming soon! 🚀', 'info')">
             <div class="dash-action-icon">💰</div>
             <div><div class="dash-action-title">My Earnings</div><div class="dash-action-desc">Track your revenue</div></div>
           </div>
@@ -1030,7 +1152,7 @@
                   <div style="font-size:14px; font-weight:700; margin-bottom:4px;">UPI Instant Payment</div>
                   <div style="font-size:12px; color:#888;">Minimum withdrawal ₹1 • Weekly payments • Direct to your UPI</div>
                 </div>
-                <button style="margin-left:auto; padding:10px 20px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;" onclick="alert('UPI payment coming soon! 🚀')">Withdraw ₹0</button>
+                <button style="margin-left:auto; padding:10px 20px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;" onclick="showToast('UPI payment coming soon! ⚡', 'info')">Withdraw ₹0</button>
               </div>
             </div>
 
@@ -1107,7 +1229,7 @@
               <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:20px; margin-bottom:16px;">
                 <div style="font-size:14px; font-weight:700; margin-bottom:12px;">Post an Update</div>
                 <textarea style="width:100%; padding:12px; background:#222; border:1px solid #333; border-radius:8px; color:#fff; font-size:14px; outline:none; resize:vertical;" rows="3" placeholder="Share something with your subscribers..."></textarea>
-                <button onclick="alert('Community posts coming soon! 🚀')" style="margin-top:10px; padding:10px 20px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">Post Update</button>
+                <button onclick="showToast('Community posts coming soon! 🚀', 'info')" style="margin-top:10px; padding:10px 20px; background:#FF6600; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">Post Update</button>
               </div>
               <div style="background:#1a1a1a; border:1px solid #222; border-radius:12px; padding:32px; text-align:center;">
                 <div style="font-size:32px; margin-bottom:8px;">👥</div>
@@ -1188,7 +1310,7 @@
       <div style="padding:20px 24px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
           <h2 style="font-size:20px; font-weight:800;">📜 Watch History</h2>
-          <button onclick="alert('History cleared!')" style="padding:8px 16px; background:#f0f0f0; border:none; border-radius:8px; cursor:pointer; font-size:13px;">Clear History</button>
+          <button onclick="showToast('History cleared! ✅', 'success')" style="padding:8px 16px; background:#f0f0f0; border:none; border-radius:8px; cursor:pointer; font-size:13px;">Clear History</button>
         </div>
         <div style="text-align:center; padding:48px; color:#888;">
           <div style="font-size:48px; margin-bottom:12px;">📜</div>
@@ -1204,7 +1326,7 @@
       <div style="padding:20px 24px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
           <h2 style="font-size:20px; font-weight:800;">📋 Playlists</h2>
-          <button onclick="alert('Create playlist coming soon!')" style="padding:8px 16px; background:#FF6600; color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">+ New Playlist</button>
+          <button onclick="showToast('Playlists coming soon! 📋', 'info')" style="padding:8px 16px; background:#FF6600; color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">+ New Playlist</button>
         </div>
         <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:16px;">
           <div style="background:#f9f9f9; border-radius:12px; overflow:hidden; cursor:pointer;">
@@ -1389,7 +1511,7 @@
           <div class="form-group"><label class="form-label">Display Name</label><input class="form-input" id="p-name" placeholder="Your name" /></div>
           <div class="form-group"><label class="form-label">Bio</label><textarea class="form-input" rows="3" placeholder="Apne baare mein batao..."></textarea></div>
           <div class="form-group"><label class="form-label">Channel Language</label><select class="form-select"><option>Hindi</option><option>Tamil</option><option>Telugu</option><option>Marathi</option><option>English</option></select></div>
-          <button class="upload-btn" onclick="alert('Profile saved! ✅')">Save Profile</button>
+          <button class="upload-btn" onclick="showToast('Profile saved successfully! ✅', 'success')">Save Profile</button>
         </div>
       </div>
     </div>
@@ -1531,7 +1653,7 @@
             <div><div style="font-size:14px;font-weight:600;">Report History</div><div style="font-size:12px;color:#888;">Tumhare reports dekho</div></div>
             <span style="color:#888;">&#8594;</span>
           </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;cursor:pointer;" onclick="if(confirm('Watch history clear karna chahte ho?')){localStorage.removeItem('bt_history');alert('History clear ho gayi! &#9989;')}">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;cursor:pointer;" onclick="if(confirm('Watch history clear karna chahte ho?')){localStorage.removeItem('bt_history');showToast('History clear ho gayi! ✅', 'success')}">
             <div><div style="font-size:14px;font-weight:600;color:#cc4444;">Clear Watch History</div><div style="font-size:12px;color:#888;">Sab kuch hata do</div></div>
             <span style="color:#cc4444;">&#128465;&#65039;</span>
           </div>
@@ -1835,8 +1957,8 @@
       document.getElementById('waitlist-email').value = '';
       document.getElementById('waitlist-email').placeholder = '✅ You are on the waitlist!';
       setTimeout(() => { document.getElementById('waitlist-email').placeholder = 'Enter your email'; }, 4000);
-      alert('🎉 BharatTube waitlist mein aa gaye!\nJai Hind! 🇮🇳');
-    } catch(e) { alert('Error! Try again.'); }
+      showToast('Welcome to BharatTube waitlist! 🎉 Jai Hind! 🇮🇳', 'success');
+    } catch(e) { showToast('Kuch galat hua! Please try again.', 'error'); }
   };
 
   function showErr(id, msg) {
@@ -1862,7 +1984,7 @@
 
     // Check file size (100MB max)
     if (file.size > 100 * 1024 * 1024) {
-      alert('❌ File bahut bada hai!\nMaximum 100MB allowed hai.');
+      showToast('File bahut bada hai! Maximum 100MB allowed. ❌', 'error');
       return;
     }
 
@@ -1896,10 +2018,10 @@
     const cat = document.getElementById('video-cat').value;
 
     if (!selectedVideoFile) {
-      alert('❌ Pehle video select karo!'); return;
+      showToast('Pehle video select karo! 🎬', 'warning'); return;
     }
     if (!title) {
-      alert('❌ Video title likho!'); return;
+      showToast('Video title likhna zaroori hai!', 'warning'); return;
     }
 
     // Show progress
@@ -1988,7 +2110,7 @@
       };
 
       xhr.onerror = function() {
-        alert('❌ Upload failed! Internet check karo.');
+        showToast('Upload failed! Internet check karo. ❌', 'error');
         resetUploadUI();
       };
 
@@ -1996,7 +2118,7 @@
 
     } catch(err) {
       console.error(err);
-      alert('❌ Error: ' + err.message);
+      showToast('Upload error: ' + err.message, 'error');
       resetUploadUI();
     }
   }
@@ -2515,9 +2637,9 @@
           await updateProfile(auth.currentUser, { displayName: newName });
           document.getElementById('set-name-val').textContent = newName;
           document.getElementById('set-name-input').style.display = 'none';
-          alert('✅ Naam update ho gaya: ' + newName);
+          showToast('Naam update ho gaya: ' + newName + ' ✅', 'success');
         }
-      } catch(e) { alert('❌ Update nahi hua: ' + e.message); }
+      } catch(e) { showToast('Update failed! ' + e.message, 'error'); }
     } else if (type === 'lang') {
       const lang = document.getElementById('set-lang').value;
       localStorage.setItem('bt_lang', lang);
@@ -2691,9 +2813,9 @@
           await updateProfile(auth.currentUser, { displayName: newName });
           document.getElementById('set-name-val').textContent = newName;
           document.getElementById('set-name-input').style.display = 'none';
-          alert('✅ Naam update ho gaya: ' + newName);
+          showToast('Naam update ho gaya: ' + newName + ' ✅', 'success');
         }
-      } catch(e) { alert('❌ Update nahi hua: ' + e.message); }
+      } catch(e) { showToast('Update failed! ' + e.message, 'error'); }
     } else if (type === 'lang') {
       const lang = document.getElementById('set-lang').value;
       localStorage.setItem('bt_lang', lang);
@@ -3585,6 +3707,100 @@
       if (star) star.style.opacity = i <= n ? '1' : '0.3';
     }
   }
+</script>
+
+<script>
+// ============ TOAST NOTIFICATION SYSTEM ============
+window.showToast = function(message, type = 'info', duration = 3500) {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+
+  const icons = {
+    success: '✅',
+    error: '❌',
+    warning: '⚠️',
+    info: 'ℹ️',
+    orange: '🔔'
+  };
+
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `
+    <span class="toast-icon">${icons[type] || 'ℹ️'}</span>
+    <span class="toast-msg">${message}</span>
+    <span class="toast-close" onclick="this.parentElement.remove()">✕</span>
+  `;
+
+  container.appendChild(toast);
+
+  // Auto remove
+  setTimeout(() => {
+    toast.style.animation = 'toastOut 0.3s ease forwards';
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+// ============ SKELETON LOADER ============
+window.showSkeletons = function(count = 6) {
+  const grid = document.getElementById('videos-grid');
+  if (!grid) return;
+
+  const skeletons = Array(count).fill(0).map(() => `
+    <div class="skeleton-card">
+      <div class="skeleton skeleton-thumb"></div>
+      <div style="padding:4px 0;">
+        <div class="skeleton skeleton-line"></div>
+        <div class="skeleton skeleton-line short"></div>
+        <div class="skeleton skeleton-line shorter"></div>
+      </div>
+    </div>
+  `).join('');
+
+  // Only show skeletons if grid is empty
+  if (grid.children.length === 0) {
+    grid.innerHTML = skeletons;
+    // Remove skeletons after 3 seconds if still there
+    setTimeout(() => {
+      document.querySelectorAll('.skeleton-card').forEach(s => s.remove());
+    }, 3000);
+  }
+}
+
+// Show skeletons on page load
+document.addEventListener('DOMContentLoaded', () => {
+  // Show skeletons in video feed
+  const feed = document.getElementById('video-feed');
+  if (feed) {
+    const grid = document.getElementById('videos-grid');
+    if (grid && grid.querySelectorAll('.real-video-card').length === 0) {
+      showSkeletons(6);
+    }
+  }
+});
+
+// ============ IMPROVED DARK MODE TOGGLE ============
+// Update settings dark mode toggle UI
+const originalApplyDarkMode = window.applyDarkMode;
+function updateDarkToggle() {
+  const track = document.getElementById('dark-track');
+  const dot = document.getElementById('dark-dot');
+  const isDark = document.body.classList.contains('dark');
+  if (track) track.style.background = isDark ? '#FF6600' : '#ccc';
+  if (dot) dot.style.left = isDark ? '23px' : '3px';
+}
+
+// Patch toggleDarkMode to also update settings toggle
+const _origToggleDark = window.toggleDarkMode;
+window.toggleDarkMode = function() {
+  if (_origToggleDark) _origToggleDark();
+  updateDarkToggle();
+  const isDark = document.body.classList.contains('dark');
+  showToast(isDark ? '🌙 Dark mode ON!' : '☀️ Light mode ON!', 'info', 2000);
+}
+
+// Apply on load
+setTimeout(updateDarkToggle, 100);
+
 </script>
 </body>
 </html>
