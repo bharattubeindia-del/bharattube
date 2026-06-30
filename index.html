@@ -205,10 +205,119 @@
   .sidebar.hidden { display: none; }
   .sidebar-section { margin-bottom: 8px; }
   .sidebar-label { font-size: 11px; font-weight: 700; color: #999; padding: 8px 20px 4px; text-transform: uppercase; letter-spacing: 1px; }
-  .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 10px 20px; font-size: 14px; color: #333; cursor: pointer; border-radius: 8px; margin: 2px 8px; transition: background 0.2s; text-decoration: none; }
+  .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 10px 20px; font-size: 14px; color: #333; cursor: pointer; border-radius: 8px; margin: 2px 8px; transition: background 0.15s, color 0.15s; text-decoration: none; font-weight: 500; }
   .sidebar-item:hover { background: #fff3e6; color: #FF6600; }
-  .sidebar-item.active { background: #fff3e6; color: #FF6600; font-weight: 600; }
-  .sidebar-item .icon { font-size: 18px; width: 24px; text-align: center; }
+  .sidebar-item.active { background: #fff3e6; color: #FF6600; font-weight: 700; }
+  .sidebar-item .icon { font-size: 18px; width: 24px; text-align: center; display: flex; align-items: center; justify-content: center; }
+  .sidebar-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+  /* ===== PROFESSIONAL VIDEO CARD SYSTEM ===== */
+  .vcard {
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--bg-card);
+    border: 1px solid var(--border-c);
+    transition: transform 0.25s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s;
+  }
+  .vcard:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+  }
+  .vcard-thumb {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: #14141c;
+  }
+  .vcard-thumb-bg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s ease;
+  }
+  .vcard:hover .vcard-thumb-bg { transform: scale(1.06); }
+  .vcard-thumb video, .vcard-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .vcard-duration {
+    position: absolute; bottom: 6px; right: 6px;
+    background: rgba(0,0,0,0.85); color: #fff;
+    font-size: 11px; font-weight: 600; padding: 2px 6px;
+    border-radius: 4px; letter-spacing: 0.2px;
+  }
+  .vcard-lang-badge {
+    position: absolute; top: 8px; left: 8px;
+    background: rgba(255,102,0,0.95); color: #fff;
+    font-size: 10px; font-weight: 700; padding: 3px 9px;
+    border-radius: 20px; letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .vcard-new-badge {
+    position: absolute; top: 8px; right: 8px;
+    background: #0a7a3e; color: #fff;
+    font-size: 10px; font-weight: 700; padding: 3px 9px;
+    border-radius: 20px;
+  }
+  .vcard-play-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.15);
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .vcard:hover .vcard-play-overlay { opacity: 1; }
+  .vcard-play-btn {
+    width: 48px; height: 48px;
+    background: rgba(255,102,0,0.95);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .vcard-body {
+    padding: 12px;
+    display: flex;
+    gap: 10px;
+  }
+  .vcard-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 13px; font-weight: 700;
+  }
+  .vcard-info { flex: 1; min-width: 0; }
+  .vcard-title {
+    font-size: 14px; font-weight: 600;
+    line-height: 1.35; margin-bottom: 4px;
+    color: var(--text-main);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .vcard-creator-row {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 12.5px; color: var(--text-sub);
+    margin-bottom: 2px;
+  }
+  .vcard-verified {
+    width: 13px; height: 13px; flex-shrink: 0;
+  }
+  .vcard-meta {
+    font-size: 12px; color: var(--text-sub);
+  }
+  .vcard-menu-btn {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .vcard-menu-btn:hover { background: var(--bg-hover); }
   .sidebar-divider { height: 1px; background: #f0f0f0; margin: 8px 16px; }
   .settings-row { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; border-bottom:1px solid #f9f9f9; cursor:pointer; transition:background 0.15s; }
   .settings-row:hover { background:#fafafa; }
@@ -664,121 +773,60 @@
 
         <!-- VIDEOS GRID -->
         <div style="padding:20px 24px;">
-          <div id="videos-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:20px;">
+          <div id="videos-grid" class="vgrid"></div>
+          <style>.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}</style>
+          <script>
+            // Demo video data — professional rendering via JS (no inline emoji clutter)
+            const DEMO_VIDEOS = [
+              { cat:'farming', icon:'🌾', g1:'#FF6600', g2:'#ff9900', dur:'12:34', title:'Khethi Tips — Rabi Season ke liye best practices', creator:'Ramesh Khetiwala', views:'2.4L', time:'2 days ago', lang:'Hindi', verified:true },
+              { cat:'cooking', icon:'🍳', g1:'#1a5fcc', g2:'#4a90d9', dur:'8:45', title:'Dal Makhani recipe — Authentic Punjabi style', creator:"Priya's Kitchen", views:'85K', time:'3 days ago', lang:'Tamil', verified:false },
+              { cat:'tech', icon:'💻', g1:'#0a7a3e', g2:'#2ecc71', dur:'22:10', title:'Python programming — Hindi mein seekho!', creator:'TechWithArjun', views:'2.4L', time:'1 week ago', lang:'Hindi', verified:true },
+              { cat:'comedy', icon:'😂', g1:'#b5006e', g2:'#e91e8c', dur:'4:15', title:'Hyderabadi comedy — Ep 24', creator:'Telugu Talkies', views:'3.1L', time:'5 days ago', lang:'Telugu', verified:true },
+              { cat:'dance', icon:'💃', g1:'#6a0dad', g2:'#9b59b6', dur:'5:30', title:'Lavani dance tutorial — Beginners ke liye', creator:'Nisha Dance Academy', views:'45K', time:'1 week ago', lang:'Marathi', verified:false },
+              { cat:'music', icon:'🎵', g1:'#cc4400', g2:'#ff6b35', dur:'3:45', title:'Tamil folk song — Pongal special', creator:'Tamil Music Hub', views:'1.8L', time:'2 weeks ago', lang:'Tamil', verified:false },
+              { cat:'education', icon:'📚', g1:'#0055cc', g2:'#3399ff', dur:'18:22', title:'Class 10 Maths — Trigonometry Hindi mein', creator:'Shiksha Academy', views:'5.2L', time:'3 days ago', lang:'Hindi', verified:true },
+              { cat:'farming', icon:'🥬', g1:'#2d8a00', g2:'#5cb800', dur:'9:15', title:'Organic farming guide — Vegetables', creator:'Punjab Kisan', views:'92K', time:'4 days ago', lang:'Punjabi', verified:false },
+            ];
 
-            <!-- Video 1 -->
-            <div class="video-card" data-cat="farming" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#FF6600,#ff9900); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">🌾</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">12:34</span>
-                <span style="position:absolute; top:8px; left:8px; background:#FF6600; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Hindi</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Khethi Tips — Rabi Season ke liye best practices 🌾</div>
-                <div style="font-size:12px; color:#888;">Ramesh Khetiwala</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">2.4L views • 2 days ago</div>
-              </div>
-            </div>
+            function avatarColor(name) {
+              const colors = ['#FF6600','#1a5fcc','#0a7a3e','#b5006e','#6a0dad','#cc4400','#0055cc','#2d8a00'];
+              let hash = 0;
+              for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+              return colors[Math.abs(hash) % colors.length];
+            }
 
-            <!-- Video 2 -->
-            <div class="video-card" data-cat="cooking" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#1a5fcc,#4a90d9); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">🍳</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">8:45</span>
-                <span style="position:absolute; top:8px; left:8px; background:#1a5fcc; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Tamil</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Dal Makhani recipe — Authentic Punjabi style 🍛</div>
-                <div style="font-size:12px; color:#888;">Priya's Kitchen</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">85K views • 3 days ago</div>
-              </div>
-            </div>
-
-            <!-- Video 3 -->
-            <div class="video-card" data-cat="tech" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#0a7a3e,#2ecc71); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">💻</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">22:10</span>
-                <span style="position:absolute; top:8px; left:8px; background:#0a7a3e; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Hindi</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Python programming — Hindi mein seekho! 🐍</div>
-                <div style="font-size:12px; color:#888;">TechWithArjun</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">2.4L views • 1 week ago</div>
-              </div>
-            </div>
-
-            <!-- Video 4 -->
-            <div class="video-card" data-cat="comedy" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#b5006e,#e91e8c); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">😂</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">4:15</span>
-                <span style="position:absolute; top:8px; left:8px; background:#b5006e; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Telugu</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Hyderabadi comedy — Ep 24 😂</div>
-                <div style="font-size:12px; color:#888;">Telugu Talkies</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">3.1L views • 5 days ago</div>
-              </div>
-            </div>
-
-            <!-- Video 5 -->
-            <div class="video-card" data-cat="dance" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#6a0dad,#9b59b6); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">💃</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">5:30</span>
-                <span style="position:absolute; top:8px; left:8px; background:#6a0dad; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Marathi</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Lavani dance tutorial — Beginners ke liye 💃</div>
-                <div style="font-size:12px; color:#888;">Nisha Dance Academy</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">45K views • 1 week ago</div>
-              </div>
-            </div>
-
-            <!-- Video 6 -->
-            <div class="video-card" data-cat="music" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#cc4400,#ff6b35); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">🎵</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">3:45</span>
-                <span style="position:absolute; top:8px; left:8px; background:#cc4400; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Tamil</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Tamil folk song — Pongal special 🎶</div>
-                <div style="font-size:12px; color:#888;">Tamil Music Hub</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">1.8L views • 2 weeks ago</div>
-              </div>
-            </div>
-
-            <!-- Video 7 -->
-            <div class="video-card" data-cat="education" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#0055cc,#3399ff); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">📚</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">18:22</span>
-                <span style="position:absolute; top:8px; left:8px; background:#0055cc; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Hindi</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Class 10 Maths — Trigonometry Hindi mein 📐</div>
-                <div style="font-size:12px; color:#888;">Shiksha Academy</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">5.2L views • 3 days ago</div>
-              </div>
-            </div>
-
-            <!-- Video 8 -->
-            <div class="video-card" data-cat="farming" onclick="showPage('watch')" style="cursor:pointer; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #eee; transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
-              <div style="background:linear-gradient(135deg,#2d8a00,#5cb800); height:160px; display:flex; align-items:center; justify-content:center; position:relative;">
-                <span style="font-size:48px;">🥬</span>
-                <span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">9:15</span>
-                <span style="position:absolute; top:8px; left:8px; background:#2d8a00; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:600;">Punjabi</span>
-              </div>
-              <div style="padding:12px;">
-                <div style="font-size:14px; font-weight:600; margin-bottom:6px; line-height:1.4;">Organic farming guide — Vegetables 🥬</div>
-                <div style="font-size:12px; color:#888;">Punjab Kisan</div>
-                <div style="font-size:12px; color:#999; margin-top:3px;">92K views • 4 days ago</div>
-              </div>
-            </div>
-
-          </div>
+            function renderDemoCards() {
+              const grid = document.getElementById('videos-grid');
+              if (!grid) return;
+              grid.innerHTML = DEMO_VIDEOS.map(v => `
+                <div class="vcard demo-vcard" data-cat="${v.cat}" onclick="showPage('watch')">
+                  <div class="vcard-thumb">
+                    <div class="vcard-thumb-bg" style="background:linear-gradient(135deg,${v.g1},${v.g2});">
+                      <span style="font-size:42px; opacity:0.9; filter:drop-shadow(0 2px 8px rgba(0,0,0,0.2));">${v.icon}</span>
+                    </div>
+                    <div class="vcard-play-overlay"><div class="vcard-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
+                    <span class="vcard-lang-badge">${v.lang}</span>
+                    <span class="vcard-duration">${v.dur}</span>
+                  </div>
+                  <div class="vcard-body">
+                    <div class="vcard-avatar" style="background:${avatarColor(v.creator)};">${v.creator.charAt(0)}</div>
+                    <div class="vcard-info">
+                      <div class="vcard-title">${v.title}</div>
+                      <div class="vcard-creator-row">
+                        ${v.creator}
+                        ${v.verified ? '<svg class="vcard-verified" viewBox="0 0 24 24" fill="#1a5fcc"><path d="M12 1l2.4 1.5L17 2l1 2.5L20.5 6 20 8.6 22 11l-2 2.4.5 2.6-2.5 1-1 2.5-2.6-.5L12 21l-2.4-1.5L7 21l-1-2.5-2.6.5L3 16.4 1 14l2-2.4L2.5 9 5 8.6 6 6l2.6.5L11 2l1 1z"/><path d="M0 0h24v24H0z" fill="none"/><path fill="white" d="M10 14.6L7.4 12l-1 1L10 16.6l7-7-1-1z"/></svg>' : ''}
+                      </div>
+                      <div class="vcard-meta">${v.views} views • ${v.time}</div>
+                    </div>
+                    <div class="vcard-menu-btn" onclick="event.stopPropagation(); showToast('More options coming soon!', 'info', 2000)">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+                    </div>
+                  </div>
+                </div>
+              `).join('');
+            }
+            renderDemoCards();
+          </script>
         </div>
       </div>
 
@@ -2212,27 +2260,9 @@
       // Step 3: Har video ke liye card banao aur grid ke TOP mein daalo
       realVideos.forEach(v => {
         const card = document.createElement('div');
-        card.className = 'video-card real-video-card';
+        card.className = 'vcard real-video-card';
         // category field lowercase mein save hoti hai ('education', 'tech' etc.)
         card.dataset.cat = (v.category || '').toLowerCase() || 'general';
-
-        card.style.cssText = `
-          cursor:pointer;
-          border-radius:12px;
-          overflow:hidden;
-          background:#fff;
-          border:2px solid #FF6600;
-          transition:transform 0.2s, box-shadow 0.2s;
-          box-shadow: 0 2px 8px rgba(255,102,0,0.15);
-        `;
-        card.onmouseover = function() {
-          this.style.transform = 'translateY(-4px)';
-          this.style.boxShadow = '0 8px 24px rgba(255,102,0,0.25)';
-        };
-        card.onmouseout = function() {
-          this.style.transform = 'translateY(0)';
-          this.style.boxShadow = '0 2px 8px rgba(255,102,0,0.15)';
-        };
         card.onclick = function() {
           watchRealVideo(v.videoUrl, v.title, v.creatorName || 'Creator', v.id, v.creatorId || null);
         };
@@ -2246,25 +2276,23 @@
         // Cloudinary auto-thumbnail from video URL
         let thumbHtml;
         if (v.videoUrl && v.videoUrl.includes('cloudinary.com')) {
-          // Cloudinary magic: video URL se thumbnail generate karo (second 3 pe)
           const thumbUrl = v.videoUrl
             .replace('/video/upload/', '/video/upload/w_480,h_270,c_fill,so_3/')
             .replace(/\.(mp4|webm|mov|avi|mkv)$/i, '.jpg');
 
           thumbHtml = `
-            <img src="${thumbUrl}" 
+            <img src="${thumbUrl}"
                  style="width:100%; height:100%; object-fit:cover; display:block;"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                 alt="${v.title}">
-            <div style="display:none; width:100%; height:100%; background:linear-gradient(135deg,#FF6600,#ff9900); align-items:center; justify-content:center; flex-direction:column;">
-              <span style="font-size:40px;">🎬</span>
-              <span style="font-size:11px; color:rgba(255,255,255,0.8); margin-top:6px; text-align:center; padding:0 8px;">${v.title.substring(0,40)}</span>
+                 alt="${v.title}" loading="lazy">
+            <div style="display:none; width:100%; height:100%; background:linear-gradient(135deg,#FF6600,#ff9900); align-items:center; justify-content:center;">
+              <span style="font-size:34px;">🎬</span>
             </div>
           `;
         } else {
           thumbHtml = `
             <div style="width:100%; height:100%; background:linear-gradient(135deg,#FF6600,#ff9900); display:flex; align-items:center; justify-content:center;">
-              <span style="font-size:40px;">🎬</span>
+              <span style="font-size:34px;">🎬</span>
             </div>
           `;
         }
@@ -2276,43 +2304,28 @@
                        : views >= 1000    ? (views/1000).toFixed(1)+'K'
                        : String(views);
 
+        const creatorInitial = (v.creatorName || 'C')[0].toUpperCase();
+
         card.innerHTML = `
-          <div style="position:relative; height:175px; background:#111; overflow:hidden;">
-            ${thumbHtml}
-            <!-- Play overlay -->
-            <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.2s;" class="play-overlay">
-              <div style="width:48px; height:48px; background:rgba(255,102,0,0.9); border-radius:50%; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
-                <div style="width:0; height:0; border-top:11px solid transparent; border-bottom:11px solid transparent; border-left:20px solid #fff; margin-left:3px;"></div>
-              </div>
-            </div>
-            <!-- Badges -->
-            <span style="position:absolute; top:8px; left:8px; background:#FF6600; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:700;">${v.language || 'Hindi'}</span>
-            <span style="position:absolute; top:8px; right:8px; background:#0a7a3e; color:#fff; font-size:10px; padding:2px 8px; border-radius:10px; font-weight:700;">🆕 NEW</span>
-            ${durationStr ? `<span style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.85); color:#fff; font-size:11px; padding:2px 6px; border-radius:4px; font-weight:600;">${durationStr}</span>` : ''}
+          <div class="vcard-thumb">
+            <div class="vcard-thumb-bg">${thumbHtml}</div>
+            <div class="vcard-play-overlay"><div class="vcard-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
+            <span class="vcard-lang-badge">${v.language || 'Hindi'}</span>
+            <span class="vcard-new-badge">NEW</span>
+            ${durationStr ? `<span class="vcard-duration">${durationStr}</span>` : ''}
           </div>
-          <div style="padding:12px;">
-            <div style="display:flex; gap:8px; align-items:flex-start;">
-              <div style="width:32px; height:32px; border-radius:50%; background:#FF6600; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0;">
-                ${(v.creatorName || 'C')[0].toUpperCase()}
-              </div>
-              <div style="flex:1; min-width:0;">
-                <div style="font-size:13px; font-weight:700; margin-bottom:3px; line-height:1.4; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;">${v.title}</div>
-                <div style="font-size:12px; color:#666;">${v.creatorName || 'BharatTube Creator'}</div>
-                <div style="font-size:12px; color:#999; margin-top:2px;">${viewsStr} views</div>
-              </div>
+          <div class="vcard-body">
+            <div class="vcard-avatar" style="background:${avatarColor(v.creatorName || 'C')};">${creatorInitial}</div>
+            <div class="vcard-info">
+              <div class="vcard-title">${v.title}</div>
+              <div class="vcard-creator-row">${v.creatorName || 'BharatTube Creator'}</div>
+              <div class="vcard-meta">${viewsStr} views</div>
+            </div>
+            <div class="vcard-menu-btn" onclick="event.stopPropagation(); showToast('More options coming soon!', 'info', 2000)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
             </div>
           </div>
         `;
-
-        // Play overlay hover effect
-        card.addEventListener('mouseenter', () => {
-          const overlay = card.querySelector('.play-overlay');
-          if (overlay) overlay.style.opacity = '1';
-        });
-        card.addEventListener('mouseleave', () => {
-          const overlay = card.querySelector('.play-overlay');
-          if (overlay) overlay.style.opacity = '0';
-        });
 
         // TOP mein add karo (real videos pehle dikhenge)
         grid.insertBefore(card, grid.firstChild);
@@ -3208,8 +3221,8 @@
     btn.style.background = '#FF6600';
     btn.style.color = '#fff';
     btn.style.borderColor = '#FF6600';
-    document.querySelectorAll('.video-card').forEach(card => {
-      card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
+    document.querySelectorAll('.vcard').forEach(card => {
+      card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
     });
   }
 
@@ -3778,29 +3791,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ============ IMPROVED DARK MODE TOGGLE ============
-// Update settings dark mode toggle UI
-const originalApplyDarkMode = window.applyDarkMode;
-function updateDarkToggle() {
-  const track = document.getElementById('dark-track');
-  const dot = document.getElementById('dark-dot');
-  const isDark = document.body.classList.contains('dark');
-  if (track) track.style.background = isDark ? '#FF6600' : '#ccc';
-  if (dot) dot.style.left = isDark ? '23px' : '3px';
-}
-
-// Patch toggleDarkMode to also update settings toggle
-const _origToggleDark = window.toggleDarkMode;
-window.toggleDarkMode = function() {
-  if (_origToggleDark) _origToggleDark();
-  updateDarkToggle();
-  const isDark = document.body.classList.contains('dark');
-  showToast(isDark ? '🌙 Dark mode ON!' : '☀️ Light mode ON!', 'info', 2000);
-}
-
-// Apply on load
-setTimeout(updateDarkToggle, 100);
-
+// ============ DARK MODE TOAST FEEDBACK ============
+// Wrap the real applyDarkMode function to show a toast on manual toggle
+(function() {
+  const _origApply = window.applyDarkMode;
+  if (typeof _origApply === 'function') {
+    window.applyDarkMode = function(isDark) {
+      const wasShowing = document.body.classList.contains('dark');
+      _origApply(isDark);
+      // Only toast if this is a real user-triggered change (not the initial load sync)
+      if (wasShowing !== isDark && document.getElementById('page-settings')?.classList.contains('active')) {
+        showToast(isDark ? '🌙 Dark mode ON!' : '☀️ Light mode ON!', 'info', 2000);
+      }
+    };
+  }
+})();
 </script>
 </body>
 </html>
