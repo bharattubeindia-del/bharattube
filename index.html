@@ -210,6 +210,8 @@
   .sidebar-item.active { background: #fff3e6; color: #FF6600; font-weight: 700; }
   .sidebar-item .icon { font-size: 18px; width: 24px; text-align: center; display: flex; align-items: center; justify-content: center; }
   .sidebar-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+  .icon-svg { display: block; }
+  .dash-card .icon svg, .dash-card .icon { width: 26px; height: 26px; margin: 0 auto; color: var(--orange); }
 
   /* ===== PROFESSIONAL VIDEO CARD SYSTEM ===== */
   .vcard {
@@ -464,7 +466,7 @@
   .upload-page { padding: 32px 24px; max-width: 700px; }
   .upload-area { border: 2.5px dashed #FF6600; border-radius: 16px; padding: 48px 24px; text-align: center; cursor: pointer; background: #fff8f3; transition: background 0.2s; }
   .upload-area:hover { background: #fff3e6; }
-  .upload-icon { font-size: 48px; margin-bottom: 12px; }
+  .upload-icon { display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
   .upload-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
   .upload-sub { font-size: 14px; color: #888; }
   .upload-form { background: #fff; border-radius: 14px; padding: 24px; margin-top: 20px; border: 1px solid #eee; }
@@ -558,10 +560,10 @@
       <div style="height:1px; background:#f0f0f0;"></div>
 
       <div style="padding:8px 0;">
-        <div onclick="alert('Appearance coming soon!')" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
+        <div onclick="showToast('Appearance settings coming soon!', 'info')" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
           <span style="font-size:18px;">🌙</span> Appearance: Light
         </div>
-        <div onclick="alert('Language coming soon!')" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
+        <div onclick="showToast('Language settings coming soon!', 'info')" style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
           <span style="font-size:18px;">🌍</span> Language: Hindi/English
         </div>
         <div style="display:flex; align-items:center; gap:12px; padding:10px 16px; cursor:pointer; font-size:14px;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
@@ -599,7 +601,7 @@
     <!-- Section 1: Main Navigation -->
     <div class="sidebar-section">
       <div class="sidebar-item active" id="nav-home" onclick="showPage('home')">
-        <span class="icon">🏠</span> Home
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span> Home
       </div>
     </div>
 
@@ -608,7 +610,7 @@
     <!-- Section 2: Subscriptions -->
     <div class="sidebar-section">
       <div class="sidebar-item" id="nav-subscriptions" onclick="showPage('subscriptions')">
-        <span class="icon">📺</span> Subscriptions
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></span> Subscriptions
         <span style="margin-left:auto; font-size:11px; color:#FF6600; font-weight:700;">›</span>
       </div>
       <!-- Subscribed channels list -->
@@ -625,26 +627,26 @@
         You <span style="font-size:12px; color:#FF6600; cursor:pointer;">›</span>
       </div>
       <div class="sidebar-item" onclick="showPage('profile')">
-        <span class="icon">📺</span> Your channel
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></span> Your channel
       </div>
       <div class="sidebar-item" id="nav-history" onclick="showPage('history')">
-        <span class="icon">📜</span> History
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg></span> History
       </div>
       <div class="sidebar-item" id="nav-playlists" onclick="showPage('playlists')">
-        <span class="icon">📋</span> Playlists
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="4" rx="1"/><path d="M4 10h16M4 14h10M4 18h7"/></svg></span> Playlists
       </div>
       <div class="sidebar-item" id="nav-watchlater" onclick="showPage('watchlater')">
-        <span class="icon">⏰</span> Watch later
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M5 3 3 5M19 3l2 2"/></svg></span> Watch later
       </div>
       <div class="sidebar-item" onclick="showPage('watch')">
-        <span class="icon">👍</span> Liked videos
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L13 2a3.13 3.13 0 0 1 3 3.88Z"/></svg></span> Liked videos
       </div>
       <div class="sidebar-item" id="nav-upload" onclick="showPage('upload')">
-        <span class="icon">🎬</span> Your videos
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 3-3.5 3.5L21 14l3-3"/><path d="M3 14h2.5L9 10.5"/><path d="m6.5 12.5 5-5"/><path d="m13 19 6-6"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg></span> Your videos
       </div>
       <!-- Show more -->
       <div class="sidebar-item" id="show-more-you" onclick="toggleYouMore()" style="color:#555;">
-        <span class="icon">⬇️</span> Show more
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></span> Show more
       </div>
     </div>
 
@@ -652,13 +654,13 @@
     <div id="you-more" style="display:none;">
       <div class="sidebar-section">
         <div class="sidebar-item" onclick="showPage('watch')">
-          <span class="icon">⬇️</span> Downloads
+          <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></span> Downloads
         </div>
         <div class="sidebar-item" onclick="showPage('watch')">
-          <span class="icon">🕐</span> Watch history
+          <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span> Watch history
         </div>
         <div class="sidebar-item" id="nav-live" onclick="showPage('live')">
-          <span class="icon">🔴</span> Live
+          <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg></span> Live
           <span style="margin-left:auto; font-size:10px; background:#ffe6e6; color:#cc0000; padding:2px 6px; border-radius:8px; font-weight:600;">LIVE</span>
         </div>
       </div>
@@ -670,13 +672,13 @@
     <div class="sidebar-section">
       <div class="sidebar-label">BharatTube</div>
       <div class="sidebar-item" onclick="showPage('creator-studio')" id="nav-creator-studio">
-        <span class="icon">🎬</span> Creator Studio
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 3-3.5 3.5L21 14l3-3"/><path d="M3 14h2.5L9 10.5"/><path d="m6.5 12.5 5-5"/><path d="m13 19 6-6"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg></span> Creator Studio
       </div>
       <div class="sidebar-item" id="nav-dashboard" onclick="showPage('dashboard')">
-        <span class="icon">📊</span> My Dashboard
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> My Dashboard
       </div>
       <div class="sidebar-item" onclick="showPage('earnings')">
-        <span class="icon">💰</span> My Earnings
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 6v2m0 8v2"/></svg></span> My Earnings
         <span style="margin-left:auto; font-size:10px; background:#fff3e6; color:#FF6600; padding:2px 6px; border-radius:8px;">Soon</span>
       </div>
     </div>
@@ -687,22 +689,22 @@
     <div class="sidebar-section">
       <div class="sidebar-label">Explore</div>
       <div class="sidebar-item" onclick="document.querySelector('[onclick*=farming]').click(); showPage('home')">
-        <span class="icon">🌾</span> Farming
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8M9 4c0 2.5 1.5 4 3 4s3-1.5 3-4c-1.5 0-3 1-3 1s-1.5-1-3-1Z"/><path d="M7 10c0 2 1.5 3 3 3M17 10c0 2-1.5 3-3 3M6 16c0 2 1.5 3 3 3M18 16c0 2-1.5 3-3 3"/></svg></span> Farming
       </div>
       <div class="sidebar-item" onclick="showPage('live')">
-        <span class="icon">🎵</span> Music
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span> Music
       </div>
       <div class="sidebar-item" onclick="showPage('live')">
-        <span class="icon">🔴</span> Live
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg></span> Live
       </div>
       <div class="sidebar-item" onclick="showPage('watch')">
-        <span class="icon">🎬</span> Films
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 3-3.5 3.5L21 14l3-3"/><path d="M3 14h2.5L9 10.5"/><path d="m6.5 12.5 5-5"/><path d="m13 19 6-6"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg></span> Films
       </div>
       <div class="sidebar-item" onclick="showPage('watch')">
-        <span class="icon">📰</span> News
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg></span> News
       </div>
       <div class="sidebar-item" onclick="showPage('watch')">
-        <span class="icon">⚽</span> Sports
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m12 2 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-1.5z"/></svg></span> Sports
       </div>
     </div>
 
@@ -712,10 +714,10 @@
     <div class="sidebar-section">
       <div class="sidebar-label">More from BharatTube</div>
       <div class="sidebar-item" onclick="showPage('premium')">
-        <span class="icon">💎</span> BharatTube Premium
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9Z"/><path d="M11 3 8 9l4 12 4-12-3-6"/><path d="M2 9h20"/></svg></span> BharatTube Premium
       </div>
       <div class="sidebar-item" onclick="showPage('creator-studio')">
-        <span class="icon">🎙️</span> BharatTube Studio
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></svg></span> BharatTube Studio
       </div>
     </div>
 
@@ -724,16 +726,16 @@
     <!-- Section 7: Settings -->
     <div class="sidebar-section">
       <div class="sidebar-item" onclick="showPage('settings')">
-        <span class="icon">⚙️</span> Settings
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg></span> Settings
       </div>
       <div class="sidebar-item" onclick="showPage('report-history')">
-        <span class="icon">🚩</span> Report history
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a1 1 0 0 1 .4-.8C5.1 2.6 7 2 9 2c3 0 5 2 8 2 1.2 0 2.1-.2 2.8-.5a.5.5 0 0 1 .7.5v9.6a.5.5 0 0 1-.3.5c-1 .5-2.2.9-4.2.9-3 0-5-2-8-2-1.1 0-2 .1-2.7.3"/></svg></span> Report history
       </div>
       <div class="sidebar-item" onclick="showPage('help')">
-        <span class="icon">❓</span> Help
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span> Help
       </div>
       <div class="sidebar-item" onclick="showPage('feedback')">
-        <span class="icon">💬</span> Send feedback
+        <span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span> Send feedback
       </div>
     </div>
 
@@ -904,9 +906,9 @@
           <p id="dash-email">Loading...</p>
         </div>
         <div class="dash-grid">
-          <div class="dash-card"><div class="icon">👁️</div><h4>0</h4><p>Total Views</p></div>
-          <div class="dash-card"><div class="icon">💰</div><h4>₹0</h4><p>Total Earnings</p></div>
-          <div class="dash-card"><div class="icon">🎬</div><h4>0</h4><p>Videos Uploaded</p></div>
+          <div class="dash-card"><div class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div><h4>0</h4><p>Total Views</p></div>
+          <div class="dash-card"><div class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 6v2m0 8v2"/></svg></div><h4>₹0</h4><p>Total Earnings</p></div>
+          <div class="dash-card"><div class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 3-3.5 3.5L21 14l3-3"/><path d="M3 14h2.5L9 10.5"/><path d="m6.5 12.5 5-5"/><path d="m13 19 6-6"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg></div><h4>0</h4><p>Videos Uploaded</p></div>
         </div>
         <div class="section-title" style="text-align:left; font-size:18px; margin-bottom:16px;">Quick Actions</div>
         <div class="dash-actions">
@@ -936,7 +938,7 @@
         <div>
           <div class="video-player-box">
             <div class="video-placeholder">
-              <div class="play-btn" onclick="alert('🎬 Real videos coming soon!\nBharatTube pe creators ka swagat hai! 🇮🇳')">
+              <div class="play-btn" onclick="showToast('Real videos coming soon! BharatTube pe creators ka swagat hai!', 'orange')">
                 <div class="play-icon"></div>
               </div>
               <p style="color:rgba(255,255,255,0.6); font-size:14px; margin-top:8px;">Click to play</p>
@@ -946,7 +948,7 @@
             <div class="video-title-text">Khethi Tips — Rabi Season guide 🌾 <span style="background:#fff3e6;color:#FF6600;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;">Hindi</span></div>
             <div class="video-meta-row">
               <div class="video-stats-text">
-                <span>👁️ 2,41,847 views</span>
+                <span style="display:inline-flex; align-items:center; gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> 2,41,847 views</span>
                 <span>📅 2 days ago</span>
               </div>
               <div class="video-action-btns">
@@ -1024,22 +1026,22 @@
               <div style="font-size:11px; color:#888; margin-top:2px;">Your Channel</div>
             </div>
             <div onclick="showCSTab('dashboard')" id="cs-nav-dashboard" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#FF6600; background:rgba(255,102,0,0.1); font-size:13px; font-weight:600;">
-              <span>📊</span> Dashboard
+              <span style="display:flex;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> Dashboard
             </div>
             <div onclick="showCSTab('content')" id="cs-nav-content" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
-              <span>🎬</span> Content
+              <span style="display:flex;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 3-3.5 3.5L21 14l3-3"/><path d="M3 14h2.5L9 10.5"/><path d="m6.5 12.5 5-5"/><path d="m13 19 6-6"/><rect x="2" y="14" width="20" height="8" rx="2"/></svg></span> Content
             </div>
             <div onclick="showCSTab('analytics')" id="cs-nav-analytics" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
-              <span>📈</span> Analytics
+              <span style="display:flex;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span> Analytics
             </div>
             <div onclick="showCSTab('earnings')" id="cs-nav-earnings" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
-              <span>💰</span> Earnings
+              <span style="display:flex;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 6v2m0 8v2"/></svg></span> Earnings
             </div>
             <div onclick="showCSTab('customize')" id="cs-nav-customize" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
-              <span>🎨</span> Customize Channel
+              <span style="display:flex;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.78 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-4.97-4.84-9-10-9z"/></svg></span> Customize Channel
             </div>
             <div onclick="showCSTab('community')" id="cs-nav-community" style="display:flex; align-items:center; gap:10px; padding:10px 20px; cursor:pointer; color:#888; font-size:13px;">
-              <span>👥</span> Community
+              <span style="display:flex;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> Community
             </div>
           </div>
 
@@ -1477,7 +1479,7 @@
         <!-- Upload Area -->
         <div id="upload-area" class="upload-area" onclick="document.getElementById('video-file-input').click()" style="position:relative;">
           <input type="file" id="video-file-input" accept="video/*" style="display:none;" onchange="handleVideoSelect(event)" />
-          <div class="upload-icon">🎬</div>
+          <div class="upload-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#FF6600;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
           <div class="upload-title">Click karo ya video drag karo</div>
           <div class="upload-sub">MP4, AVI, MOV — Max 100MB</div>
         </div>
@@ -1578,8 +1580,8 @@
           </div>
         </div>
         <div class="dash-grid">
-          <div class="dash-card"><div class="icon">👁️</div><h4>0</h4><p>Total Views</p></div>
-          <div class="dash-card"><div class="icon">💰</div><h4>₹0</h4><p>Total Earnings</p></div>
+          <div class="dash-card"><div class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></div><h4>0</h4><p>Total Views</p></div>
+          <div class="dash-card"><div class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 6v2m0 8v2"/></svg></div><h4>₹0</h4><p>Total Earnings</p></div>
           <div class="dash-card"><div class="icon">📈</div><h4>0%</h4><p>Growth</p></div>
         </div>
       </div>
@@ -2195,7 +2197,7 @@
     document.getElementById('upload-area').style.borderColor = '#FF6600';
     document.getElementById('upload-area').innerHTML = `
       <input type="file" id="video-file-input" accept="video/*" style="display:none;" onchange="handleVideoSelect(event)" />
-      <div class="upload-icon">🎬</div>
+      <div class="upload-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#FF6600;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
       <div class="upload-title">Click karo ya video drag karo</div>
       <div class="upload-sub">MP4, AVI, MOV — Max 100MB</div>
     `;
@@ -2634,7 +2636,7 @@
   window.handlePremiumSubscribe = function(plan) {
     const plans = { monthly:'₹99/month', yearly:'₹799/year', family:'₹149/month' };
     const price = plans[plan] || '₹99/month';
-    alert('💎 BharatTube Premium — ' + price + '\n\nPayment gateway jald aa raha hai! Tab tak:\n✅ Account create rakho\n✅ Videos upload karo\n✅ Community grow karo\n\nLaunch pe pehle Premium milega! 🚀');
+    showToast('Premium (' + price + ') — Payment gateway jald aa raha hai! Launch pe pehle Premium milega!', 'orange', 4500);
   }
 
   // ==================== SETTINGS ====================
@@ -2731,8 +2733,8 @@
 
   window.submitFeedback = async function() {
     const text = (document.getElementById('fb-text') || {}).value || '';
-    if (!text.trim()) { alert('Pehle feedback likho! ✍️'); return; }
-    if (!selectedRating) { alert('Pehle rating do! ⭐'); return; }
+    if (!text.trim()) { showToast('Pehle feedback likho!', 'warning'); return; }
+    if (!selectedRating) { showToast('Pehle rating do!', 'warning'); return; }
 
     try {
       const { getFirestore, collection, addDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
@@ -2810,7 +2812,7 @@
   window.handlePremiumSubscribe = function(plan) {
     const plans = { monthly:'₹99/month', yearly:'₹799/year', family:'₹149/month' };
     const price = plans[plan] || '₹99/month';
-    alert('💎 BharatTube Premium — ' + price + '\n\nPayment gateway jald aa raha hai! Tab tak:\n✅ Account create rakho\n✅ Videos upload karo\n✅ Community grow karo\n\nLaunch pe pehle Premium milega! 🚀');
+    showToast('Premium (' + price + ') — Payment gateway jald aa raha hai! Launch pe pehle Premium milega!', 'orange', 4500);
   }
 
   // ==================== SETTINGS ====================
@@ -2907,8 +2909,8 @@
 
   window.submitFeedback = async function() {
     const text = (document.getElementById('fb-text') || {}).value || '';
-    if (!text.trim()) { alert('Pehle feedback likho! ✍️'); return; }
-    if (!selectedRating) { alert('Pehle rating do! ⭐'); return; }
+    if (!text.trim()) { showToast('Pehle feedback likho!', 'warning'); return; }
+    if (!selectedRating) { showToast('Pehle rating do!', 'warning'); return; }
 
     try {
       const { getFirestore, collection, addDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js');
@@ -3064,7 +3066,7 @@
     const file = event.target.files[0];
     if (!file) return;
     if (file.size > 5 * 1024 * 1024) {
-      alert('❌ File bahut bada hai! Max 5MB allowed.');
+      showToast('File bahut bada hai! Max 5MB allowed.', 'error');
       return;
     }
     selectedChannelImage[type] = file;
@@ -3120,7 +3122,7 @@
       const db = getFirestore(app);
       const auth = getAuth(app);
       const user = auth.currentUser;
-      if (!user) { alert('Login karo pehle!'); return; }
+      if (!user) { showToast('Login karo pehle!', 'warning'); return; }
 
       if (btn) { btn.disabled = true; btn.textContent = 'Saving...'; }
 
@@ -3174,7 +3176,7 @@
 
     } catch(e) {
       console.error('saveChannelCustomization error:', e);
-      alert('❌ Save nahi hua: ' + e.message);
+      showToast('Save nahi hua: ' + e.message, 'error');
       if (btn) { btn.textContent = 'Save Changes ✅'; btn.disabled = false; }
       if (progBox) progBox.style.display = 'none';
     }
@@ -3283,10 +3285,10 @@
     const btn = document.getElementById('show-more-you');
     if (more.style.display === 'none') {
       more.style.display = 'block';
-      btn.innerHTML = '<span class="icon">⬆️</span> Show less';
+      btn.innerHTML = '<span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span> Show less';
     } else {
       more.style.display = 'none';
-      btn.innerHTML = '<span class="icon">⬇️</span> Show more';
+      btn.innerHTML = '<span class="icon"><svg class="icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></span> Show more';
     }
   }
 
@@ -3315,7 +3317,7 @@
     localStorage.setItem('bt_creator_mode', creatorMode);
     applyCreatorMode();
     if (creatorMode) {
-      alert('🎬 Creator Mode ON!\nAb tum videos upload kar sakte ho aur Creator Studio use kar sakte ho! 🚀');
+      showToast('Creator Mode ON! Ab tum videos upload kar sakte ho!', 'success');
     }
   }
 
@@ -3366,7 +3368,7 @@
     try {
       const { db, auth, doc, setDoc, deleteDoc, updateDoc, increment, serverTimestamp } = await getFirebaseModules();
       const user = auth.currentUser;
-      if (!user) { alert('Like karne ke liye login karo! 🔐'); return; }
+      if (!user) { showToast('Like karne ke liye login karo!', 'warning'); return; }
 
       const likeRef = doc(db, 'videos', currentVideoId, 'likes', user.uid);
       const videoRef = doc(db, 'videos', currentVideoId);
@@ -3395,7 +3397,7 @@
 
   function handleShare() {
     navigator.clipboard?.writeText(window.location.href);
-    alert('Link copied! Share karo! 🔗');
+    showToast('Link copied! Share karo!', 'success');
   }
 
   async function handleSub() {
@@ -3406,8 +3408,8 @@
     try {
       const { db, auth, doc, setDoc, deleteDoc, updateDoc, increment, serverTimestamp } = await getFirebaseModules();
       const user = auth.currentUser;
-      if (!user) { alert('Subscribe karne ke liye login karo! 🔐'); return; }
-      if (user.uid === currentCreatorId) { alert('Apne aap ko subscribe nahi kar sakte! 😄'); return; }
+      if (!user) { showToast('Subscribe karne ke liye login karo!', 'warning'); return; }
+      if (user.uid === currentCreatorId) { showToast('Apne aap ko subscribe nahi kar sakte!', 'info'); return; }
 
       const subRef = doc(db, 'users', currentCreatorId, 'subscribers', user.uid);
       const creatorRef = doc(db, 'users', currentCreatorId);
@@ -3464,7 +3466,7 @@
     try {
       const { db, auth, collection, addDoc, serverTimestamp, doc, updateDoc, increment } = await getFirebaseModules();
       const user = auth.currentUser;
-      if (!user) { alert('Comment karne ke liye login karo! 🔐'); return; }
+      if (!user) { showToast('Comment karne ke liye login karo!', 'warning'); return; }
 
       const userName = user.displayName || user.email.split('@')[0];
 
@@ -3512,7 +3514,7 @@
 
     } catch(e) {
       console.error('addComment error:', e);
-      alert('Comment nahi hua! Try again.');
+      showToast('Comment nahi hua! Try again.', 'error');
     }
   }
 </script>
@@ -3553,7 +3555,7 @@
     const { outcome } = await deferredPrompt.userChoice;
     if (outcome === 'accepted') {
       document.getElementById('pwa-banner').style.display = 'none';
-      alert('🎉 BharatTube install ho gaya!\nHome screen pe dekho! 📱🇮🇳');
+      showToast('BharatTube install ho gaya! Home screen pe dekho!', 'success', 4000);
     }
     deferredPrompt = null;
   });
@@ -3649,13 +3651,13 @@
       });
 
       closeModal('edit');
-      alert('✅ Video updated successfully!');
+      showToast('Video updated successfully!', 'success');
       // Reload creator videos
       loadCreatorVideos();
 
     } catch(e) {
       console.error('Edit error:', e);
-      alert('❌ Update failed! Try again.');
+      showToast('Update failed! Try again.', 'error');
     }
   }
 
@@ -3672,7 +3674,7 @@
       // Delete from Firebase
       await deleteDoc(doc(db, 'videos', id));
 
-      alert('🗑️ Video deleted successfully!');
+      showToast('Video deleted successfully!', 'success');
 
       // Reload creator videos & home feed
       loadCreatorVideos();
@@ -3680,7 +3682,7 @@
 
     } catch(e) {
       console.error('Delete error:', e);
-      alert('❌ Delete failed! Try again.');
+      showToast('Delete failed! Try again.', 'error');
     }
   }
 </script>
